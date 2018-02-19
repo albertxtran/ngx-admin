@@ -15,6 +15,7 @@ import {
   NbThemeModule,
   NbUserModule,
   NbCheckboxModule,
+  NbPopoverModule,
 } from '@nebular/theme';
 
 import {
@@ -48,6 +49,7 @@ const NB_MODULES = [
   NbSearchModule,
   NbSidebarModule,
   NbCheckboxModule,
+  NbPopoverModule,
   NgbModule,
 ];
 
