@@ -7,6 +7,8 @@ import { Login } from './login.component';
 import { LoginService } from './login.service';
 import { ThemeModule } from '../../@theme/theme.module';
 import { LoginRoutingModule, routedComponents } from './login-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 import { AuthenticationService } from '../authentication.service';
 
@@ -17,11 +19,14 @@ import { AuthenticationService } from '../authentication.service';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    HttpClientModule,
+    HttpModule,
   ],
   providers: [
     AuthenticationService,
-    LoginService
+    LoginService,
+    HttpClientModule
   ],
   declarations: [
     ...routedComponents
