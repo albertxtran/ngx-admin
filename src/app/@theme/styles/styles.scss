@@ -7,6 +7,8 @@
 
 // loading progress bar theme
 @import './pace.theme';
+@import './ng2-toastr.min';
+@import './playbook-loader';
 
 // install the framework and custom global styles
 @include nb-install() {

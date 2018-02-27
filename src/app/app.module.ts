@@ -14,6 +14,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginModule } from './@auth/login/login.module'
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { CustomOption } from './bottom-center';
+import { ToastOptions } from 'ng2-toastr';
+import { AuthGuard } from './@auth/auth-guard.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +27,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     HttpModule,
     AppRoutingModule,
+    LoginModule,
 
+    ToastModule.forRoot(),
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
@@ -30,6 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   bootstrap: [AppComponent],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
+    {provide: ToastOptions, useClass: CustomOption},
+    AuthGuard
   ],
 })
 export class AppModule {

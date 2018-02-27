@@ -1,0 +1,7 @@
+{
+    "/rest/*": {
+        "target": "http://64.245.2.167",
+        "secure": false,
+        "changeOrigin": true
+    }
+}
