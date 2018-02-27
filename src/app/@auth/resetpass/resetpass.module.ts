@@ -14,13 +14,13 @@ import { ResetpassService } from './resetpass.service';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    ResetpassRoutingModule
+    ResetpassRoutingModule,
   ],
   declarations: [
-    ...routedComponents
+    ...routedComponents,
   ],
   providers: [
-    ResetpassService
-  ]
+    ResetpassService,
+  ],
 })
 export class ResetpassModule {}
