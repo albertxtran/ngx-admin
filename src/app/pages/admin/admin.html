@@ -1,0 +1,163 @@
+<nb-card *ngIf="currentUser.role=='admin'">
+  <nb-card-header>Add User</nb-card-header>
+  <nb-card-body>
+  <div *ngIf="!loadingUser">
+  <form #userForm="ngForm" (ngSubmit)="addUser()">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="userName">First and Last Name</label>
+        <p style="color:rgb(33, 205, 152);display: inline;font-size: 12px;margin-left:10px;">*required</p>
+        <input type="text" class="form-control" maxlength="200"  id="userName" placeholder="User Name" [(ngModel)]="userFormData.name" name="userName" required>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <p style="color:rgb(33, 205, 152);display: inline;font-size: 12px;margin-left:10px;">*required</p>
+          <input type="email" class="form-control" maxlength="200" id="email" placeholder="Email" [(ngModel)]="userFormData.email" name="email" required>
+        </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="role">Role</label>
+        <p style="color:rgb(33, 205, 152);display: inline;font-size: 12px;margin-left:10px;">*required</p>
+        <select class="form-control" id="role" [(ngModel)]="userFormData.role" name="role" required>
+          <option value="user">user</option>
+          <option value="venture">venture</option>
+          <option value="operations">operations</option>
+          <option value="global">global</option>
+          <option value="admin">admin</option>
+          <option value="startup">startup</option>
+          <option value="corporation">corporation</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="userFormData.role === 'global'" class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="pnpOffices">PnP Office(s)</label>
+        <p style="color:rgb(33, 205, 152);display: inline;font-size: 12px;margin-left:10px;">NOTE: Only required for "global" role.</p>
+        <select multiple class="form-control" [(ngModel)]="userFormData.pnpOffice" name="pnpOffices" id="pnpOffices" required>
+          <option>Plug and Play Headquarters (Silicon Valley)</option>
+          <option>FinTech - New York</option>
+          <option>FinTech - Abu Dhabi - ADGM Plug and Play</option>
+          <option>FinTech - Paris - BNP Paribas-Plug and Play</option>
+          <option>FinTech - Tokyo</option>
+          <option>Health - Cleveland</option>
+          <option>Health - Munich</option>
+          <option>InsurTech - Munich</option>
+          <option>InsurTech - New York</option>
+          <option>InsurTech - Tokyo</option>
+          <option>Mobility - Stuttgart - Startup Autobahn</option>
+          <option>Mobility - Berlin - Beyond1435</option>
+          <option>Mobility - Tokyo</option>
+          <option>Plug and Play APAC</option>
+          <option>Plug and Play China</option>
+          <option>Plug and Play Japan</option>
+          <option>Retail - Amsterdam - Fashion for Good</option>
+          <option>Retail - Munich - Retailtech Hub</option>
+          <option>Retail - Paris - Lafayette Plug and Play</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="userFormData.role === 'corporation'" class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="corporations">Corporations</label>
+        <p style="color:#ffeb3b;display: inline;font-size: 12px;margin-left:10px;">NOTE: Only required for "corporation" role.</p>
+        <select multiple class="form-control" [(ngModel)]="userFormData.cref_id" name="corporation" id="corporation" required>
+          <option *ngFor="let list of corporations" value="{{list.id}}">{{list.companyName}}</option>
+        </select>
+        <input type="checkbox" name="champion" id="champion" (click)="toggleChampion()"> Champion<br>
+      </div>
+    </div>
+  </div>
+
+
+  <button type="submit" (click)="initSubmit()" class="btn btn-primary">Submit</button>
+  </form>
+  </div>
+  <div *ngIf="loadingUser" style="margin: 0 auto;width: 100px;">
+      <div class="playbook-loader"></div>
+    </div>
+  <div class="row">
+      <div class="col-sm-12">
+        <div style="width:50%;margin:auto;text-align:center;">
+        <a [routerLink]="['/pages/startups']">
+          <i class="fa fa-backward" aria-hidden="true" style="display:inline-block;font-size: 14px;color:white;"></i>
+          <div style="font-size: 12px;display:inline-block;padding-left:5px;color:white;">Go back to startups</div>              
+        </a>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+<nb-card>
+  <nb-card-header>Users</nb-card-header>
+  <nb-card-body>
+    <div class="form-group"> 
+      <input #input type="text" [hidden]="filters?.length > 0" (keyup.enter)="luceneSearch($event)" class="form-control form-control-rounded" id="input03" placeholder="Search for...">
+    </div>
+    <div style="margin-bottom: 5px;">
+      <div #filterButton style="border-radius: 9px;display: inline;border: 1px solid rgba(255, 255, 255, .5);padding: 3px 5px 3px 5px;cursor: pointer;"(click)="filterModal()"> 
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        <p style="display:inline">Add Filter</p>
+      </div>
+    </div>
+
+    <!-- <form #filterForm="ngForm" (ngSubmit)="filterSearch(filterForm)"> -->
+    <form [formGroup]="filterForm" (ngSubmit)="filterSearch(filterForm)">
+      <div class="row show-grid">
+        <div class="col-md-3" style="margin-top:5px;margin-bottom:5px;" *ngFor="let filter of filters;">
+          <div class="col-md-12" style="padding-left:0px;padding-right:2px;"> 
+            <!-- <p style="display:inline">{{filter.name}}</p> -->
+           <div class="form-group" style="margin-bottom:0px;">
+                <label style="margin-bottom: 0px;margin-bottom: 0px;margin-left: 3px;">{{filter.name}}</label>
+                <i (click)="removeFilter(filter.name)" style="cursor: pointer;float:right;margin-right: 1px;margin-top: 2px;" class="fa fa-window-close" aria-hidden="true"></i>
+                <input type="text" class="form-control" [formControlName]="filter.name" maxlength="200" name="{{filter.name}}"> <!-- [(ngModel)]="filter.name" -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <button style="margin-top:3px;margin-bottom:3px;" *ngIf="filters?.length > 0" type="submit" (click)="initSearch()" class="btn btn-primary">Search</button>
+    </form>
+
+      <div class="row show-grid">
+        <div class="col-md-12">
+          <pagination-controls  class="my-pagination" (pageChange)="getPage($event)" id="server"></pagination-controls>  
+        </div>  
+        <table style="width:100%">
+            <tr>
+              <th>Actions</th>
+              <th>Name</th>
+              <th>Email</th> 
+              <th>Role</th>
+            </tr>
+            <tr *ngFor="let obj of asyncUsers | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: p, totalItems: total }">
+                <td *ngIf="!loading && !error"><a href="javascript:void(0)" (click)="editUser(obj)"><i style="color:white;cursor:pointer;padding-left: 10px;padding-right:5px;" class="ion-edit"></i></a><a href="javascript:void(0)" (click)="deleteUser(obj)"><i style="color:white;cursor:pointer;padding-left:10px; padding-right:10px;" class="ion-trash-a"></i></a></td>
+                <td *ngIf="!loading && !error">{{obj.name}}</td>
+                <td *ngIf="!loading && !error">{{obj.email}}</td> 
+                <td *ngIf="!loading && !error">{{obj.role}}</td>
+            </tr>    
+        </table>
+        <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+          <div class="playbook-loader"></div>
+        </div>
+        <div *ngIf="error" style="margin: 0 auto;width: 500px;">
+          <p>Your search - {{searchString}} - did not match any documents.</p>
+        </div>
+      </div>
+    </nb-card-body>
+</nb-card>
+<nb-card *ngIf="currentUser.role!='admin'">
+    <nb-card-header>Not authorized</nb-card-header>
+</nb-card>

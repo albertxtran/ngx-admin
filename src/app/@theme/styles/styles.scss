@@ -9,6 +9,8 @@
 @import './pace.theme';
 @import './ng2-toastr.min';
 @import './playbook-loader';
+@import './checkbox';
+@import './playbook';
 
 // install the framework and custom global styles
 @include nb-install() {

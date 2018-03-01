@@ -26,7 +26,7 @@ export class Login implements OnInit  {
   public password:AbstractControl;
   public submitted:boolean = false;
   public sub:any;
-  public logout:any;
+  public logout:boolean = false;
 
   
   constructor(fb:FormBuilder, private router: Router, private route: ActivatedRoute, private _loginService: LoginService, public toastr: ToastsManager,private authenticationService: AuthenticationService, vcr: ViewContainerRef) { //private _menuService: BaMenuService, 
@@ -40,17 +40,17 @@ export class Login implements OnInit  {
     this.password = this.form.controls['password'];
     this.toastr.setRootViewContainerRef(vcr); 
 
-    this.sub = this.route
-     .queryParams
-     .subscribe(params => {
-       // Defaults to 0 if no query param provided.
-       this.logout = params['logout'] || 0;
+    this.sub = this.route.fragment
+     .subscribe((fragment: string) => {
+       // Defaults to 0 if no query param provided.       
+       if(fragment == 'logout'){
+        this.logout = true;
+       }
      });
   }
   ngOnInit() {
         // reset login status
-        if(this.logout == 'true'){
-          console.log("logout");
+        if(this.logout){
           this.authenticationService.logout();
         }
     }

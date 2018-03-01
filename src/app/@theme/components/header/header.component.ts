@@ -27,12 +27,12 @@ export class HeaderComponent implements OnInit {
     
     this.currentUser = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!').toString(CryptoJS.enc.Utf8));
     
-    if(this.currentUser.role = 'admin'){
-      this.userMenu = [{ title: 'Settings', link: '/pages/settings' }, { title: 'Admin', link: '/pages/admin' }, { title: 'Log out', link: '/auth/login' }];
-    }else if(this.currentUser = 'startup'){
-      this.userMenu = [{ title: 'Profile', link: "['/pages/company', "+this.currentUser.ref_id+"]" }, { title: 'Settings', link: '/pages/settings' }, { title: 'Log out', link: '/auth/login' }];
+    if(this.currentUser.role == 'admin'){
+      this.userMenu = [{ title: 'Settings', link: '/pages/settings' }, { title: 'Admin', link: '/pages/admin' }, { title: 'Log out', link: '/auth/login', fragment: 'logout' }];
+    }else if(this.currentUser.role == 'startup'){
+      this.userMenu = [{ title: 'Profile', link: '/pages/company/'+this.currentUser.ref_id+'' }, { title: 'Settings', link: '/pages/settings' }, { title: 'Log out', link: '/auth/login', fragment: 'logout' }];
     } else {
-      this.userMenu = [{ title: 'Settings', link: '/pages/settings' },{ title: 'Log out', link: '/auth/login' }];
+      this.userMenu = [{ title: 'Settings', link: '/pages/settings' },{ title: 'Log out', link: '/auth/login', fragment: 'logout'}];
     }
   }
 

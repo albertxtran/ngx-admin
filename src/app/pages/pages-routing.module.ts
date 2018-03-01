@@ -11,6 +11,12 @@ const routes: Routes = [{
     path: 'dashboard',
     component: DashboardComponent,
   }, {
+    path: 'settings',
+    loadChildren: './settings/settings.module#SettingsModule',
+  },{
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule',
+  },{
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {
@@ -43,4 +49,7 @@ const routes: Routes = [{
   exports: [RouterModule],
 })
 export class PagesRoutingModule {
+  constructor(){
+
+  }
 }
