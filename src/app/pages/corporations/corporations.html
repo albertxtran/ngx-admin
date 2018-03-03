@@ -1,0 +1,160 @@
+<nb-card>
+  <nb-card-body>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="form-group"> 
+        <input #input type="text" [hidden]="filters?.length > 0" (keyup.enter)="luceneSearch($event)" class="form-control form-control-rounded" id="input03" placeholder="Search for...">
+      </div>      
+      <div style="margin-bottom: 5px;">
+        <!-- ADDED DISPLAY NONE will need to change once we add filters : display: inline;-->
+        <div #filterButton style="border-radius: 9px;display: none;border: 1px solid rgba(255, 255, 255, .5);padding: 3px 5px 3px 5px;cursor: pointer;"(click)="filterModal()"> 
+          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          <p style="display:inline">Add Filter</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" style="padding: 0;">
+        <div *ngIf="role=='admin' || role=='venture' || role=='global'" class="col-md-12">                   
+          <a [routerLink]="['/pages/newcorporation']">
+            <div class="button-wrapper">
+              <button type="button" id="exportpdf" class="btn btn-default btn-raised" style="float:left;">New Corporation</button>
+            </div>
+          </a>
+        </div>
+        </div>
+    </div>
+      <!-- <form #filterForm="ngForm" (ngSubmit)="filterSearch(filterForm)"> -->
+      <form [formGroup]="filterForm" (ngSubmit)="filterSearch(filterForm)">
+        <div class="row show-grid">
+          <div class="col-md-3" style="margin-top:5px;margin-bottom:5px;" *ngFor="let filter of filters;">
+            <div class="col-md-12" style="padding-left:0px;padding-right:2px;"> 
+              <!-- <p style="display:inline">{{filter.name}}</p> -->
+             <div class="form-group" style="margin-bottom:0px;">
+                  <label style="margin-bottom: 0px;margin-bottom: 0px;margin-left: 3px;">{{filter.name}}</label>
+                  <i (click)="removeFilter(filter.name)" style="cursor: pointer;float:right;margin-right: 1px;margin-top: 2px;" class="fa fa-window-close" aria-hidden="true"></i>
+                  <input type="text" class="form-control" [formControlName]="filter.name" maxlength="200" name="{{filter.name}}"> <!-- [(ngModel)]="filter.name" -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <button style="margin-top:3px;margin-bottom:3px;" *ngIf="filters?.length > 0" type="submit" (click)="initSearch()" class="btn btn-primary">Search</button>
+      </form>
+
+        <div class="row show-grid">
+          <div class="col-md-4" *ngFor="let obj of asyncCompanies | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: p, totalItems: total }"> <!--| smArraySearch: input.value-->
+            <div *ngIf="!loading && !error" style="padding-top:15px;padding-bottom:15px;overflow: hidden;padding-right:1px;padding-left:1px;">
+              <div class="col-md-12" style="overflow: hidden;border:1px solid rgb(33, 205, 152);border-radius: 7px; background-color: rgba(255, 255, 255, 0.8);height:370px;padding-top:15px;padding-bottom:15px;">
+                <div class="row">
+                <div class ="col-md-3">
+                <a [routerLink]="['/pages/corporation', obj.id]">
+                  <div *ngIf="!obj?.thumbnail" style="padding-right:0px;display:inline-block;width:auto;">
+                      <div class="fa fa-university fa-4x" aria-hidden="true" style="width:60px;border:1px solid #dddddd ; border-radius: 7px;"></div>
+                  </div>
+                  <div *ngIf="obj?.thumbnail"style="padding-right:0px;display:inline-block;width:auto;"><img class="thumbnail_{{obj.id}}" src="data:image/png;base64,{{obj.thumbnail}}" style="width:60px;border:1px solid #dddddd ; border-radius: 7px;" alt="Business Profile" ></div>
+                </a>
+                </div>
+
+                <div class="col-md-9">
+                  <div class="md-col-12" style="padding:0;">
+                <!-- THIS WILL NEED TO GO TO THE CORPORATION PAGE ONCE WE CREATE IT <a [routerLink]="['/pages/corporation', obj.id]"> -->
+                    <a [routerLink]="['/pages/corporation', obj.id]">
+                      <div style="padding-bottom:5px;font-size: 18px; color: #000000; opacity: .87; font-family: 'DINPro-Light', Arial, sans-serif;">{{obj.companyName}} <p *ngIf="obj?.portfolio" style="font-family: DINPro-Light, CenturyGothic, AppleGothic, sans-serif;display: inline;font-size: 12px;color: goldenrod;font-weight: 400;">PORTFOLIO COMPANY</p></div>               
+                      <!-- </a> -->
+                      <div *ngIf="obj?.type" style="font-size: 13px; color: #000000; opacity: .38; font-weight: 400">{{obj.type}}</div>
+                    </a>
+                  </div>
+                  <div *ngIf="role=='admin' || role=='venture'" class="col-md-12" style="padding:0;">
+                    <button class="top20btn" (click)="top20Modal(obj)">20</button>
+                    <button class="top100btn" (click)="top100Modal(obj)">100</button>
+                    <button class="batchbtn" (click)="batchModal(obj)">Batch</button>
+                    <button class="dealflowbtn" (click)="dealflowModal(obj)">DF</button>
+                    <div  *ngIf="role=='admin' || role=='venture' "  style="display:inline;">
+                      <a class="deleteStartup" href="javascript:void(0)" (click)="deleteStartup(obj)">
+                      <span title="Delete startup"><i style="padding-top:3px;color:black" class="fa fa-trash-o" aria-hidden="true"></i></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12" style="margin-top:10px;word-wrap: break-word;">
+                    <div *ngIf="obj?.summary">
+                    <div *ngIf="obj?.summary.length > 300" style="font-family:DINPro-Light;margin-top:10px;font-size: 11px; color: #000000 ; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">{{obj.summary | slice:0:300}}...
+                        <div *ngIf="obj?.summary" style="width:60px;color: #000000; opacity: .54;">See more...</div>
+                    </div>
+                    <div *ngIf="obj?.summary.length < 300" style="font-family:DINPro-Light;margin-top:10px;font-size: 11px; color: #000000 ; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">{{obj.summary}}</div>
+                    </div>                    
+                  </div>
+                </div>
+                <div class="row">
+                <div class="col-md-12" style="margin-top:10px;margin-bottom:10px;">
+                  <div class="row">
+                  <div class="col-md-6" style="font-family:DINPro-Light;" style="padding-right:7.5px;">
+                    <div *ngIf="obj?.membership" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">MEMBERSHIP</div>
+                    <div *ngIf="obj?.membership" style="font-size: 12px; color: #000000; opacity: .54;word-wrap:break-word;">{{obj.membership}}</div>
+                    <div *ngIf="obj?.revenue" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">REVENUE</div>
+                    <div *ngIf="obj?.revenue" style="font-size: 12px; color: #000000; opacity: .38;">{{obj.revenue}}</div>
+                    <div *ngIf="obj?.website" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">WEBSITE</div>
+                    <div *ngIf="obj?.website" style="overflow-wrap: break-word;font-size: 10px"><a style="color: #24a2ff" href="{{obj.website}}" target="_blank">{{obj.website}}</a></div>
+                  </div>
+                  <div class="col-md-6" style="padding-left:7.5px;">
+                    <div *ngIf="obj?.topInterests">
+                      <div *ngIf="obj?.topInterests.length > 50" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">TOP INTERESTS</div>
+                      <div *ngIf="obj?.topInterests.length > 50" style="font-size: 11px; color: #000000 ; opacity: .54;">{{obj.topInterests}}</div>
+                      <div *ngIf="obj?.topInterests.length < 50" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">TOP INTERESTS</div>
+                      <div *ngIf="obj?.topInterests.length < 50" style="font-size: 11px; color: #000000 ; opacity: .54;">{{obj.topInterests}}</div>
+                    </div>
+                    <!-- <div style="margin-top:10px;width:100%;padding:0;position: relative;border-bottom: 2px solid #dddddd;"></div>
+                    <div *ngIf="obj?.products" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;">PRODUCTS</div>
+                    <div *ngIf="obj?.products" style="font-size: 12px; color: #000000; opacity: .54;word-wrap:break-word;">{{obj.products}}</div> -->
+                    <div *ngIf="obj?.headquarters" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">LOCATION</div>
+                    <div *ngIf="obj?.headquarters" style="font-size: 12px; color: #000000; opacity: .38;">{{obj.headquarters}}</div>
+                  </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-md-3" style="padding-right:5px;" *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(obj?.pnpOffice))">
+              <div> 
+                  <button class="top20btn" (click)="top20Modal(obj)">20</button>
+                  <button class="top100btn" (click)="top100Modal(obj)">100</button>
+                  <button class="batchbtn" (click)="batchModal(obj)">Batch</button>
+                  <button class="dealflowbtn" (click)="dealflowModal(obj)">Dealflow</button>
+                  <div  *ngIf="role=='admin'"  style="display:inline;float:right;">
+                    <a class="deleteStartup" href="javascript:void(0)" (click)="deleteStartup(obj)">
+                    <span title="Delete startup"><i style="color:black" class="fa fa-trash-o" aria-hidden="true"></i></span></a>
+                  </div>
+              </div>
+              <div *ngIf="obj?.pnpContact" style="font-size: 10px; color: #000000; opacity: .38;">Account Manager:</div>
+              <div *ngIf="obj?.pnpContact" style="font-size: 12px; color: #000000; opacity: .54;">{{obj.pnpContact}}</div>
+              <div *ngIf="obj?.contactName" style="font-size: 10px; color: #000000; opacity: .38;">Primary Contact:</div>
+              <div *ngIf="obj?.contactName" style="font-size: 12px; color: #000000; opacity: .54;">{{obj.contactName}}</div> 
+              <div *ngIf="obj?.email" style="font-size: 10px; color: #000000; opacity: .38;">Email:</div>
+              <div *ngIf="obj?.email" style="font-size: 12px; color: #000000; opacity: .54;">{{obj.email}}</div>
+            </div>
+            <div *ngIf="role=='user'" class="col-md-3">
+              <div *ngIf="obj?.stage" style="font-size: 10px; color: #000000; opacity: .38;">Stage:</div>
+              <div *ngIf="obj?.stage" style="font-size: 12px; color: #000000; opacity: .54;">{{obj.stage}}</div>
+              <div *ngIf="obj?.competition" style="font-size: 10px; color: #000000; opacity: .38;">Competition:</div>
+              <div *ngIf="obj?.competition" style="font-size: 12px; color: #000000; opacity: .54;">{{obj.competition}}</div> 
+            </div> -->
+          </div>
+          <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+            <div class="spinner"></div>
+          </div>
+          <div *ngIf="error" style="margin: 0 auto;width: 500px;">
+            <p>Your search - {{searchString}} - did not match any documents.</p>
+          </div>
+          <div class="col-md-10">
+            <pagination-controls  class="my-pagination" (pageChange)="getPage($event)" id="server"></pagination-controls>  
+          </div>
+        </div>
+    </div>
+  </div>
+
+  
+  </nb-card-body>
+</nb-card>

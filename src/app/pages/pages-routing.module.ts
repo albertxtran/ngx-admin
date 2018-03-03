@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { StartupsComponent } from './startups/startups.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,6 +17,12 @@ const routes: Routes = [{
   },{
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
+  },{
+    path: 'startups',
+    loadChildren: './startups/startups.module#StartupsModule',
+  },{
+    path: 'corporations',
+    loadChildren: './corporations/corporations.module#CorporationsModule',
   },{
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',

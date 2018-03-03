@@ -1,0 +1,221 @@
+/* @import '../../theme/sass/conf/conf';
+@import '../../theme/sass/_global';  */
+
+.grid-h{
+  margin-top: 40px;
+  margin-bottom: 0;
+  &:first-child{
+    margin-top: 0;
+  }
+}
+
+.my-pagination {
+  cursor: pointer;
+}
+
+.ng2-pagination {
+  cursor: pointer;
+}
+
+.current {
+  cursor: pointer;
+  border: 1px solid #21cd98;
+}
+
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #555;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.modal {
+  overflow: scroll !important;
+}
+
+.noscroll{
+  overflow-y: hidden !important;
+}
+
+// .top20btn {
+//   background: #ffcb63;
+//   background-image: -webkit-linear-gradient(top, #ffcb63, #eda342);
+//   background-image: -moz-linear-gradient(top, #ffcb63, #eda342);
+//   background-image: -ms-linear-gradient(top, #ffcb63, #eda342);
+//   background-image: -o-linear-gradient(top, #ffcb63, #eda342);
+//   background-image: linear-gradient(to bottom, #ffcb63, #eda342);
+//   -webkit-border-radius: 8;
+//   -moz-border-radius: 8;
+//   border-radius: 8px;
+//   font-family: Arial;
+//   color: #ffffff;
+//   font-size: 11px;
+//   padding: 1px 8px 1px 8px;
+//   text-decoration: none;
+//   border-width: 0px;
+// }
+
+// .top20btn:hover {
+//   background: #edbb56;
+//   background-image: -webkit-linear-gradient(top, #edbb56, #e69e40);
+//   background-image: -moz-linear-gradient(top, #edbb56, #e69e40);
+//   background-image: -ms-linear-gradient(top, #edbb56, #e69e40);
+//   background-image: -o-linear-gradient(top, #edbb56, #e69e40);
+//   background-image: linear-gradient(to bottom, #edbb56, #e69e40);
+//   text-decoration: none;
+//   border-width: 0px;
+// }
+
+// .top100btn {
+//   background: #50cf90;
+//   background-image: -webkit-linear-gradient(top, #50cf90, #4ced8d);
+//   background-image: -moz-linear-gradient(top, #50cf90, #4ced8d);
+//   background-image: -ms-linear-gradient(top, #50cf90, #4ced8d);
+//   background-image: -o-linear-gradient(top, #50cf90, #4ced8d);
+//   background-image: linear-gradient(to bottom, #50cf90, #4ced8d);
+//   -webkit-border-radius: 8;
+//   -moz-border-radius: 8;
+//   border-radius: 8px;
+//   font-family: Arial;
+//   color: #ffffff;
+//   font-size: 11px;
+//   padding: 1px 8px 1px 8px;
+//   text-decoration: none;
+//   border-width: 0px;
+// }
+
+// .top100btn:hover {
+//   background: #4fdb90;
+//   background-image: -webkit-linear-gradient(top, #4fdb90, #3bd48d);
+//   background-image: -moz-linear-gradient(top, #4fdb90, #3bd48d);
+//   background-image: -ms-linear-gradient(top, #4fdb90, #3bd48d);
+//   background-image: -o-linear-gradient(top, #4fdb90, #3bd48d);
+//   background-image: linear-gradient(to bottom, #4fdb90, #3bd48d);
+//   text-decoration: none;
+//   border-width: 0px;
+// }
+
+// .batchbtn {
+//   background: #3498db;
+//   background-image: -webkit-linear-gradient(top, #3498db, #2c85b8);
+//   background-image: -moz-linear-gradient(top, #3498db, #2c85b8);
+//   background-image: -ms-linear-gradient(top, #3498db, #2c85b8);
+//   background-image: -o-linear-gradient(top, #3498db, #2c85b8);
+//   background-image: linear-gradient(to bottom, #3498db, #2c85b8);
+//   -webkit-border-radius: 8;
+//   -moz-border-radius: 8;
+//   border-radius: 8px;
+//   font-family: Arial;
+//   color: #ffffff;
+//   font-size: 11px;
+//   padding: 1px 8px 1px 8px;
+//   text-decoration: none;
+//   border-width: 0px;
+// }
+
+// .batchbtn:hover {
+//   background: #3cb0fd;
+//   background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+//   background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+//   background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+//   background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+//   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+//   text-decoration: none;
+//   border-width: 0px;
+// }
+
+// .dealflowbtn {
+//   background: #e8e400;
+//   background-image: -webkit-linear-gradient(top, #e8e400, #bab100);
+//   background-image: -moz-linear-gradient(top, #e8e400, #bab100);
+//   background-image: -ms-linear-gradient(top, #e8e400, #bab100);
+//   background-image: -o-linear-gradient(top, #e8e400, #bab100);
+//   background-image: linear-gradient(to bottom, #e8e400, #bab100);
+//   -webkit-border-radius: 8;
+//   -moz-border-radius: 8;
+//   border-radius: 8px;
+//   font-family: Arial;
+//   color: #ffffff;
+//   font-size: 11px;
+//   padding: 1px 8px 1px 8px;
+//   text-decoration: none;
+//   border-width: 0px;
+// }
+
+// .dealflowbtn:hover {
+//   background: #dbd833;
+//   background-image: -webkit-linear-gradient(top, #dbd833, #cbd934);
+//   background-image: -moz-linear-gradient(top, #dbd833, #cbd934);
+//   background-image: -ms-linear-gradient(top, #dbd833, #cbd934);
+//   background-image: -o-linear-gradient(top, #dbd833, #cbd934);
+//   background-image: linear-gradient(to bottom, #dbd833, #cbd934);
+//   text-decoration: none;
+//   border-width: 0px;
+// }
+
+.ng-tooltip {
+  max-width: 400px;
+  background-color: #646464;
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 8px;
+  position: absolute;
+  z-index: 1000;
+  display: block;
+  opacity: 0;
+  -webkit-transition: opacity 300ms;
+  -moz-transition: opacity 300ms;
+  -o-transition: opacity 300ms;
+  transition: opacity 300ms;
+} 
+.ng-tooltip-show {
+  opacity: 1;
+}
+.ng-tooltip::after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+}
+.ng-tooltip-top::after {
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-color: #646464 transparent transparent transparent;
+}
+.ng-tooltip-bottom::after {
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-color: transparent transparent #646464 transparent;
+}
+.ng-tooltip-left::after {
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-color: transparent transparent transparent #646464;
+}
+.ng-tooltip-right::after {
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-color: transparent #646464 transparent transparent;
+}

@@ -10,7 +10,8 @@
 @import './ng2-toastr.min';
 @import './playbook-loader';
 @import './checkbox';
-@import './playbook';
+@import './global';
+@import './fonts';
 
 // install the framework and custom global styles
 @include nb-install() {

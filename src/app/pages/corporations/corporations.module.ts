@@ -3,20 +3,16 @@ import { CommonModule }  from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Ng2PaginationModule } from 'ng2-pagination'; 
 
-import { AdminComponent } from './admin.component';
-import { AdminService } from './admin.service';
+import { CorporationsService } from './corporations.service';
 import { ThemeModule } from '../../@theme/theme.module';
-import { AdminRoutingModule, routedComponents } from './admin-routing.module';
-
-import { BootstrapModalModule } from 'ng2-bootstrap-modal';
-import { FilterModal } from './filter.modal';
-import { ConfirmModal } from './confirm.modal';
-import { EditModal } from './edit.modal';
-import { ReactiveFormsModule } from '@angular/forms';
+import { CorporationsRoutingModule, routedComponents } from './corporations-routing.module';
 import { ToasterService } from '../../@theme/providers/toaster.service';
 
-import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { ModalComponent } from './custom.modal';
+import { FilterModal } from './filter.modal';
+import { ConfirmModal } from './confirm.modal';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -26,26 +22,23 @@ import { HttpModule } from '@angular/http';
     Ng2PaginationModule,
     BootstrapModalModule,
     ReactiveFormsModule,
-    AdminRoutingModule,
-    HttpClientModule,
-    HttpModule,
+    CorporationsRoutingModule
   ],
   entryComponents: [
+    ModalComponent,
     FilterModal,
-    ConfirmModal,
-    EditModal,    
+    ConfirmModal
   ],
   declarations: [
     ...routedComponents,
+    ModalComponent,
     FilterModal,
-    ConfirmModal,
-    EditModal
+    ConfirmModal
   ],
   providers: [
-    AdminService,
-    ToasterService,
-    HttpClientModule
-  ],
+    CorporationsService,
+    ToasterService
+  ]
 
 })
-export class AdminModule {}
+export class CorporationsModule {}
