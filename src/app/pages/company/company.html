@@ -1,27 +1,19 @@
 <nb-card *ngIf="currentUser?.ref_id == '0' || (currentUser?.role=='startup' && currentUser?.ref_id == id)">
   <nb-card-body>
   <div class="row">
-    <div class="col-md-12" style="padding:0;">
-      <div class="row show-grid">
+    <div class="col-md-12">
         <mat-tab-group [selectedIndex]="0">
           <mat-tab label="About">
-              <div class="col-md-12" style="padding-top:25px;">
-                    <div class="col-md-12" style="padding:0; padding-bottom:10px;padding-top:30px;display:inline-block;">
-                      <div class="col-md-4" style="width:auto;padding-left:0px;">
-                        <div *ngIf="company?.portfolio" style="font-family: DINPro-Light, CenturyGothic, AppleGothic, sans-serif;display: inline;font-size: 12px;color: goldenrod;font-weight: 400;">PORTFOLIO COMPANY</div>
-                        <div style="font-family:DINPro-Light;color:black;font-weight:bold;font-size:40px;padding-bottom:15px;padding-top:15px;">{{company?.companyName}}</div>
-                      </div>
-                      <!-- <div class="col-md-1" style="padding:0;">
-                        <div *ngIf="role=='admin' || role=='venture'"  style="display:inline-block;">
-                          <a class="deleteStartup" href="javascript:void(0)" (click)="deleteStartup(obj)">
-                          <span title="Delete startup"><i style="padding-top:3px;color:black" class="fa fa-trash-o" aria-hidden="true"></i></span>
-                          </a>
-                        </div>
-                      </div> -->
+            <div class="row">
+              <div class="col-md-12" style="padding-top:5px;">
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div *ngIf="company?.portfolio" style="font-family:DINPro-Light;display: inline;font-size: 12px;color: goldenrod;font-weight: 400;">PORTFOLIO COMPANY</div>
+                        <div style="font-family:DINPro-Light;color:black;font-weight:bold;font-size:40px;padding-bottom:15px;">{{company?.companyName}}</div>
                     </div>
-                  <div class="col-md-12" style="padding:0px;padding-bottom:20px;">
-                    <div class="col-md-3" style="width:auto; padding:0px;">
-                      <div class="col-md-12" style="font-family:DINPro-Light;float: left">
+                    </div>
+                  <div class="row" style="padding-bottom:10px;">
+                    <div class="col-md-3" style="font-family:DINPro-Light;">                     
                         <div *ngIf="company?.founded" style="font-size: 12px; color:#343434;">Founded: {{company.founded}}</div>
                         <div *ngIf="company?.website" style="display:block;">
                         <div class="fa fa-external-link" *ngIf="company?.website" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
@@ -39,9 +31,8 @@
                             <a style="color: #343434" href="{{company.materials}}" target="_blank">Pitch Deck</a>
                           </div>
                         </div>
-                      </div>
                     </div>
-                    <div class="col-md-4" style="width:auto; padding:0px;margin-left:10px;">
+                    <div class="col-md-3">
                       <div *ngIf="(role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))) || (currentUser?.role=='startup' && currentUser?.ref_id == id)" class="col-md-12" style="padding:0px;margin:0px;width:auto;display:inline-block;">
                         <div *ngIf="company?.pnpContact" style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">COMPANY CONTACT</div>
                         <div *ngIf="company?.contactName" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{company?.contactName}}</div>
@@ -49,8 +40,8 @@
                         <div *ngIf="company?.phoneNumber" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{company?.phoneNumber}}</div>
                       </div>
                     </div>
-                    <div class="col-md-3" style="padding:0px;padding-bottom:10px;padding-left:40px;min-width: 400px">
-                        <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="row">
                           <div class="col-md-3" style="display:inline-block; padding:0;">
                             <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">TOP 20</div>
                             <div *ngFor="let list of company?.top20" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
@@ -69,6 +60,7 @@
                           </div>
                         </div>
                       </div>
+                      
                       <div *ngIf="role=='operations' || role=='global'" class="col-md-3" style="padding:0px;margin:0px;float:right;">
                         <div class="col-md-12" style="float:left;">
                           <div *ngIf="creatingpdf" class="loader">Loading...</div>
@@ -87,6 +79,7 @@
                         </div>
                       </div>
                   </div>
+                </div>
               </div>
               <div *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))"
               class="col-md-12" id="profileButtons" style="margin-left:0px;margin-right:0px;">
@@ -109,7 +102,7 @@
                       </div>
                     </div>
                     <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
-                      <div class="spinner"></div>
+                      <div class="playbook-loader"></div>
                     </div>
                   </div>
                   <div class="col-md-4" style="padding:0px;">
@@ -133,7 +126,7 @@
                         <!--<a *ngIf="company?.top100" class="top100" href="javascript:void(0)" (click)="removeTop100(company.id)"><p style="text-align: center;color: #ffffff;margin:0px;">Remove</p></a>-->
                       </div>
                       <div *ngIf="loading20" style="margin: 0 auto;width: 100px;">
-                        <div class="spinner"></div>
+                        <div class="playbook-loader"></div>
                       </div>
                     </div>
                   </div>
@@ -308,7 +301,6 @@
                   </div>
           </mat-tab>
         </mat-tab-group>
-      </div>
     </div>
   </div>
   </nb-card-body>

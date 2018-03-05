@@ -128,15 +128,21 @@
           </div>
         </div>
       </div>
-      <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
-        <div class="spinner"></div>
-      </div>
-      <div *ngIf="error" style="margin: 0 auto;width: 500px;">
-        <p>Your search - {{searchString}} - did not match any documents.</p>
-      </div>
-      <div class="col-md-10">
-        <pagination-controls  class="my-pagination" (pageChange)="getPage($event)" id="server"></pagination-controls>  
-      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" *ngIf="loading">
+           <div style="text-align: center;width:100%;">
+              <div style="display: inline-block" class="playbook-loader"></div>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="error" >
+          <div style="margin: 0 auto;width: 50%;">
+            <p>Your search - {{searchString}} - did not match any documents.</p>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <pagination-controls  class="my-pagination" (pageChange)="getPage($event)" id="server"></pagination-controls>  
+        </div>
     </div>
   </div>
   </div>

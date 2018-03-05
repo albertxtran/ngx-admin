@@ -21,6 +21,9 @@ const routes: Routes = [{
     path: 'startups',
     loadChildren: './startups/startups.module#StartupsModule',
   },{
+    path: 'company',
+    loadChildren: './company/company.module#CompanyModule',
+  },{
     path: 'corporations',
     loadChildren: './corporations/corporations.module#CorporationsModule',
   },{
