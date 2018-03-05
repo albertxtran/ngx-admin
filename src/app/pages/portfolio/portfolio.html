@@ -1,0 +1,84 @@
+<nb-card>
+  <nb-card-body>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="form-group">
+        <input #input type="text" class="form-control form-control-rounded" id="input03" placeholder="Search for...">
+      </div> 
+      <div class="row show-grid">
+        <div class="col-md-4" *ngFor="let obj of companies | smArraySearch: input.value | paginate: { itemsPerPage: 12, currentPage: p }"> <!--| smArraySearch: input.value-->
+          <div *ngIf="!loading && !error" style="padding-right:1px;padding-left:1px;padding-top:15px;padding-bottom:15px;overflow: hidden;">
+            <div class="col-md-12" style="overflow: hidden;border:1px solid rgb(33, 205, 152);border-radius: 7px; background-color: rgba(255, 255, 255, 0.8);height:370px;padding-top:15px;padding-bottom:15px;padding-left:0px;padding-right:0px;">
+            <div class="col-md-12" style="padding:0px;">
+              <a target="_blank" [routerLink]="['/pages/company', obj.id]">
+                <div *ngIf="!obj?.thumbnail" class="col-md-3" style="padding-right:0px;display:inline-block;width:auto;">
+                  <div class="fa fa-plug fa-4x" aria-hidden="true" style="width:60px;border:1px solid #dddddd; border-radius: 7px;"></div>
+                </div>
+                <div *ngIf="obj?.thumbnail" class="col-md-3" style="padding-right:0px;display:inline-block;width:auto;"><img class="thumbnail_{{obj.id}}" src="data:image/png;base64,{{obj.thumbnail}}" style="width:60px;border:1px solid #dddddd ; border-radius: 7px;" alt="Business Profile" ></div>
+              </a>
+              <div class="col-md-9">
+                <div class="col-md-12" style="padding:0;">
+                  <a target="_blank" [routerLink]="['/pages/company', obj.id]">
+                    <div style="padding-bottom:5px;font-size: 18px; color: #000000; opacity: .87; font-family: 'DINPro-Light', Arial, sans-serif;">{{obj.companyName}} <p *ngIf="obj?.portfolio" style="font-family: DINPro-Light, CenturyGothic, AppleGothic, sans-serif;display: inline;font-size: 12px;color: goldenrod;font-weight: 400;">PORTFOLIO COMPANY</p></div>              
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12" style="margin-top:10px;word-wrap: break-word;">
+              <div *ngIf="obj?.blurb">
+                <div *ngIf="obj?.blurb.length > 300" style="font-family:DINPro-Light;margin-top:10px;font-size: 11px; color: #000000 ; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">{{obj.blurb | slice:0:300}}...
+                  <div *ngIf="obj?.blurb" style="width:60px;color: #000000; opacity: .54;">See more...</div>
+                </div>
+                <div *ngIf="obj?.blurb.length < 300" style="font-family:DINPro-Light;margin-top:10px;font-size: 11px; color: #000000 ; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">{{obj.blurb}}</div>
+              </div>
+            </div>
+            <div class="col-md-12" style="padding:0;margin-top:10px;margin-bottom:10px;">
+              <div class="col-md-6" style="padding-right:7.5px;">
+                <div *ngIf="obj?.pnpContact" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">ACCOUNT MANAGER</div>
+                <div style="font-size: 11px; color: #000000 ; opacity: .54;">{{obj.pnpContact}}</div>
+                <div *ngIf="obj?.website" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">WEBSITE</div>
+                <div *ngIf="obj?.website" style="overflow-wrap: break-word;font-size: 10px"><a style="color: #24a2ff" href="{{obj.website}}" target="_blank">{{obj.website}}</a></div>
+              </div>
+              <div class="col-md-6" style="padding-left:7.5px;">
+
+                <div *ngIf="obj?.verticals">
+                  <div *ngIf="obj?.verticals" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">VERTICALS</div>
+                  <div *ngIf="obj?.verticals.length < 50" style="font-size: 11px; color: #000000 ; opacity: .54;">{{obj.verticals}}</div>
+                  <div *ngIf="obj?.verticals.length > 50" style="font-size: 11px; color: #000000 ; opacity: .54;">{{obj.verticals | slice:0:50}}</div>
+                </div>
+                <div *ngIf="obj?.verticals">
+                  <div *ngIf="obj?.city" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;border-top: 1px solid #dddddd;padding-top:10px;">LOCATION</div>
+                  <div *ngIf="obj?.city" style="font-size: 11px; color: #000000 ; opacity: .54;">{{obj.city}}</div>
+                  <div *ngIf="obj?.location" style="font-size: 11px; color: #000000 ; opacity: .54;">{{obj.location}}</div>
+                </div>
+                <!-- <div *ngIf="obj?.tags" style="margin-top:10px;font-size: 11px; color: #000000 ; opacity: .54;">TAGS</div>
+                <div style="font-size: 11px; color: #000000 ; opacity: .54;">{{obj.tags}}</div>
+                <div *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(obj?.pnpOffice))" style="padding=0;">
+                  <div *ngIf="obj?.contactName" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;">PRIMARY CONTACT</div>
+                  <div style="font-size: 11px; color: #000000 ; opacity: .54;">{{obj.contactName}}</div>
+                  <div *ngIf="obj?.email" style="margin-top:10px;font-size: 12px; color: #000000; opacity: .54;">EMAIL</div>
+                  <div style="font-size: 11px; color: #000000 ; opacity: .54;">{{obj.email}}</div>
+                </div>
+                <div *ngIf="role=='user'" >
+                  <div *ngIf="obj?.stage"style="padding:2px;font-size: 12px; color: #000000; opacity: .54;">Stage: {{obj.stage}}</div>
+                  <div *ngIf="obj?.competition"style="padding:2px;font-size: 12px; color: #000000; opacity: .54;">Competition: {{obj.competition}}</div>
+                </div> -->
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+          <div class="playbook-loader"></div>
+        </div>
+        <div *ngIf="error" style="margin: 0 auto;width: 500px;">
+          <p>Your search - {{searchString}} - did not match any documents.</p>
+        </div>
+      </div>
+    </div>
+    <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+  </div>
+  </nb-card-body>
+</nb-card>

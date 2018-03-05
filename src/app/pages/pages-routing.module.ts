@@ -30,6 +30,9 @@ const routes: Routes = [{
     path: 'corporation',
     loadChildren: './corporation/corporation.module#CorporationModule',
   },{
+    path: 'portfolio',
+    loadChildren: './portfolio/portfolio.module#PortfolioModule',
+  },{
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {

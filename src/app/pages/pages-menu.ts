@@ -18,6 +18,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/corporations',
   },
   {
+    title: 'Portfolio',
+    icon: 'nb-home',
+    link: '/pages/portfolio',
+  },
+  {
     title: 'FEATURES',
     group: true,
   },
