@@ -24,6 +24,9 @@ const routes: Routes = [{
     path: 'corporations',
     loadChildren: './corporations/corporations.module#CorporationsModule',
   },{
+    path: 'corporation',
+    loadChildren: './corporation/corporation.module#CorporationModule',
+  },{
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {

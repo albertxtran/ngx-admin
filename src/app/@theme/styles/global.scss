@@ -1,3 +1,7 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+.mat-tab-body-content{
+  overflow:unset!important;    
+}
 .grid-h{
     margin-top: 40px;
     margin-bottom: 0;
