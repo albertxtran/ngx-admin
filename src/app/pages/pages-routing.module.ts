@@ -39,6 +39,9 @@ const routes: Routes = [{
     path: 'editdealflow',
     loadChildren: './editdealflow/editdealflow.module#EditDealflowModule',
   },{
+    path: 'editcompany',
+    loadChildren: './editcompany/editcompany.module#EditCompanyModule',
+  },{
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {

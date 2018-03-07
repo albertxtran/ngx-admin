@@ -1,0 +1,315 @@
+<nb-card>
+  <nb-card-header>Edit {{company?.companyName}}</nb-card-header>
+  <nb-card-body>
+  <div class="form-group">
+   <label for="single">Company Logo</label>
+   <p style="color:rgb(33, 205, 152);display: inline;font-size: 12px;margin-left:10px;">*required</p>
+   <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />  
+   <button type="button" class="btn btn-success btn-s" style="margin-top: 10px;"
+   (click)="uploadPhoto()" [disabled]="!uploader.getNotUploadedItems().length">
+    <span class="glyphicon glyphicon-upload"></span> Upload
+  </button>                                
+  </div>
+  <form #companyForm="ngForm" (ngSubmit)="updateCompany()">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="companyName">Name of Company</label>
+        <p style="color:rgb(33, 205, 152);display: inline;font-size: 12px;margin-left:10px;">*required</p>
+        <input type="text" class="form-control" maxlength="200" id="companyName" value="{{company?.companyName}}" placeholder="Company Name" [(ngModel)]="formData.companyName" name="companyName" required>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="blurb">Blurb of the Company (Description)</label>
+        <p style="color:rgb(33, 205, 152);display: inline;font-size: 12px;margin-left:10px;">*required</p>
+        <textarea class="form-control" maxlength="2000" id="blurb" value="{{company?.blurb}}" placeholder="Blurb" [(ngModel)]="formData.blurb" name="blurb" required></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="website">Website</label>
+        <p style="color:rgb(33, 205, 152);display: inline;font-size: 12px;margin-left:10px;">*required</p>
+        <input type="text" class="form-control" maxlength="200" id="website" value="{{company?.website}}" placeholder="Website" [(ngModel)]="formData.website" name="website" required>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="pnpContact">PNP Contact</label>
+        <p style="color:rgb(33, 205, 152);display: inline;font-size: 12px;margin-left:10px;">*required</p>
+        <input type="text" class="form-control" maxlength="200" id="pnpContact" value="{{company?.pnpContact}}" placeholder="PNP Contact" [(ngModel)]="formData.pnpContact" name="pnpContact" required>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="contactName">Primary Contact Names</label>
+        <p style="color:rgb(33, 205, 152);display: inline;font-size: 12px;margin-left:10px;">*required</p>
+        <input type="text" class="form-control" maxlength="200" id="contactName" value="{{company?.contactName}}" placeholder="Contact Name" [(ngModel)]="formData.contactName" name="contactName" required>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <p style="color:rgb(33, 205, 152);display: inline;font-size: 12px;margin-left:10px;">*required</p>
+        <input type="email" class="form-control" maxlength="200" id="email" value="{{company?.email}}" placeholder="Email" [(ngModel)]="formData.email" name="email" required>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="blurb">Company One Liner</label>
+        <textarea class="form-control" maxlength="2000" id="oneLiner" value="{{company?.oneLiner}}" placeholder="One Liner" [(ngModel)]="formData.oneLiner" name="oneLiner"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="verticals">Industrial Applications and PnP Vertical</label>
+        <input type="text" class="form-control" id="verticals" value="{{company?.verticals}}" placeholder="Verticals" [(ngModel)]="formData.verticals" name="verticals">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" class="form-control" maxlength="200" id="phoneNumber" value="{{company?.phoneNumber}}" placeholder="Phone Number" [(ngModel)]="formData.phoneNumber" name="phoneNumber">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="totalMoneyRaised">Total Money Raised (Optional)</label>
+        <input type="text" class="form-control" maxlength="500" id="totalMoneyRaised" value="{{company?.totalMoneyRaised}}" placeholder="Total Money Raised" [(ngModel)]="formData.totalMoneyRaised" name="totalMoneyRaised">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="stage">Stage of Company (Last Closed Round)</label>
+        <input type="text" class="form-control" maxlength="200" id="stage" value="{{company?.stage}}" placeholder="Stage" [(ngModel)]="formData.stage" name="stage">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="b2bb2c">What is your end customer? (Optional)</label>
+        <input type="text" class="form-control" maxlength="500" id="b2bb2c" value="{{company?.b2bb2c}}" placeholder="B2B B2C" [(ngModel)]="formData.b2bb2c" name="b2bb2c">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="employees">Number of Employees (Full-time/Part-time)</label>
+        <input type="text" class="form-control" maxlength="200" id="employees" value="{{company?.employees}}" placeholder="Employees" [(ngModel)]="formData.employees" name="employees">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="location">Where is your HQ?</label>
+        <input type="text" class="form-control" maxlength="200" id="location" value="{{company?.location}}" placeholder="Location" [(ngModel)]="formData.location" name="location">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="city">Specify name of the Country and City (Optional)</label>
+        <input type="text" class="form-control" maxlength="200" id="city" value="{{company?.city}}" placeholder="City" [(ngModel)]="formData.city" name="city">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="location">Where is your PNP Office located?</label>
+        <input type="text" class="form-control" maxlength="200" id="pnpOffice" value="{{company?.pnpOffice}}" placeholder="PNP Office" [(ngModel)]="formData.pnpOffice" name="pnpOffice">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="location">Where is your PNP office located?</label>
+        <select multiple class="form-control" id="pnpOffice" [(ngModel)]="formData.pnpOffice" name="pnpOffice" style="overflow:scroll;">
+          <option>Plug and Play Headquarters (Silicon Valley)</option>
+          <option>FinTech - New York</option>
+          <option>FinTech - Abu Dhabi - ADGM Plug and Play</option>
+          <option>FinTech - Paris - BNP Paribas-Plug and Play</option>
+          <option>FinTech - Tokyo</option>
+          <option>Health - Cleveland</option>
+          <option>Health - Munich</option>
+          <option>InsurTech - Munich</option>
+          <option>InsurTech - New York</option>
+          <option>InsurTech - Tokyo</option>
+          <option>Mobility - Stuttgart - Startup Autobahn</option>
+          <option>Mobility - Berlin - Beyond1435</option>
+          <option>Mobility - Tokyo</option>
+          <option>Plug and Play APAC</option>
+          <option>Plug and Play China</option>
+          <option>Plug and Play Japan</option>
+          <option>Retail - Amsterdam - Fashion for Good</option>
+          <option>Retail - Munich - Retailtech Hub</option>
+          <option>Retail - Paris - Lafayette Plug and Play</option>
+        </select>
+      </div>
+    </div>
+</div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="competition">Closest Competitor</label>
+        <textarea class="form-control" maxlength="2000" id="competition" value="{{company?.competition}}" placeholder="Competition" [(ngModel)]="formData.competition" name="competition"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="advantage">Competitive Advantage (IP's, advantage, etc.)</label>
+        <textarea class="form-control" maxlength="3000" id="advantage" value="{{company?.advantage}}" placeholder="Advantage" [(ngModel)]="formData.advantage" name="advantage"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="background">Founders' Background</label>
+        <textarea class="form-control" maxlength="2000" id="background" value="{{company?.background}}" placeholder="Background" [(ngModel)]="formData.background" name="background"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="founded">When was the company founded? (Optional)</label>
+        <input type="text" class="form-control" maxlength="200" id="founded" value="{{company?.founded}}" placeholder="Founded" [(ngModel)]="formData.founded" name="founded">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="partnerInterests">TOP 3 PnP partners that you would like to be introduced to (Optional)</label>
+        <input type="text" class="form-control" maxlength="200" id="partnerInterests" value="{{company?.partnerInterests}}" placeholder="Partner Interests" [(ngModel)]="formData.partnerInterests" name="partnerInterests">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="caseStudy">Example of a case study (Optional)</label>
+        <textarea class="form-control" maxlength="3500" id="caseStudy" value="{{company?.caseStudy}}" placeholder="Case Study" [(ngModel)]="formData.caseStudy" name="caseStudy"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="comments">How did you initially hear about us? (Optional)</label>
+        <textarea class="form-control" maxlength="3000" id="howDidYouHear" value="{{company?.howDidYouHear}}" placeholder="Hear About Us" [(ngModel)]="formData.howDidYouHear" name="howDidYouHear"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="comments">International office business opportunitiy locations?</label>
+        <textarea class="form-control" maxlength="3000" id="intlBusinessOpp" value="{{company?.intlBusinessOpp}}" placeholder="International Business Opportunities" [(ngModel)]="formData.intlBusinessOpp" name="intlBusinessOpp"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="comments">Any other information or comments that can help us (Optional)</label>
+        <textarea class="form-control" maxlength="3000" id="comments" value="{{company?.comments}}" placeholder="Comments" [(ngModel)]="formData.comments" name="comments"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="tags">Tags</label>
+        <input type="text" class="form-control" maxlength="200" id="tags" value="{{company?.tags}}" placeholder="Tags" [(ngModel)]="formData.tags" name="tags">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="materials">Please upload your company materials (Optional)</label>
+        <input type="text" class="form-control" maxlength="1000" id="materials" value="{{company?.materials}}" placeholder="Materials" [(ngModel)]="formData.materials" name="materials">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="dateOfInvestment">Date Of Investment (Optional)</label>
+        <input type="date" class="form-control" maxlength="200" id="dateOfInvestment" value="{{company?.dateOfInvestment}}" placeholder="Date Of Investment" [(ngModel)]="formData.dateOfInvestment" name="dateOfInvestment">
+      </div>
+    </div>
+  </div>
+  <div *ngIf="role=='admin' || role=='venture' || role=='global'" class="row" style="margin-bottom: 20px;">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <div class="col-sm-1" style="padding-left: 0px;top:3px;">
+        <div *ngIf="company?.portfolio">
+          <input type="checkbox" class="form-control" id="portfolio" checked="checked" value="{{company?.portfolio}}" [(ngModel)]="formData.portfolio" name="portfolio">
+        </div>
+        <div *ngIf="!company?.portfolio">
+          <input type="checkbox" class="form-control" id="portfolio" value="{{company?.portfolio}}" [(ngModel)]="formData.portfolio" name="portfolio">
+        </div>
+        </div>   
+        <div class="col-sm-11" style="padding-left: 0px">
+          <span>Portfolio</span>
+        </div>     
+      </div>
+    </div>
+  </div>
+  <button type="submit" (click)="initSubmit()" class="btn btn-primary">Submit</button>
+  </form>
+  <div class="row">
+    <div class="col-sm-12">
+      <div style="width:50%;margin:auto;text-align:center;">
+      <div *ngIf="company?.id">
+      <a [routerLink]="['/pages/company', company.id ]">
+        <i class="fa fa-backward" aria-hidden="true" style="display:inline-block;font-size: 14px;color:white;"></i>
+        <div style="font-size: 12px;display:inline-block;padding-left:5px;color:white;">Go back to startup profile</div>              
+      </a>
+      </div>
+      </div>
+    </div>
+  </div>
+  </nb-card-body>
+</nb-card>
+
+
+
+
+
+<!-- <div *ngIf="!((role=='admin' || role=='venture' || role=='global' || role=='operations') || (currentUser?.role=='startup' && currentUser?.ref_id == id))">
+  <div ng-show="pageload" class="widgets">
+      <ba-card title="Not authorized" baCardClass="with-scroll">
+      </ba-card>
+  </div>
+</div> -->
