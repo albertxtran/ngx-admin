@@ -1,6 +1,7 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from './@auth/auth-guard.service';
+import {DealflowPageComponent} from './@auth/dealflowpage/dealflowpage.component';
 
 import {
   NbAuthComponent,
@@ -17,6 +18,10 @@ const routes: Routes = [
     path: 'pages', 
     canActivate: [AuthGuard], // here we tell Angular to check the access with our AuthGuard
     loadChildren: 'app/pages/pages.module#PagesModule' 
+  },
+  { 
+    path: 'ext', 
+    component: DealflowPageComponent,
   },
   {
     path: 'auth',
@@ -53,6 +58,10 @@ const routes: Routes = [
       {
         path: 'reset-password',
         component: NbResetPasswordComponent,
+      },
+      {
+        path: 'dealflowpage',
+        loadChildren: 'app/@auth/dealflowpage/dealflowpage.module#DealflowPageModule',
       },
     ],
   },
