@@ -1,7 +1,6 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from './@auth/auth-guard.service';
-import {DealflowPageComponent} from './@auth/dealflowpage/dealflowpage.component';
 
 import {
   NbAuthComponent,
@@ -21,7 +20,7 @@ const routes: Routes = [
   },
   { 
     path: 'ext', 
-    component: DealflowPageComponent,
+    loadChildren: 'app/ext/dealflowpage/dealflowpage.module#DealflowPageModule',
   },
   {
     path: 'auth',
@@ -58,10 +57,6 @@ const routes: Routes = [
       {
         path: 'reset-password',
         component: NbResetPasswordComponent,
-      },
-      {
-        path: 'dealflowpage',
-        loadChildren: 'app/@auth/dealflowpage/dealflowpage.module#DealflowPageModule',
       },
     ],
   },
