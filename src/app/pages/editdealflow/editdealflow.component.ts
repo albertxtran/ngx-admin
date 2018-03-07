@@ -71,6 +71,7 @@ export class EditDealflowComponent implements OnInit, OnDestroy {
   public creatingpdf: boolean;
   public pageload: boolean = false;
   role: Observable<any>;
+  keyuplock: boolean = false;
 
 
 constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _editDealflowService: EditDealflowService,  public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router, private cdr: ChangeDetectorRef) {
@@ -90,7 +91,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _ed
   this.getDealflow();
 }
 
- ngOnInit() {
+ngOnInit() {
   this.editDealflow = this._fb.group({
     id: [''],
     api_key: [''],
@@ -178,14 +179,13 @@ save(model: EditDealflow) {
     this._editDealflowService.updateDealflow_form(JSON.stringify(model["value"])).map(res => {
       // If request fails, throw an Error that will be caught
       if(res.status == 204) {
-        this.loading = false;
-        this.error = true;
+        this._toasterService.showError("Couldn't not submit new dealflow, please try again.", "Error", 4000);
       } else if (res.status < 200 || res.status >= 300){
-        this.loading = false;
+        this._toasterService.showError("Could not submit new dealflow, please try again.", "Error", 4000);
       }
       // If everything went fine, return the response
       else {
-        this.loading = false;
+        this._toasterService.showError("The Dealflow has been created.", "Success!", 4000);
         //return res.json();
         
       }
@@ -193,67 +193,95 @@ save(model: EditDealflow) {
 }
 
 initSubmit(){
-	this.submitAttempt = true;
+
+	  this.submitAttempt = true;
 }
 
 getFileLater() {
   console.log(this.myFileInput.nativeElement.files[0]);
 }
 
-// fileChanged(event) {
-//   var file = event.target.files[0];
-//   var filesize = ((file.size/1024)/1024); // MB
-//   console.log("File size: "+filesize);
-//   if(filesize > 10){
-//     this.myFileInput.nativeElement.value = "";
-//     this.showError("Please choose a file less than 10MB.", "", 4000);
-//     return false;
-//   }
-//   this._editDealflowService.getAWSPresignedUrl(this.currentUser.api_key).map(res => {
-//     if(res.status == 204) {
-//       this.showError("Could not validate your user, please try again.", "", 4000); 
-//     }
-//     if(res.status == 205) {
-//       this.showError("There was an issue uploading your file, please try again.", "", 4000); 
-//     }
-//     if(res.status == 206) {
-//       this.showError("Could not get presigned URL, please try again.", "", 4000); 
-//     }
-//     else if (res.status < 200 || res.status >= 300){
-//       this.showError("Your user is not authorized to do this action.","", 4000);
-//     }
-//     else {
-//       return res.json();
+fileChanged(event) {
+  var file = event.target.files[0];
+  var filesize = ((file.size/1024)/1024); // MB
+  console.log("File size: "+filesize);
+  if(filesize > 10){
+    this.myFileInput.nativeElement.value = "";
+    this._toasterService.showError("Please choose a file less than 10MB.", "", 4000);
+    return false;
+  }
+  this._editDealflowService.getAWSPresignedUrl(this.currentUser.api_key).map(res => {
+    if(res.status == 204) {
+      this._toasterService.showError("Could not validate your user, please try again.", "", 4000); 
+    }
+    if(res.status == 205) {
+      this._toasterService.showError("There was an issue uploading your file, please try again.", "", 4000); 
+    }
+    if(res.status == 206) {
+      this._toasterService.showError("Could not get presigned URL, please try again.", "", 4000); 
+    }
+    else if (res.status < 200 || res.status >= 300){
+      this._toasterService.showError("Your user is not authorized to do this action.","", 4000);
+    }
+    else {
+      return res.json();
       
-//     }
-//   }).subscribe(data => this.presignedJSON = data,
-//     err => console.error('Error: ' + err),
-//         () => console.log(JSON.stringify(this.presignedJSON))
+    }
+  }).subscribe(data => this.presignedJSON = data,
+    err => console.error('Error: ' + err),
+        () => console.log(JSON.stringify(this.presignedJSON))
             
-//     );
-//   console.log(event.target.files[0]);
+    );
+  console.log(event.target.files[0]);
 
-// }
+}
 
 getSuggestions(event: any){
-  this.searchString = event.target.value;
-  this.page = 1;
-  this.asyncUsers = null;
-  var idName = event.target.name;
-  this.editDealflow.controls[idName].setValue(null);
+  if(!this.keyuplock){
+    this.searchString = event.target.value;
+    this.page = 1;
+    this.asyncUsers = null;
+    var idName = event.target.name;
+    this.editDealflow.controls[idName].setValue(null);
 
-  if(this.searchString.length > 2){
-      //this.asyncUsers = this._editDealflowService.getUsersPage(1, this.searchString);//CompleterService.remote('/rest/plugandplay/api/v1/users/query/1?query=','',null);
-      //console.log(JSON.stringify(this.asyncUsers));
-      this._editDealflowService.getUsersPage(this.page, this.searchString)
-          .do(res => {
-              if(res.status == 204) {
-                 
-              } else {
-                  this.asyncUsers=res.data;
-              }                
-          }).map(res => res.data).subscribe();  
+    if(this.searchString.length > 2){
+        //this.asyncUsers = this._editDealflowService.getUsersPage(1, this.searchString);//CompleterService.remote('/rest/plugandplay/api/v1/users/query/1?query=','',null);
+        //console.log(JSON.stringify(this.asyncUsers));
+        this._editDealflowService.getUsersPage(this.page, this.searchString)
+            .do(res => {
+                if(res.status == 204) {
+                  
+                } else {
+                    this.asyncUsers=res.data;
+                }                
+            }).map(res => res.data).subscribe();  
+    }
   }
+  else{
+    this.keyuplock = false;
+  }
+}
+
+nameSelected(event: any)
+{
+    var tmpList = event.target.value.split(" ");
+    var selectEmail = tmpList[tmpList.length - 1];
+    var idName = event.target.name;
+
+    if(this.asyncUsers != null)
+    {
+        Object.keys(this.asyncUsers).forEach(eachObj => {
+            if(selectEmail == this.asyncUsers[eachObj].email)
+            {
+              this.keyuplock = true;
+              event.target.value = this.asyncUsers[eachObj].name;
+              //(<HTMLInputElement>document.getElementById(idName)).value = this.asyncUsers[eachObj].id;
+              //this.id.nativeElement.value = this.asyncUsers[eachObj].id;
+              this.editDealflow.controls[idName].setValue(this.asyncUsers[eachObj].id);
+            }
+          });
+    }
+    this.asyncUsers = null;
 }
 
 getUserById(user_id:Number, name: number, dealflow: any){
@@ -430,29 +458,6 @@ addValue(dealflow:any){
   //this.editDealflow.controls['attendees'].setValue(dealflow.attendees);
 
 }
-
-  nameSelected(event: any)
-  {
-      //var selectNum = event.target.value.substr(0,str.indexOf(' '));
-      //var selectName = event.target.value.substr(str.indexOf(' ')+1);
-      var tmpList = event.target.value.split(" ");
-      var selectEmail = tmpList[tmpList.length - 1];
-      var idName = event.target.name;
-
-      if(this.asyncUsers != null)
-      {
-          Object.keys(this.asyncUsers).forEach(eachObj => {
-              if(selectEmail == this.asyncUsers[eachObj].email)
-              {
-                  event.target.value = this.asyncUsers[eachObj].name;
-                  //(<HTMLInputElement>document.getElementById(idName)).value = this.asyncUsers[eachObj].id;
-                  //this.id.nativeElement.value = this.asyncUsers[eachObj].id;
-                  this.editDealflow.controls[idName].setValue(this.asyncUsers[eachObj].id);
-              }
-            });
-      }
-      this.asyncUsers = null;
-  }
 
 // newDealflow(){
 //   this.uploader.onBuildItemForm = (fileItem: any, form: any) => {form.append('data', JSON.stringify(this.formData) ); console.log("fileItem++++"+fileItem);console.log("form++++"+form);};   
