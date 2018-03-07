@@ -34,6 +34,9 @@ const routes: Routes = [{
     path: 'portfolio',
     loadChildren: './portfolio/portfolio.module#PortfolioModule',
   },{
+    path: 'dealflowlists',
+    loadChildren: './dealflowlists/dealflowlists.module#DealflowListsModule',
+  },{
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {
