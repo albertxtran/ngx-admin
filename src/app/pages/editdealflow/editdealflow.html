@@ -1,0 +1,193 @@
+<nb-card>
+  <nb-card-header>Edit Dealflow for {{dealflowname}}</nb-card-header>
+  <nb-card-body>
+    <!-- <input #fileInput type='file' (change)="fileChanged($event)"> -->
+    <form [formGroup]="editDealflow" novalidate (ngSubmit)="save(editDealflow)">
+        <input type="hidden" class="form-control" id="id" formControlName="id"/>
+        <div class="form-group">
+            <label>Corporate Name</label>
+            <small *ngIf="!editDealflow.controls.corporate_id.valid" class="text-danger">
+              Required.
+            </small>
+            <input type="text" class="form-control" maxlength="200" name="corporate_id" placeholder="{{corporate_name[0]}}" readonly="readonly" style="margin-bottom: 1%;" disabled>
+            <input type="hidden" class="form-control" id="corporate_id" formControlName="corporate_id"/>
+        </div>
+      <div class="form-group">
+        <label>Who is the Lead for this dealflow?</label>
+        <small *ngIf="!editDealflow.controls.lead_id.valid" class="text-danger">
+          Required.
+        </small>
+        <input value="{{lead_name}}" type="text" list="leadList" class="form-control" maxlength="200"  name="lead_id" placeholder="Lead Sales" style="margin-bottom: 1%;" (keyup)="getSuggestions($event)" (input)="nameSelected($event)" required>
+          <datalist id="leadList">
+              <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
+          </datalist>
+          <input type="hidden" class="form-control" id="lead_id" formControlName="lead_id"/>
+        <label>Who is the Account Manager for your corporation?</label>
+        <small *ngIf="!editDealflow.controls.account_manager_id.valid" class="text-danger">
+          Required.
+        </small>
+        <input value="{{account_manager_name}}" type="text" list="accountManagerList" class="form-control" maxlength="200" name="account_manager_id" placeholder="Account Manager" style="margin-bottom: 1%;" (keyup)="getSuggestions($event)" (input)="nameSelected($event)" required> 
+          <datalist id="accountManagerList">
+              <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
+          </datalist>
+          <input type="hidden" class="form-control" id="account_manager_id" formControlName="account_manager_id"/>
+        <label>Who is the champion of your corporation?</label>
+        <small *ngIf="!editDealflow.controls.champion_id.valid" class="text-danger">
+          Required.
+        </small>
+        <input value="{{champion_name}}" type="text" list="championList" class="form-control" maxlength="200" name="champion_id" placeholder="Champion" style="margin-bottom: 1%;" (keyup)="getSuggestions($event)" (input)="nameSelected($event)" required> 
+          <datalist id="championList">
+              <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
+          </datalist>
+          <input type="hidden" class="form-control" id="champion_id" formControlName="champion_id"/> 
+        <label>Which Venture Associate is a part of this dealflow?</label>
+        <small *ngIf="!editDealflow.controls.venture_associate_id.valid" class="text-danger">
+          Required.
+        </small>
+        <input value="{{venture_associate_name}}" type="text" list="ventureAssociateList" class="form-control" maxlength="200" name="venture_associate_id" placeholder="Venture Associate" style="margin-bottom: 1%;" (keyup)="getSuggestions($event)" (input)="nameSelected($event)" required> 
+          <datalist id="ventureAssociateList">
+              <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
+          </datalist>
+          <input type="hidden" class="form-control" id="venture_associate_id" formControlName="venture_associate_id"/> 
+        <label>Please enter any additional Supporting Members</label>
+        <div formArrayName="supportingMembers">
+          <div *ngFor="let supportingMember of editDealflow.controls.supportingMembers.controls; let i=index" class="panel panel-default">
+            <div class="panel-body" [formGroupName]="i">
+              <supportingMember [group]="editDealflow.controls.supportingMembers.controls[i]"></supportingMember>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Please enter any additional Attendees</label>
+        <div formArrayName="attendees">
+          <div *ngFor="let attendee of editDealflow.controls.attendees.controls; let i=index" class="panel panel-default">
+            <div class="panel-body" [formGroupName]="i">
+              <span style="font-size:.8em">Attendee {{i + 1}}</span>
+              <a *ngIf="editDealflow.controls.attendees.controls.length > 1" (click)="removeAttendee(i)" style="cursor: pointer; float:right"><i class="fa fa-times" aria-hidden="true"></i></a>
+              <attendee [group]="editDealflow.controls.attendees.controls[i]"></attendee>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12" style="float:right; margin-bottom: 10px;">
+          <a (click)="addAttendee()" style="cursor: default;">
+            Add another attendee +
+          </a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Event Summary</label>
+        <small *ngIf="!editDealflow.controls.event_summary.valid" class="text-danger">
+          Required.
+        </small>
+        <input type="text" class="form-control" formControlName="event_summary" id="event_summary" placeholder="Event Summary" required>
+      </div>
+      <div class="form-group">
+        <label>Event Date</label>
+        <small *ngIf="!editDealflow.controls.event_date.valid" class="text-danger">
+          Required.
+        </small>
+        <input type="date" class="form-control" formControlName="event_date" id="event_date" placeholder="Event Date" required>
+      </div>
+      <div class="form-group">
+        <label>Event Start Time</label>
+        <small *ngIf="!editDealflow.controls.event_start.valid" class="text-danger">
+          Required.
+        </small>
+        <input type="time" class="form-control" formControlName="event_start" id="event_date" placeholder="Event Start" required>
+      </div>
+      <div class="form-group">
+        <label>Event End Time</label>
+        <small *ngIf="!editDealflow.controls.event_stop.valid" class="text-danger">
+          Required.
+        </small>
+        <input type="time" class="form-control" formControlName="event_stop" id="event_stop" placeholder="Event Stop" required>
+      </div>
+      <div class="form-group">
+        <label>Event Location</label>
+        <small *ngIf="!editDealflow.controls.event_location.valid" class="text-danger">
+          Required.
+        </small>
+        <input type="text" class="form-control" formControlName="event_location" id="event_location" placeholder="Event Location" required>
+      </div>
+      <div class="form-group">
+        <label>Event Agenda</label>
+        <small *ngIf="!editDealflow.controls.event_agenda.valid" class="text-danger">
+          Required.
+        </small>
+        <textarea class="form-control" formControlName="event_agenda" placeholder="Ex: 10:00-10:30 Tour
+        10:30-11:00 Discussion
+        11:00-11:30 Startup 1
+        11:30-12:00 Startup 2
+        12:00-12:30 Wrap up discussion"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="verticals">Verticals</label>
+        <small *ngIf="!editDealflow.controls.verticals.valid" class="text-danger">
+            Required.
+        </small>
+          <select style="margin-bottom:15px;" class="form-control" formControlName="verticals" style="margin-bottom: 1%;" id="verticals" required>
+            <option>Brand and Retail</option>
+            <option>Cyber</option>
+            <option>Energy</option>
+            <option>Fintech</option>
+            <option>Food</option>
+            <option>Health</option>
+            <option>Insurance</option>
+            <option>IoT</option>
+            <option>Materials and Packaging</option>
+            <option>Media</option>
+            <option>Mobility</option>
+            <option>Real Estate</option>
+            <option>Supply Chain And Logistics</option>
+            <option>Travel And Hospitality</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label for="specific_interests">What program(s) would their interests and tech/focus areas for this meeting fall into?</label>
+        <textarea class="form-control" formControlName="specific_interests" id="specific_interests" placeholder="Specific Interests"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="purpose">What is the intention/purpose of this meeting?</label>
+        <small *ngIf="!editDealflow.controls.purpose.valid" class="text-danger">
+          Required.
+        </small>
+        <select style="margin-bottom:15px;" class="form-control" formControlName="purpose" id="purpose" required>
+          <option>Business Development / Pilot Opportunities</option>
+          <option>Investment</option>
+          <option>Corporate Tourism / Exploring</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="relationship">What is the status of the relationship?</label>
+        <small *ngIf="!editDealflow.controls.relationship.valid" class="text-danger">
+          Required.
+        </small>
+        <select style="margin-bottom:15px;" class="form-control" formControlName="relationship" id="relationship" required>
+          <option>Partner</option>
+          <option>Potential Partner</option>
+          <option>Tourism</option>
+          <option>Venture Firm / Angel Investor</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="virtual_join">Is a startup joining virtually okay?</label>
+        <small *ngIf="!editDealflow.controls.virtual_join.valid" class="text-danger">
+          Required.
+        </small>
+          <select selected="" style="margin-bottom:15px;" class="form-control" formControlName="virtual_join" id="virtual_join" required>
+            <option [ngValue]="true">Webex is totally fine!</option>
+            <option [ngValue]="false">Please no webex!</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label>Extra Detail</label>
+        <textarea class="form-control" formControlName="extra_detail" id="extra_detail" placeholder="Extra Detail"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      <div class="clearfix"></div>
+    </form>
+  </nb-card-body>
+</nb-card>
