@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef, OnInit, ViewEncapsulation, OnDestroy, ViewContainerRef } from '@angular/core';
-import {Pipe, PipeTransform} from '@angular/core'
+import { Pipe, PipeTransform } from '@angular/core'
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { ToasterService } from '../../@theme/providers/toaster.service';

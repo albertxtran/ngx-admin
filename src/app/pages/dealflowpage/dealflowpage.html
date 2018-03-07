@@ -194,3 +194,420 @@
     </div>
   </nb-card-body>
 </nb-card>
+
+<nb-card>
+    <nb-card-body>
+    <div class="row">
+      <div class="col-md-12">
+          <mat-tab-group [selectedIndex]="0">
+            <mat-tab label="About">
+              <div class="row">
+                <div class="col-md-12" style="padding-top:5px;">
+                      <div class="row">
+                        <div class="col-md-12" style="padding-bottom:10px;display:inline-block;">                          
+                            <div style="display:inline;font-family:DINPro-Light;color:black;font-weight:bold;font-size:40px;padding-bottom:15px;padding-top:15px;">{{corporation?.companyName}}</div> 
+                            <div *ngIf="role=='admin' || role=='venture'"  style="display:inline-block;">
+                              <a class="deleteStartup" href="javascript:void(0)" (click)="deleteStartup(obj)">
+                              <span title="Delete corporation"><i style="padding-left:5px;padding-top:3px;color:black" class="fa fa-trash-o" aria-hidden="true"></i></span>
+                              </a>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row" style="padding-bottom:10px">
+                        <div class="col-md-3" style="font-family:DINPro-Light;">
+                            <div *ngIf="corporation?.founded" style="font-size: 12px; color:#343434;">Founded: {{corporation.founded}}</div>
+                            <div *ngIf="corporation?.website" style="display:block;"> 
+                            <div class="fa fa-external-link" *ngIf="corporation?.website" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                            <div *ngIf="corporation?.website" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
+                              <a style="color: #343434" href="{{corporation.website}}" target="_blank">{{corporation.website}}</a>
+                            </div>
+                            </div>
+                            <div class="fa fa-globe" *ngIf="corporation?.headquarters" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                            <div *ngIf="corporation?.headquarters" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{corporation?.headquarters}}</div>
+                        </div>
+                        <div class="col-md-3">
+                          <div *ngIf="(role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(corporation?.pnpOffice))) || (currentUser?.role=='startup' && currentUser?.ref_id == id)" class="col-md-12" style="padding:0px;margin:0px;width:auto;display:inline-block;">
+                            <div *ngIf="corporation?.champions" style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">CORPORATION CONTACT</div>
+                            <div *ngIf="corporation?.champions" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{corporation?.champions}}</div>
+                          </div>
+                        </div>
+                        <div class="col-md-6" *ngIf="role=='admin' || role=='venture'" >
+                          <div class="row">
+                            <div class="col-md-3" style="display:inline-block; padding:0;">
+                              <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">TOP 20</div>
+                              <div *ngFor="let list of corporation?.top20lists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                            </div>
+                            <div class="col-md-3" style="display:inline-block; padding:0;">
+                              <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">TOP 100</div>
+                              <div *ngFor="let list of corporation?.top100lists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                            </div>
+                            <div class="col-md-3" style="display:inline-block; padding:0;">
+                              <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">DEALFLOW</div>
+                              <div *ngFor="let list of corporation?.dealflowlists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                            </div>
+                            <div class="col-md-3" style="display:inline-block; padding:0;">
+                              <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">BATCH</div>
+                              <div *ngFor="let list of corporation?.batchlists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  
+  
+                <div *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(corporation?.pnpOffice))" id="profileButtons">
+                
+                <div class="row">
+                  <div class="col-md-12" style="font-family:DINPro-Light; border-bottom: 1px solid #dddddd;"></div>
+                </div>
+  
+                <div class="row">
+  
+                      <div class="col-md-4">
+                        <div *ngIf="!loading">
+                          <div class="row">
+                            <div class="col-md-12">
+                                <p style="font-size: 12px;margin-top:15px;margin-bottom:5px;font-family:DINPro-Light;font-size:12px;color:#3c3c3c;">Select a list, add to top 100!</p>                        
+                            </div>
+                          </div>
+                          <div class="row">
+                          <div class="col-md-8">
+                          
+                            <div class="form-group">
+                              <select #top100select class="form-control" id="Top100Select">
+                                <option *ngFor="let list of lists">{{list.listName}}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <a class="top100" style="margin-top:10px; width:auto; float:left;" href="javascript:void(0)" (click)="addTop100(corporation.id,top100select.value)">
+                              <p style="text-align: center;color: #ffffff;margin:0px;">Add</p>
+                            </a>
+                            <!--<a *ngIf="corporation?.top100" class="top100" href="javascript:void(0)" (click)="removeTop100(corporation.id)"><p style="text-align: center;color: #ffffff;margin:0px;">Remove</p></a>-->
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <!--<p id="becomeFanText" style="text-align: center;font-size: 10px ;margin-top:5px;margin-bottom:5px;font-family:DINPro-Light;;font-size:10px;color:#3c3c3c;">Get more insights!</p>
+                                    <div style="width:50%; margin:auto;">
+                                      <a href="#" class="becomeFan" onclick="becomeFan(this)" id="$profile.getId()"><p style="text-align: center;color: #ffffff;">Deal Flows</p></a>
+                                    </div>-->
+                        <div *ngIf="!loading20">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p style="font-size: 12px;margin-top:15px;margin-bottom:5px;font-family:DINPro-Light;font-size:12px;color:#3c3c3c;">Select a list, add to top 20!</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                          <div class="col-md-8">
+                            <div class="form-group">
+                              <select #top20select class="form-control" id="Top20Select">
+                                <option *ngFor="let list of top20list">{{list.listName}}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <a class="top20" style="margin-top:5px;width:auto; float:left;" href="javascript:void(0)" (click)="addTop20(corporation.id,top20select.value)">
+                              <p style="text-align: center;color: #ffffff;margin:0px;">Add</p>
+                            </a>
+                            <!--<a *ngIf="corporation?.top100" class="top100" href="javascript:void(0)" (click)="removeTop100(corporation.id)"><p style="text-align: center;color: #ffffff;margin:0px;">Remove</p></a>-->
+                          </div>
+                        </div>
+                          <div *ngIf="loading20" style="margin: 0 auto;width: 100px;">
+                            <div class="playbook-loader"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                          <div *ngIf="!loading">
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <p style="font-size: 12px;margin-top:15px;margin-bottom:5px;font-family:DINPro-Light;font-size:12px;color:#3c3c3c;">Select a list, add to dealflow!</p>
+                              </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-md-8">
+                              <div class="form-group">
+                                <select #dealflowselect class="form-control" id="DealflowSelect">
+                                  <option *ngFor="let list of dealflowlist">{{list.listName}}</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <a class="dealflow" style="margin-top:5px;width:auto; float:left;" href="javascript:void(0)" (click)="addDealflowLists(corporation.id,dealflowselect.value)">
+                                <p style="text-align: center;color: #ffffff;margin:0px;">Add</p>
+                              </a>
+                              <!--<a *ngIf="corporation?.top100" class="top100" href="javascript:void(0)" (click)="removeTop100(corporation.id)"><p style="text-align: center;color: #ffffff;margin:0px;">Remove</p></a>-->
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(corporation?.pnpOffice))">
+                      <div class="col-md-6">
+                            <div class="row">
+                            <div class="col-md-12">
+                            <template ngbModalContainer></template>
+                            <div *ngIf="creatingpdf" class="loader">Loading...</div>
+                            <div *ngIf="!creatingpdf" class="button-wrapper">
+                              <button (click)="this.creatingpdf=true;exportToPDF()" type="button" id="executivesummary" class="btn btn-default btn-raised" style="margin-top:20px;">
+                                Executive Summary
+                              </button>
+                            </div>
+                          </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                            <div *ngIf="corporation?.id && ((role=='admin' || role=='venture' || (currentUser?.role=='corporation' && currentUser?.cref_id == id)))" style="float:left;">
+                              <a [routerLink]="['/pages/editcorporation', corporation.id]">
+                                <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;">
+                                  Edit Profile
+                                </button>
+                              </a>
+                            </div>
+                          </div>
+                          </div>
+                          </div>
+                          <div class="col-md-6">  
+                            <div class="row">
+                                <div class="col-md-12">
+                              <div *ngIf="corporation?.id && (role=='admin' || role=='venture')" style="float:left;">
+                                  <button class="btn btn-success" (click)="managerModalShow()" style="margin-top:20px;">Add Account Manager</button>
+                              </div>
+                              </div>
+                            </div>  
+                            <div class="row">
+                                <div class="col-md-12"> 
+                              <div *ngIf="corporation?.id && (role=='admin' || role=='venture')" style="float:left;">
+                                <button class="btn btn-success" (click)="championModalShow()" style="margin-top:20px;">Add Champion</button>
+                            </div>
+                            </div>
+                            </div>
+                         </div>
+                        </div>
+                      </div>
+                 
+               
+             
+                <div class="row">
+                  <div class="col-md-12" style="font-family:DINPro-Light; border-bottom: 1px solid #dddddd;padding-top:10px;"></div>
+                </div>
+  
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-12" style="font-family:DINPro-Light;font-size:20px; padding-top:20px; padding-bottom:20px; ">About</div>
+                      </div>
+                      <div class="row">
+                      <div class="col-md-12" style="padding-bottom:10px;border-bottom: 1px solid #ffffff;">
+                        <div style="font-size: 12px; color: black; opacity: .54;">LOGO</div>
+                          <div *ngIf="!corporation?.thumbnail">
+                            <img id="profilePic" src="https://3.bp.blogspot.com/-FI6eeNNTcy4/VPw04yX3_qI/AAAAAAAAAFk/vEocwQMf0-8/s1600/startup-512.png"
+                              style="width:100px; height: inherit;border-style: solid;border-color: white;border-radius: 4px;padding: 0px;"
+                            />
+                          </div>
+                          <div *ngIf="corporation?.thumbnail">
+                            <img id="profilePic" src="data:image/png;base64,{{corporation.thumbnail}}" alt="Business Profile" style="width: inherit;height: inherit;border-style: solid;border-color: white;border-radius: 4px;padding: 0px; margin-bottom:10px;"
+                            />
+                          </div>
+                        <div *ngIf="corporation?.summary" style="font-size: 10px; color: black; opacity: .38;">SUMMARY</div>
+                        <div *ngIf="corporation?.summary" style="font-family:DINPro-Light;font-size: 12px; color: black; opacity: .75;padding-bottom:10px;">{{corporation?.summary}}</div>
+                        <div *ngIf="corporation?.products" style="font-size: 10px; color: black; opacity: .38;">PRODUCTS</div>
+                        <div *ngIf="corporation?.products" style="font-family:DINPro-Light;font-size: 12px; color: black; opacity: .75;padding-bottom:10px;">{{corporation?.products}}</div>
+                        <div *ngIf="corporation?.competition" style="font-size: 10px; color: black; opacity: .38;">COMPETITION</div>
+                        <div *ngIf="corporation?.competition" style="font-family:DINPro-Light;font-size: 12px; color: black; opacity: .75;padding-bottom:10px;">{{corporation?.competition}}</div>
+                        <div *ngIf="corporation?.advantage" style="font-size: 10px; color: black; opacity: .38;">ADVANTAGE</div>
+                        <div *ngIf="corporation?.advantage" style="font-family:DINPro-Light;font-size: 12px; color: black; opacity: .75;padding-bottom:10px;">{{corporation?.advantage}}</div>
+                        <div *ngIf="corporation?.topInterests" style="font-size: 10px; color: black; opacity: .38;">TOP INTERESTS</div>
+                        <div *ngIf="corporation?.topInterests" style="font-family:DINPro-Light;font-size: 12px; color: black; opacity: .75;padding-bottom:10px;">{{corporation?.topInterests}}</div>
+                        <div *ngIf="corporation?.incentive" style="font-size: 10px; color: black; opacity: .38;">INCENTIVE</div>
+                        <div *ngIf="corporation?.incentive" style="font-family:DINPro-Light;font-size: 12px; color: black; opacity: .75;padding-bottom:10px;">{{corporation?.incentive}}</div>
+                        <div *ngIf="corporation?.pilotsAndInnovation" style="font-size: 10px; color: black; opacity: .38;">PILOTS AND INNOVATION</div>
+                        <div *ngIf="corporation?.pilotsAndInnovation" style="font-family:DINPro-Light;font-size: 12px; color: black; opacity: .75;padding-bottom:10px;">{{corporation?.pilotsAndInnovation}}</div>
+                        <div *ngIf="corporation?.pressReleases" style="font-size: 10px; color: black; opacity: .38;">PRESS RELEASES</div>
+                        <div *ngIf="corporation?.pressReleases" style="font-family:DINPro-Light;font-size: 12px; color: black; opacity: .75;padding-bottom:10px;">
+                          <a style="color: #343434" href="{{corporation.pressReleases}}" target="_blank">{{corporation?.pressReleases}}</a>
+                        </div>
+                        <div *ngIf="corporation?.updated" style="font-size: 10px; color: black; opacity: .38;">LAST UPDATED</div>
+                        <div *ngIf="corporation?.updated" style="font-family:DINPro-Light;font-size: 12px; color: black; opacity: .75;padding-bottom:10px;">{{corporation?.updated}}</div>
+                        <div *ngIf="corporation?.howDidYouHear" style="font-size: 10px; color: black; opacity: .38;">HOW YOU INITIALLY HEARD ABOUT US</div>
+                        <div *ngIf="corporation?.howDidYouHear" style="font-family:DINPro-Light;font-size: 12px; color: black; opacity: .75;padding-bottom:10px;">{{corporation?.howDidYouHear}}</div>
+                        <div *ngIf="corporation?.intlBusinessOpp" style="font-size: 10px; color: black; opacity: .38;">INTERNATIONAL OFFICE BUSINESS OPPORTUNITIES</div>
+                        <div *ngIf="corporation?.intlBusinessOpp" style="font-family:DINPro-Light;font-size: 12px; color: black; opacity: .75;padding-bottom:10px;">{{corporation?.intlBusinessOpp}}</div>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-12" style="font-family:DINPro-Light;font-size:20px; padding-top:20px; padding-bottom:20px;">Quick Facts</div>
+                      </div>
+                      <div class="row">
+                      <div class="col-md-12">
+                        <div class="row">
+                        <div class="col-md-6">
+                          <div *ngIf="corporation?.revenue" style="font-size: 10px;margin-top:10px;font-size: 12px; color: #000000; opacity: .75;">CEO</div>
+                          <div *ngIf="corporation?.revenue" style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;border-bottom: 1px solid #dddddd;padding-bottom:10px;">{{corporation?.ceo}}</div>
+                          <div *ngIf="corporation?.champions" style="font-size: 10px;margin-top:10px;font-size: 12px; color: #000000; opacity: .75;">CHAMPIONS</div>
+                          <div *ngFor="let list of corporation?.champions" style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden">{{list.name}}</div>
+                          <div style="border-bottom: 1px solid #dddddd;padding-top:10px;"></div>
+                          <div *ngIf="corporation?.accountManagers" style="font-size: 10px;margin-top:10px;font-size: 12px; color: #000000; opacity: .75;">PRIMARY ACCOUNT MANAGER</div>
+                          <div *ngFor="let list of corporation?.accountManagers">
+                            <div *ngIf="corporation?.primaryAccountManager==list.id" style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;border-bottom: 1px solid #dddddd;padding-bottom:10px;">{{list.name}}</div>
+                          </div>
+                          <div *ngIf="corporation?.accountManagers" style="font-size: 10px;margin-top:10px;font-size: 12px; color: #000000; opacity: .75;">ACCOUNT MANAGERS</div>
+                          <div *ngFor="let list of corporation?.accountManagers">
+                            <div *ngIf="corporation?.primaryAccountManager!=list.id" style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;border-bottom: 1px solid #dddddd;padding-bottom:10px;">{{list.name}}</div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div *ngIf="corporation?.revenue" style="font-size: 10px;margin-top:10px;font-size: 12px; color: #000000; opacity: .75;">REVENUE</div>
+                          <div *ngIf="corporation?.revenue" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;border-bottom: 1px solid #dddddd;padding-bottom:10px;">{{corporation?.revenue}}</div>
+                          <div *ngIf="corporation?.membership" style="font-size: 10px;margin-top:10px;font-size: 12px; color: #000000; opacity: .75;">MEMBERSHIP</div>
+                          <div *ngIf="corporation?.membership" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;border-bottom: 1px solid #dddddd;padding-bottom:10px;">{{corporation?.membership}}</div>
+                          <div *ngIf="corporation?.markets" style="font-size: 10px;margin-top:10px;font-size: 12px; color: #000000; opacity: .75;">MARKETS</div>
+                          <div *ngIf="corporation?.markets" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;;color:#3c3c3c;overflow:hidden;border-bottom: 1px solid #dddddd;padding-bottom:10px;">{{corporation.markets}}</div>
+                          <div *ngIf="corporation?.type" style="font-size: 10px;margin-top:10px;font-size: 12px; color: #000000; opacity: .75;">TYPE</div>
+                          <div *ngIf="corporation?.type" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;border-bottom: 1px solid #dddddd;padding-bottom:10px;">{{corporation?.type}}</div>
+                          <div *ngIf="corporation?.tags" style="font-size: 10px;margin-top:10px;font-size: 12px; color: #000000; opacity: .75;">TAGS</div>
+                          <div *ngIf="corporation?.tags" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;border-bottom: 1px solid #dddddd;padding-bottom:10px;">{{corporation.tags}}</div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                      </div>
+                   </div>
+                  </div>
+                <!--col-md-8-->
+              </div>
+            </mat-tab>
+            <mat-tab label="Ratings">
+              <div class="row">
+                <div class="col-md-12" style="padding-top:5px;">
+                <div class="row">
+                    <div class="col-md-12" style="padding-bottom:10px;">                          
+                        <div style="display:inline;font-family:DINPro-Light;color:black;font-weight:bold;font-size:40px;padding-bottom:15px;padding-top:15px;">{{corporation?.companyName}}</div> 
+                        <div *ngIf="role=='admin' || role=='venture'"  style="display:inline-block;">
+                          <a class="deleteStartup" href="javascript:void(0)" (click)="deleteStartup(obj)">
+                          <span title="Delete corporation"><i style="padding-left:5px;padding-top:3px;color:black" class="fa fa-trash-o" aria-hidden="true"></i></span>
+                          </a>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row" style="padding-bottom:10px">
+                    <div class="col-md-3" style="font-family:DINPro-Light;">
+                        <div *ngIf="corporation?.founded" style="font-size: 12px; color:#343434;">Founded: {{corporation.founded}}</div>
+                        <div *ngIf="corporation?.website" style="display:block;"> 
+                        <div class="fa fa-external-link" *ngIf="corporation?.website" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                        <div *ngIf="corporation?.website" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
+                          <a style="color: #343434" href="{{corporation.website}}" target="_blank">{{corporation.website}}</a>
+                        </div>
+                        </div>
+                        <div class="fa fa-globe" *ngIf="corporation?.headquarters" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                        <div *ngIf="corporation?.headquarters" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{corporation?.headquarters}}</div>
+                    </div>
+                    <div class="col-md-3">
+                      <div *ngIf="(role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(corporation?.pnpOffice))) || (currentUser?.role=='startup' && currentUser?.ref_id == id)" class="col-md-12" style="padding:0px;margin:0px;width:auto;display:inline-block;">
+                        <div *ngIf="corporation?.champions" style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">CORPORATION CONTACT</div>
+                        <div *ngIf="corporation?.champions" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{corporation?.champions}}</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6" *ngIf="role=='admin' || role=='venture'" >
+                      <div class="row">
+                        <div class="col-md-3" style="display:inline-block; padding:0;">
+                          <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">TOP 20</div>
+                          <div *ngFor="let list of corporation?.top20lists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                        </div>
+                        <div class="col-md-3" style="display:inline-block; padding:0;">
+                          <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">TOP 100</div>
+                          <div *ngFor="let list of corporation?.top100lists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                        </div>
+                        <div class="col-md-3" style="display:inline-block; padding:0;">
+                          <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">DEALFLOW</div>
+                          <div *ngFor="let list of corporation?.dealflowlists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                        </div>
+                        <div class="col-md-3" style="display:inline-block; padding:0;">
+                          <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">BATCH</div>
+                          <div *ngFor="let list of corporation?.batchlists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Engagements">
+                <div class="row">
+                    <div class="col-md-12" style="padding-top:5px;">
+                    <div class="row">
+                        <div class="col-md-12" style="padding-bottom:10px;">                          
+                            <div style="display:inline;font-family:DINPro-Light;color:black;font-weight:bold;font-size:40px;padding-bottom:15px;padding-top:15px;">{{corporation?.companyName}}</div> 
+                            <div *ngIf="role=='admin' || role=='venture'"  style="display:inline-block;">
+                              <a class="deleteStartup" href="javascript:void(0)" (click)="deleteStartup(obj)">
+                              <span title="Delete corporation"><i style="padding-left:5px;padding-top:3px;color:black" class="fa fa-trash-o" aria-hidden="true"></i></span>
+                              </a>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row" style="padding-bottom:10px">
+                        <div class="col-md-3" style="font-family:DINPro-Light;">
+                            <div *ngIf="corporation?.founded" style="font-size: 12px; color:#343434;">Founded: {{corporation.founded}}</div>
+                            <div *ngIf="corporation?.website" style="display:block;"> 
+                            <div class="fa fa-external-link" *ngIf="corporation?.website" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                            <div *ngIf="corporation?.website" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
+                              <a style="color: #343434" href="{{corporation.website}}" target="_blank">{{corporation.website}}</a>
+                            </div>
+                            </div>
+                            <div class="fa fa-globe" *ngIf="corporation?.headquarters" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                            <div *ngIf="corporation?.headquarters" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{corporation?.headquarters}}</div>
+                        </div>
+                        <div class="col-md-3">
+                          <div *ngIf="(role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(corporation?.pnpOffice))) || (currentUser?.role=='startup' && currentUser?.ref_id == id)" class="col-md-12" style="padding:0px;margin:0px;width:auto;display:inline-block;">
+                            <div *ngIf="corporation?.champions" style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">CORPORATION CONTACT</div>
+                            <div *ngIf="corporation?.champions" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{corporation?.champions}}</div>
+                          </div>
+                        </div>
+                        <div class="col-md-6" *ngIf="role=='admin' || role=='venture'" >
+                          <div class="row">
+                            <div class="col-md-3" style="display:inline-block; padding:0;">
+                              <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">TOP 20</div>
+                              <div *ngFor="let list of corporation?.top20lists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                            </div>
+                            <div class="col-md-3" style="display:inline-block; padding:0;">
+                              <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">TOP 100</div>
+                              <div *ngFor="let list of corporation?.top100lists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                            </div>
+                            <div class="col-md-3" style="display:inline-block; padding:0;">
+                              <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">DEALFLOW</div>
+                              <div *ngFor="let list of corporation?.dealflowlists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                            </div>
+                            <div class="col-md-3" style="display:inline-block; padding:0;">
+                              <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">BATCH</div>
+                              <div *ngFor="let list of corporation?.batchlists" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+            </mat-tab>
+          </mat-tab-group>
+      </div>
+    </div>
+    </nb-card-body>
+  </nb-card>
+  
+    <!--          <div class="col-md-12" id="tabs">
+                  <ul>
+                    <li style="width:68px;"><img id="triangle" src="/tourmee/img/profile/triangle.png"/><a href="#tourbuzz">Tourbuzz</a></li>
+                    <li style="width:27px;"><img id="triangle" src="/tourmee/img/profile/triangle.png"/><a href="#info">Info</a></li>
+                    <li style="width:40px;"><img id="triangle" src="/tourmee/img/profile/triangle.png"/><a href="#menu">Menu</a></li>
+                    <li style="width:50px;"><img id="triangle" src="/tourmee/img/profile/triangle.png"/><a href="#photos">Photos</a></li>
+                    <li style="width:89px;"><img id="triangle" src="/tourmee/img/profile/triangle.png"/><a href="#experiences">Experiences</a></li>
+                    <li style="width:34px;border-right-style:solid;border-right-width:1px;border-right-color:#8a8a8a;"><img id="triangle" src="/tourmee/img/profile/triangle.png"/><a href="#fans">Fans</a></li>
+                  </ul>
+                </div>-->
+  <nb-card *ngIf="!(currentUser?.ref_id == '0' || (currentUser?.role=='startup' && currentUser?.ref_id == id))">
+    <nb-card-header ng-show="pageload">Not authorized</nb-card-header>
+  </nb-card>
+  
+  

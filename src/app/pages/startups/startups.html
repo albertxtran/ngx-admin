@@ -8,6 +8,11 @@
           <button type="button" class="btn btn-default btn-raised" style="float:left;">Dealflow Page</button>
         </div>
       </a>
+      <a [routerLink]="['/pages/editdealflow']" [queryParams]="{dealflowname: 'test 2222-02-22'}">
+        <div class="button-wrapper">
+          <button type="button" class="btn btn-default btn-raised" style="float:left;">Edit Dealflow</button>
+        </div>
+      </a>
       <div class="form-group"  style="background-color: white;"> 
         <input #input type="text" [hidden]="filters?.length > 0" (keyup.enter)="luceneSearch($event)" class="form-control form-control-rounded" id="input03" placeholder="Search for...">
       </div>
