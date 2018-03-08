@@ -24,6 +24,7 @@ export class PortfolioComponent implements OnInit {
   public loading: boolean;
   role: Observable<any>;
   currentUser: any;
+  p: number = 1;
 
   constructor(private _portfolioService: PortfolioService, private router: Router) { // private _menuService: BaMenuService
     this.currentUser = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!').toString(CryptoJS.enc.Utf8));
@@ -73,31 +74,6 @@ export class PortfolioComponent implements OnInit {
   }*/
 
 }
-
-    
-
-@Pipe({
-  name: 'searchPipe',
-  pure: false
-})
-export class SearchPipe implements PipeTransform {
-  transform(data: any[], searchTerm: string): any[] {
-      searchTerm = searchTerm.toUpperCase();
-      return data.filter(item => {
-        return item.toUpperCase().indexOf(searchTerm) !== -1 
-      });
-  }
-}
-
-@Pipe({
-    name: 'searchFilter'
-})
-
-export class PipeFilter implements PipeTransform {
-    transform(items: any[], term: any[]): any {
-        return items.filter(item => item.companyName.indexOf(term[0]) !== -1);
-    }
-}   
 
 @Pipe({
 	name: "smArraySearch"

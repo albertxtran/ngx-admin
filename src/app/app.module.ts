@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LoginModule } from './@auth/login/login.module'
+import { LoginModule } from './@auth/login/login.module';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { CustomOption } from './bottom-center';
 import { ToastOptions } from 'ng2-toastr';

@@ -66,7 +66,7 @@ export class StartupsComponent implements OnInit {
   filteron: boolean = false;
   searchAttempt: boolean = false;
   filterForm: FormGroup;
-  role: Observable<any>;
+  role: any;
   deleteon: boolean = false;
   currentUser: any;
   sub: any;

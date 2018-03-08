@@ -5,6 +5,8 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StartupsComponent } from './startups/startups.component';
 import * as CryptoJS from 'crypto-js';
+import { AdminGuard } from './_routes/admin-guard.service'
+
 
 const routes: Routes = [{
   path: '',
@@ -17,6 +19,7 @@ const routes: Routes = [{
     loadChildren: './settings/settings.module#SettingsModule',
   },{
     path: 'admin',
+    canActivate: [AdminGuard],
     loadChildren: './admin/admin.module#AdminModule',
   },{
     path: 'startups',
