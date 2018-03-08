@@ -9,7 +9,6 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as CryptoJS from 'crypto-js';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/toPromise';
-import { NbSpinnerService } from '@nebular/theme';
 
 import { DealflowPageService } from './dealflowpage.service';
 
@@ -81,8 +80,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   currentUser: any;
   
 
-constructor(private spinnerService: NbSpinnerService, private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
-      spinnerService.clear();
+constructor(private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
       this.currentUser = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!').toString(CryptoJS.enc.Utf8))
       // VERY IMPORTANT these methods will update the menu and routes dependent on the user role
       // this._menuService.updateMenuByRoutes(this._menuService.getPageMenu(this.currentUser));

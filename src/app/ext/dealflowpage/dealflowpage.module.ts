@@ -11,7 +11,7 @@ import { ToasterService } from '../../@theme/providers/toaster.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../../@auth/authentication.service';
 
 
 @NgModule({

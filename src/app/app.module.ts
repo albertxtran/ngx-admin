@@ -19,7 +19,6 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { CustomOption } from './bottom-center';
 import { ToastOptions } from 'ng2-toastr';
 import { AuthGuard } from './@auth/auth-guard.service';
-import {DealflowPageModule} from './@auth/dealflowpage/dealflowpage.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +28,6 @@ import {DealflowPageModule} from './@auth/dealflowpage/dealflowpage.module';
     HttpClientModule,
     AppRoutingModule,
     LoginModule,
-    DealflowPageModule,
 
     ToastModule.forRoot(),
     NgbModule.forRoot(),

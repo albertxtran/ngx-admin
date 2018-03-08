@@ -61,7 +61,7 @@
                         </div>
                       </div>
                       
-                      <div *ngIf="role=='operations' || role=='global'" class="col-md-3" style="padding:0px;margin:0px;float:right;">
+                      <!-- <div *ngIf="role=='operations' || role=='global'" class="col-md-3" style="padding:0px;margin:0px;float:right;z-index:100;">
                         <div class="col-md-12" style="float:left;">
                           <div *ngIf="creatingpdf" class="loader">Loading...</div>
                           <div *ngIf="!creatingpdf" class="button-wrapper">
@@ -77,7 +77,7 @@
                             </a>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                   </div>
                 </div>
               </div>
@@ -130,7 +130,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4" style="padding:0px;margin:0px;">
+                  <div class="col-md-4" style="padding:0px;margin:0px;z-index:100;">
                     <div *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))"
                       class="col-md-12" style="float:left;">
                       <div *ngIf="creatingpdf" class="loader">Loading...</div>
