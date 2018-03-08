@@ -1,0 +1,87 @@
+<div class="widgets">
+
+  <div class="row">
+    <div class="col-md-12">
+
+    <ba-card title="{{listname}} Top 20" baCardClass="with-scroll"> <!--<ba-card title="{{listname}}" baCardClass="with-scroll">-->              
+        <div class="row show-grid">
+          <div class="col-md-6">
+          <div class="form-group">
+            <input #input type="text" class="form-control form-control-rounded" id="input03" placeholder="Search for...">
+          </div>
+          </div>
+          <div class="col-md-2">
+                <div *ngIf="creatingdealflow" class="loader">Loading...</div>
+                <div *ngIf="!creatingdealflow" class="button-wrapper">
+                  <button (click)="this.creatingdealflow=true;dealflow()" type="button" id="exportdealflow" class="btn btn-default btn-raised" style="float:right;">Dealflow</button>
+                </div>
+          </div>
+          <div class="col-md-2">
+                <div *ngIf="creatingpdf" class="loader">Loading...</div>
+                <div *ngIf="!creatingpdf" class="button-wrapper">
+                  <button (click)="this.creatingpdf=true;exportToPDF()" type="button" id="exportpdf" class="btn btn-default btn-raised" style="float:right;">Export to PDF</button>
+                </div>
+          </div>
+          <div class="col-md-2">
+                <div *ngIf="creatingcsv" class="loader">Loading...</div>
+                <div *ngIf="!creatingcsv" class="button-wrapper">
+                  <button (click)="this.creatingcsv=true;exportToCSV()" type="button" id="exportcsv" class="btn btn-default btn-raised" style="float:right;">Export to CSV</button>
+                </div>
+          </div>
+          <div *ngIf="!loading && !error">
+          
+          <div class="col-md-12" style="padding-top:15px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);" *ngFor="let obj of companies | smArraySearch: input.value">
+            <div [ngStyle]="overlay">
+            <div class="col-md-1" style="padding-left:0px;"><!--<h1>{{obj?.top20.order}}</h1>-->
+             <div *ngFor="let list of obj.top20">
+                <div *ngIf="list.listName == listname" >
+                  <input style="background:transparent;border:none;font-size: 32px;color: inherit;display:block; width:100%"  type="number" #position min="1" max="{{companies?.length}}" value="{{list?.order}}" (keyup.enter)="changePosition(position.value, obj?.id,list.order)"> <!--(focusout)="changePosition(position.value)"-->
+                </div>
+             </div>
+            </div>
+            <div class="col-md-5" style="padding-left:0px;">
+              <a [routerLink]="['/pages/company', obj.id]">
+              <div style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{obj.companyName}} <p *ngIf="obj?.portfolio" style="font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;display: inline;font-size: 12px;padding-left: 10px;color: goldenrod;text-shadow: 0px 0px 0px #ffffff;font-weight: 400;">PORTFOLIO COMPANY</p></div>
+              
+              </a>
+              <div *ngIf="obj?.blurb" style="font-size: 11px; color: #000000; opacity: .54;">{{obj.blurb}}</div>
+              <div *ngIf="obj?.website" style="overflow-wrap: break-word;font-size: 10px"><a style="color: #24a2ff" href="{{obj.website}}" target="_blank">{{obj.website}}</a></div>
+              <div *ngIf="obj?.city" style="font-size: 13px; color: #000000; opacity: .38; font-weight: 400">{{obj.city}}</div>
+              <div *ngIf="obj?.location" style="font-size: 12px; color: #000000; opacity: .38;">{{obj.location}}</div>
+            </div>
+            <div class="col-md-3">
+              <div *ngIf="obj?.verticals" style="font-size: 10px; color: #000000; opacity: .38;">Verticals:</div>
+              <div *ngIf="obj?.verticals" style="font-size: 12px; color: #000000; opacity: .54;">{{obj.verticals}}</div>
+              <div *ngIf="obj?.tags" style="font-size: 10px; color: #000000; opacity: .38;">Tags:</div>
+              <div *ngIf="obj?.tags" style="font-size: 12px; color: #000000; opacity: .54;">{{obj.tags}}</div>
+            </div>
+            <div class="col-md-3" *ngIf="(currentUser?.role=='admin' || currentUser?.role=='venture' || (currentUser?.role=='global' && currentUser?.pnpOffice.includes(obj?.pnpOffice)))">
+              <div *ngIf="obj?.top20"><a class="top20" href="javascript:void(0)" (click)="removeTop20(obj.id)" style="z-index: 100;cursor:  pointer;position: relative;"><span title="Remove from Top 20"><i aria-hidden="true" class="fa fa-times"></i></span></a></div>
+              <div *ngIf="obj?.pnpContact" style="font-size: 10px; color: #000000; opacity: .38;">Account Manager:</div>
+              <div *ngIf="obj?.pnpContact" style="font-size: 12px; color: #000000; opacity: .54;">{{obj.pnpContact}}</div>
+              <div *ngIf="obj?.contactName" style="font-size: 10px; color: #000000; opacity: .38;">Primary Contact:</div>
+              <div *ngIf="obj?.contactName" style="font-size: 12px; color: #000000; opacity: .54;">{{obj.contactName}}</div> 
+              <div *ngIf="obj?.email" style="font-size: 10px; color: #000000; opacity: .38;">Email:</div>
+              <div *ngIf="obj?.email" style="font-size: 12px; color: #000000; opacity: .54;">{{obj.email}}</div>
+            </div>
+            </div>
+          </div>
+          </div>
+          <div *ngIf="loading" style="margin: 0 auto;width: 100px;padding-top:70px;">
+            <div class="playbook-loader"></div>
+          </div>
+          <div *ngIf="error"  style="margin-left: 15px; margin-top:15px;width: 500px;">
+            <p>Could not find any {{listname}} Top 20 ventures.</p>
+          </div>
+        </div>
+
+      <!--  <div *ngFor='#key of StartupsData'>
+          <h3>{{dataObject[key].id}}</h3>
+          <p>{{dataObject[key].companyName}}</p>
+        </div>-->
+
+      </ba-card>
+    </div>
+  </div>
+
+</div>

@@ -27,4 +27,9 @@ export const ADMIN_ITEMS: NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dealflowlists',
   },
+  {
+    title: 'Top 20',
+    icon: 'nb-home',
+    link: '/pages/top20lists',
+  },
 ];
