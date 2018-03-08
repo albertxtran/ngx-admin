@@ -49,6 +49,9 @@ const routes: Routes = [{
     path: 'editcompany',
     loadChildren: './editcompany/editcompany.module#EditCompanyModule',
   },{
+    path: 'editcorporation',
+    loadChildren: './editcorporation/editcorporation.module#EditCorporationModule',
+  },{
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {
