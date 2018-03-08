@@ -51,7 +51,7 @@
           <input type="hidden" class="form-control" id="venture_associate_id" formControlName="venture_associate_id"/> 
         <label>Please enter any additional Supporting Members</label>
         <div formArrayName="supportingMembers">
-          <div *ngFor="let supportingMember of editDealflow.controls.supportingMembers.controls; let i=index" class="panel panel-default">
+          <div *ngFor="let supportingMember of editDealflow['controls'].supportingMembers['controls']; let i=index" class="panel panel-default">
             <div class="panel-body" [formGroupName]="i">
               <supportingMember [group]="editDealflow.controls.supportingMembers.controls[i]"></supportingMember>
             </div>
@@ -61,7 +61,7 @@
       <div class="form-group">
         <label>Please enter any additional Attendees</label>
         <div formArrayName="attendees">
-          <div *ngFor="let attendee of editDealflow.controls.attendees.controls; let i=index" class="panel panel-default">
+          <div *ngFor="let attendee of editDealflow['controls'].attendees['controls']; let i=index" class="panel panel-default">
             <div class="panel-body" [formGroupName]="i">
               <span style="font-size:.8em">Attendee {{i + 1}}</span>
               <a *ngIf="editDealflow.controls.attendees.controls.length > 1" (click)="removeAttendee(i)" style="cursor: pointer; float:right"><i class="fa fa-times" aria-hidden="true"></i></a>

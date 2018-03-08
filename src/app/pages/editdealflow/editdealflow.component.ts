@@ -169,7 +169,7 @@ removeSupportingMember(i: number) {
 }
 
 
-save(model: EditDealflow) {
+save(model: FormGroup) {
     //if(model["value"].supportingMembers[0].supporting_member1 != null)
     model["value"].api_key = this.currentUser.api_key;
     this.tmp = model["value"].event_date.split("-");

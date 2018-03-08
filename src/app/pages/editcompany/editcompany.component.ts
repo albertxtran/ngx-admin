@@ -19,8 +19,8 @@ const URL = '/rest/plugandplay/api/v1/ventures/logo';
 export class EditCompanyComponent implements OnInit, OnDestroy {
   id: number;
   private sub: any;
-  company: Object;
-  formData: Object;
+  company: any;
+  formData: any;
   top100: Object;
   top20: Object;
   lists: any[];
@@ -32,7 +32,7 @@ export class EditCompanyComponent implements OnInit, OnDestroy {
   submitAttempt = false;
   public uploader:FileUploader = new FileUploader({url: URL});
   currentUser: any;
-  role: Observable<any>;
+  role: any;
   
 
 constructor(private route: ActivatedRoute, private _companyService: EditCompanyService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {

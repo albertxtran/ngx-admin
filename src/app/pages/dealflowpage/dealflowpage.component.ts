@@ -76,7 +76,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   public loading20: boolean;
   public creatingpdf: boolean;
   public pageload: boolean = false;
-  role: Observable<any>;
+  role: string;
   currentUser: any;
   
 
