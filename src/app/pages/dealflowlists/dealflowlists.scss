@@ -1,46 +1,46 @@
 //@import '../../theme/sass/conf/conf';
 
-.grid-h{
-  margin-top: 40px;
-  margin-bottom: 0;
-  &:first-child{
-    margin-top: 0;
-  }
-}
+// .grid-h{
+//   margin-top: 40px;
+//   margin-bottom: 0;
+//   &:first-child{
+//     margin-top: 0;
+//   }
+// }
 
-.dealflow {
-    z-index: 1000;
-    position: relative;
-    float:right;
-    font-size: 24px;
-    color: white;
-    text-shadow: 1px 1px 1px #ffffff;
-}
-.dealflow:hover {	
-	color: lightgray;
-  cursor:pointer
-}
-.dealflow:active {
-	position:relative;
-	top:1px;
-}
+// .dealflow {
+//     z-index: 1000;
+//     position: relative;
+//     float:right;
+//     font-size: 24px;
+//     color: white;
+//     text-shadow: 1px 1px 1px #ffffff;
+// }
+// .dealflow:hover {	
+// 	color: lightgray;
+//   cursor:pointer
+// }
+// .dealflow:active {
+// 	position:relative;
+// 	top:1px;
+// }
 
-.spinner {
-  border: 5px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 5px solid #555;
-  width: 50px;
-  height: 50px;
-  -webkit-animation: spin 1s linear infinite;
-  animation: spin 1s linear infinite;
-}
+// .spinner {
+//   border: 5px solid #f3f3f3;
+//   border-radius: 50%;
+//   border-top: 5px solid #555;
+//   width: 50px;
+//   height: 50px;
+//   -webkit-animation: spin 1s linear infinite;
+//   animation: spin 1s linear infinite;
+// }
 
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
+// @-webkit-keyframes spin {
+//   0% { -webkit-transform: rotate(0deg); }
+//   100% { -webkit-transform: rotate(360deg); }
+// }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+// @keyframes spin {
+//   0% { transform: rotate(0deg); }
+//   100% { transform: rotate(360deg); }
+// }

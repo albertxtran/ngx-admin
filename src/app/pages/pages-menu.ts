@@ -23,6 +23,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/portfolio',
   },
   {
+    title: 'Dealflows',
+    icon: 'nb-home',
+    link: '/pages/dealflowlists',
+  },
+  {
     title: 'FEATURES',
     group: true,
   },
