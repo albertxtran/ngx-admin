@@ -18,6 +18,10 @@ const routes: Routes = [
     canActivate: [AuthGuard], // here we tell Angular to check the access with our AuthGuard
     loadChildren: 'app/pages/pages.module#PagesModule' 
   },
+  { 
+    path: 'ext', 
+    loadChildren: 'app/ext/dealflowpage/dealflowpage.module#DealflowPageModule',
+  },
   {
     path: 'auth',
     component: NbAuthComponent,

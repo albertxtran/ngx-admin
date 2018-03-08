@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="col-md-12" style="padding: 0;">
-      <form [formGroup]="filterForm" (ngSubmit)="filterSearch(filterForm)">
+      <form [formGroup]="filterForm" (ngSubmit)="filterSearch()">
         <div class="row show-grid">
           <div class="col-md-3" style="margin-top:5px;margin-bottom:5px;" *ngFor="let filter of filters;">
             <div class="col-md-12" style="padding-left:0px;padding-right:2px;"> 
@@ -42,19 +42,19 @@
       </div>
       <div class="col-md-12" style="padding: 0;">
 
-      <div *ngIf="(role=='admin' || role=='venture' || role=='global') && dealflowname == 0" class="col-md-6" style="padding:0px;">
+      <div *ngIf="(role=='admin' || role=='venture' || role=='global') && dealflowname == '0'" class="col-md-6" style="padding:0px;">
           <div class="button-wrapper">
             <a [routerLink]="['/pages/newstartup']">
             <button type="button" id="exportpdf" class="btn btn-default btn-raised">New Startup</button>
             </a>
           </div>
       </div>
-      <div *ngIf="dealflowname != 0 && !permission" style="padding-top:10px;padding-bottom:5px;">                   
+      <div *ngIf="dealflowname != '0' && !permission" style="padding-top:10px;padding-bottom:5px;">                   
           <h2 style="color: red;">
             You do not have permission to add startups to this dealflow
           </h2>
       </div>
-      <div *ngIf="dealflowname != 0 && permission" style="padding-top:10px;padding-bottom:5px;">                   
+      <div *ngIf="dealflowname != '0' && permission" style="padding-top:10px;padding-bottom:5px;">                   
           <h2>
             Add Startups to {{dealflowname}} Dealflow
           </h2>

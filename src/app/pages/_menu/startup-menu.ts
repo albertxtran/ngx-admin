@@ -1,6 +1,6 @@
 import { NbMenuItem } from '@nebular/theme';
 
-export const STARTUPS_ITEMS: NbMenuItem[] = [
+export const STARTUP_ITEMS: NbMenuItem[] = [
   {
     title: 'Dashboard',
     icon: 'nb-home',

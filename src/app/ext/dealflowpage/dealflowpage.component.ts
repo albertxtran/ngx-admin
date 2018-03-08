@@ -87,7 +87,7 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
       // this.router.resetConfig(this._menuService.getAuthRoutes(this.currentUser));
       this.role = this.currentUser.role;
       this._dealflowPageService = _dealflowPageService; 
-      this._toasterService.toastr.setRootViewContainerRef(vcr);    
+      this._toasterService.toastr.setRootViewContainerRef(vcr);  
       pdfMake.vfs = pdfFonts.pdfMake.vfs;   
 
       this.sub = this.route

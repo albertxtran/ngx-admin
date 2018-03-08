@@ -4,6 +4,9 @@ import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
+import { AdminGuard } from './_routes/admin-guard.service';
+import { GuardService } from './_routes/guard.service';
+
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -18,6 +21,10 @@ const PAGES_COMPONENTS = [
   declarations: [
     ...PAGES_COMPONENTS,
   ],
+  providers: [ 
+    GuardService,
+    AdminGuard 
+  ], 
 })
 export class PagesModule {
 }
