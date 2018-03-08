@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef, OnInit, ViewEncapsulation, OnDestroy, ViewContainerRef } from '@angular/core';
-import { Pipe, PipeTransform } from '@angular/core'
+import { Pipe, PipeTransform } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { ToasterService } from '../../@theme/providers/toaster.service';
@@ -317,6 +317,17 @@ removeDealflow(id:Number, dealflowname:String) {
         }
 
       }
+    }
+  );
+}
+
+selectPriority(id:Number, dealflow_name: String, priority: String) {
+  console.log("accept "+id + " dealflowName: " + dealflow_name);
+  this._dealflowPageService.selectPriority(id,dealflow_name,priority).subscribe(data => this.dealflowstartup = data,
+  error => {
+    this._toasterService.showError("Could not select Priority!", "Error", 4000)}, 
+    () =>{
+      this._toasterService.showSuccess("SUCCESS","You've selected a priority.",4000);
     }
   );
 }

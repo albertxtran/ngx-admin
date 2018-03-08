@@ -20,7 +20,12 @@ const routes: Routes = [
   },
   { 
     path: 'ext', 
-    loadChildren: 'app/ext/dealflowpage/dealflowpage.module#DealflowPageModule',
+    children:[
+      {
+        path:'dealflowpage',
+        loadChildren: 'app/ext/dealflowpage/dealflowpage.module#DealflowPageModule',
+      },
+    ]
   },
   {
     path: 'auth',

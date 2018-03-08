@@ -89,7 +89,8 @@ export class StartupsComponent implements OnInit {
       
   }
 
-  ngOnInit(){
+ 
+ngOnInit(){
     this.sub = this.route
       .queryParams
       .subscribe(params => {
@@ -100,7 +101,7 @@ export class StartupsComponent implements OnInit {
         this._startupService.getDealflowbyName(this.dealflowname).map(res => {
             // If request fails, throw an Error that will be caught
             if(res.status == 204) {
-                this._toasterService.showError("Problem with getting dealflow.", "", 4000); 
+              this._toasterService.showError("Problem with getting dealflow.", "", 4000); 
             }
             // If everything went fine, return the response
             else {       
@@ -284,9 +285,9 @@ export class StartupsComponent implements OnInit {
 
   addDealflow(id:Number,listName:String) {
     console.log("Add "+id+ " to Dealflow list "+listName);
-    this.loading = true;
+    //this.loading = true;
     //this.error = false;
-    this._startupService.addToDealflow(id,listName).map(res => {
+    this._startupService.addToDealflow(id,listName,this.currentUser.api_key).map(res => {
       // If request fails, throw an Error that will be caught
       if(res.status == 204) {
         this.loading = false;
@@ -308,7 +309,7 @@ export class StartupsComponent implements OnInit {
         var obj:TopLists = {};
         obj.listName = listName;
         obj.id = id;
-        this.dealflowExclude.push(obj);
+        //this.dealflowExclude.push(obj);
         return res.json();
         
       }
@@ -794,4 +795,57 @@ export class StartupsComponent implements OnInit {
           () => {}
       )
   }
+}
+
+    
+
+@Pipe({
+  name: 'searchPipe',
+  pure: false
+})
+export class SearchPipe implements PipeTransform {
+  transform(data: any[], searchTerm: string): any[] {
+      searchTerm = searchTerm.toUpperCase();
+      return data.filter(item => {
+        return item.toUpperCase().indexOf(searchTerm) !== -1 
+      });
+  }
+}
+
+@Pipe({
+    name: 'searchFilter'
+})
+
+export class PipeFilter implements PipeTransform {
+    transform(items: any[], term: any[]): any {
+        return items.filter(item => item.companyName.indexOf(term[0]) !== -1);
+    }
+}   
+
+@Pipe({
+	name: "smArraySearch"
+})
+export class SearchArrayPipe implements PipeTransform {
+	transform(list: Array<{}>, search: string): Array<{}> {
+		if (!list || !search) {
+			return list;
+		}
+
+		//return list.filter((item: { companyName: string}) => !!item.companyName.toLowerCase().match(new RegExp(search.toLowerCase()) ));
+    return list.filter((item: { companyName: string, blurb: string, verticals: string, website: string, pnpContact: string, contactName: string, email: string, stage: string, b2bb2c: string, location: string, city: string, tags: string}) => 
+    (!!item.companyName.toLowerCase().match(new RegExp(search.toLowerCase()))) || 
+    (!!item.blurb.toLowerCase().match(new RegExp(search.toLowerCase()))) ||
+    (!!item.verticals.toLowerCase().match(new RegExp(search.toLowerCase()))) ||
+    (!!item.website.toLowerCase().match(new RegExp(search.toLowerCase()))) ||
+    (!!item.pnpContact.toLowerCase().match(new RegExp(search.toLowerCase()))) ||
+    (!!item.contactName.toLowerCase().match(new RegExp(search.toLowerCase()))) ||
+    (!!item.email.toLowerCase().match(new RegExp(search.toLowerCase()))) ||
+    (!!item.stage.toLowerCase().match(new RegExp(search.toLowerCase()))) ||
+    (!!item.b2bb2c.toLowerCase().match(new RegExp(search.toLowerCase()))) ||
+    (!!item.location.toLowerCase().match(new RegExp(search.toLowerCase()))) ||
+    (!!item.city.toLowerCase().match(new RegExp(search.toLowerCase()))) ||
+    (!!item.tags.toLowerCase().match(new RegExp(search.toLowerCase())))
+    );
+    
+	}
 }
