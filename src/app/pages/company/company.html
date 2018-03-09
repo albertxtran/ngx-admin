@@ -85,9 +85,30 @@
                 <div class="col-md-12" style="border-top: 1px solid  #dddddd; padding-top:10px; padding-bottom:10px;"></div>
               </div>
               <div class="row">
-              <div *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))"
-              class="col-md-12" id="profileButtons" style="margin-left:0px;margin-right:0px;">
-                  <div class="row">
+              <div *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))" class="col-md-12" id="profileButtons" style="margin-left:0px;margin-right:0px;">
+                    <div class="col-md-12" style="z-index:100; padding-left:0px;">
+                      <div class="row">
+                        <div class="col-md-3" *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))">
+                          <div *ngIf="creatingpdf" class="loader">Loading...</div>
+                          <div *ngIf="!creatingpdf" class="button-wrapper">
+                            <button (click)="exportToPDF()" type="button" id="executivesummary" class="btn btn-default btn-raised" style="width:250px;">
+                              Executive Summary
+                            </button>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div *ngIf="company?.id && ((role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))) || (currentUser?.role=='startup' && currentUser?.ref_id == id))" style="float:left;">
+                            <a [routerLink]="['/pages/editcompany', company.id]">
+                              <button type="button" class="btn btn-default btn-raised" style="width:250px;">
+                                Edit Profile
+                              </button>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                
+                <div class="row">
                   <div class="col-md-4">
                     <div *ngIf="!loading">
                       <div class="row">
@@ -144,25 +165,6 @@
                       <div *ngIf="loading20" style="margin: 0 auto;width: 100px;">
                         <div class="playbook-loader"></div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4" style="z-index:100;">
-                    <div class="row">
-                    <div class="col-md-12" *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))">
-                      <div *ngIf="creatingpdf" class="loader">Loading...</div>
-                      <div *ngIf="!creatingpdf" class="button-wrapper">
-                        <button (click)="exportToPDF()" type="button" id="executivesummary" class="btn btn-default btn-raised" style="margin-top:20px;">
-                          Executive Summary
-                        </button>
-                      </div>
-                      <div *ngIf="company?.id && ((role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))) || (currentUser?.role=='startup' && currentUser?.ref_id == id))" style="float:left;">
-                        <a [routerLink]="['/pages/editcompany', company.id]">
-                          <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;">
-                            Edit Profile
-                          </button>
-                        </a>
-                      </div>
-                    </div>
                     </div>
                   </div>
                 </div>

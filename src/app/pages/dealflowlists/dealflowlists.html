@@ -3,49 +3,290 @@
   <div class="row">
     <div class="col-md-12" style="font-family:DINPro-Light">
         <nb-card>
-            <nb-card-body>
-      <div class="row show-grid"> 
-        <div class="col-md-4">
-          <div class="form-group">
-            <input #input type="text" class="form-control" id="input03" placeholder="Search for list...">
-          </div>
-        </div>
-        <div class="col-md-8">
-        <div class="input-group">
-          <input #dealflowlist type="text" class="form-control" placeholder="Create a new dealflow list!">
-          <span class="input-group-btn">
-              <button (click)="addDealflowList(dealflowlist.value);dealflowlist.value=''" style="background-color: #21cd98;border-color: #ffffff;"class="btn btn-danger" type="button">Add!</button>
-          </span>
-        </div>
-        </div>
-             
-       <div class="col-md-12">
-          <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
-            <div style="margin-left:5px; margin-right:5px;">
-            <div *ngIf="!loading && !error">
-            <div [ngStyle]="overlay">
-            <div style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
-                <a [routerLink]="['/pages/dealflowpage']" [queryParams]="{dealflowname: list.dealflow_Name}">
-                  <div class="col-md-10" style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif;">{{list.dealflow_Name}}</div>
-               </a>
-               <div class="col-md-2">
-                  <i class="fa fa-archive" (click)="archiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;padding-left: 10px;font-size: 18px;"></i>
-               </div>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input #input type="text" class="form-control" id="input03" placeholder="Search for list...">
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="input-group">
+                  <input #dealflowlist type="text" class="form-control" placeholder="Create a new dealflow list!">
+                  <span class="input-group-btn">
+                      <button (click)="addDealflowList(dealflowlist.value);dealflowlist.value=''" style="background-color: #21cd98;border-color: #ffffff;"class="btn btn-danger" type="button">Add!</button>
+                  </span>
+                </div>
+              </div>
             </div>
+          </nb-card-body>
+        </nb-card>
+            
+        <nb-card>
+          <nb-card-header>Submitted</nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+                <div style="margin-left:5px; margin-right:5px;">
+                <div *ngIf="!loading && !error">
+                <div [ngStyle]="overlay">
+                <div *ngIf="list.dealflow_State == 'Submitted'" style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <a [routerLink]="['/pages/dealflowpage']" [queryParams]="{dealflowname: list.dealflow_Name}">
+                        <div style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family:DINPro-Light;font-weight:bold;">{{list.dealflow_Name}}</div>
+                      </a>
+                    </div>
+                    <div class="col-md-2">
+                      <i class="fa fa-archive" (click)="archiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;margin-right:10px;font-size: 18px;"></i>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                </div> 
+                </div>
+              </div>
+              <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+                <div class="spinner"></div>
+              </div>
+              <!-- <div *ngIf="error || list?.dealflow_State != 'Submitted'" style="margin: 0 auto;width: 450px;">
+                <p>Could not find any submitted Dealflow lists.</p>
+              </div> -->
             </div>
-            </div> 
+          </nb-card-body>
+        </nb-card>
+        <nb-card>
+          <nb-card-header>Review</nb-card-header>
+          <nb-card-body>
+            <div class="col-md-row">
+              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+                <div style="margin-left:5px; margin-right:5px;">
+                <div *ngIf="!loading && !error">
+                <div [ngStyle]="overlay">
+                  <div *ngIf="list.dealflow_State == 'Review'" style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <a [routerLink]="['/pages/dealflowpage']" [queryParams]="{dealflowname: list.dealflow_Name}">
+                          <div style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family:DINPro-Light;font-weight:bold;">{{list.dealflow_Name}}</div>
+                        </a>
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-archive" (click)="archiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;margin-right:10px;font-size: 18px;"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div> 
+                </div>
+              </div>
+              <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+                <div class="spinner"></div>
+              </div>
+              <!-- <div *ngIf="error || list?.dealflow_State != 'Review'" style="margin: 0 auto;width: 450px;">
+                <p>Could not find any review Dealflow lists.</p>
+              </div> -->
             </div>
-          </div>
-          <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
-            <div class="spinner"></div>
-          </div>
-          <div *ngIf="error" style="margin: 0 auto;width: 500px;">
-            <p>Could not find any Dealflow lists.</p>
-          </div>
-      </div>
-      </div>
-    </nb-card-body>
-  </nb-card>
+          </nb-card-body>
+        </nb-card>
+        <nb-card>
+          <nb-card-header>Scheduling</nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+                <div style="margin-left:5px; margin-right:5px;">
+                <div *ngIf="!loading && !error">
+                <div [ngStyle]="overlay">
+                  <div *ngIf="list.dealflow_State == 'Scheduling'" style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <a [routerLink]="['/pages/dealflowpage']" [queryParams]="{dealflowname: list.dealflow_Name}">
+                          <div style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family:DINPro-Light;font-weight:bold;">{{list.dealflow_Name}}</div>
+                        </a>
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-archive" (click)="archiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;margin-right:10px;font-size: 18px;"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div> 
+                </div>
+              </div>
+              <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+                <div class="spinner"></div>
+              </div>
+              <!-- <div *ngIf="error || list?.dealflow_State != 'Scheduling'" style="margin: 0 auto;width: 450px;">
+                <p>Could not find any scheduling Dealflow lists.</p>
+              </div> -->
+            </div>
+          </nb-card-body>
+        </nb-card> 
+        <nb-card>
+          <nb-card-header>Selecting</nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+                <div style="margin-left:5px; margin-right:5px;">
+                <div *ngIf="!loading && !error">
+                <div [ngStyle]="overlay">
+                  <div *ngIf="list.dealflow_State == 'Selecting'" style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <a [routerLink]="['/pages/dealflowpage']" [queryParams]="{dealflowname: list.dealflow_Name}">
+                          <div style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family:DINPro-Light;font-weight:bold;">{{list.dealflow_Name}}</div>
+                        </a>
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-archive" (click)="archiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;margin-right:10px;font-size: 18px;"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div> 
+                </div>
+              </div>
+              <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+                <div class="spinner"></div>
+              </div>
+              <!-- <div *ngIf="error || list?.dealflow_State != 'Selecting'" style="margin: 0 auto;width: 450px;">
+                <p>Could not find any selecting Dealflow lists.</p>
+              </div> -->
+            </div>
+          </nb-card-body>
+        </nb-card> 
+        <nb-card>
+          <nb-card-header>Pending</nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+                <div style="margin-left:5px; margin-right:5px;">
+                <div *ngIf="!loading && !error">
+                <div [ngStyle]="overlay">
+                  <div *ngIf="list.dealflow_State == 'Pending'" style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <a [routerLink]="['/pages/dealflowpage']" [queryParams]="{dealflowname: list.dealflow_Name}">
+                          <div style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family:DINPro-Light;font-weight:bold;">{{list.dealflow_Name}}</div>
+                        </a>
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-archive" (click)="archiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;margin-right:10px;font-size: 18px;"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div> 
+                </div>
+              </div>
+              <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+                <div class="spinner"></div>
+              </div>
+              <!-- <div *ngIf="error || list?.dealflow_State != 'Pending'" style="margin: 0 auto;width: 450px;">
+                <p>Could not find any pending Dealflow lists.</p>
+              </div> -->
+            </div>
+          </nb-card-body>
+        </nb-card>
+        <nb-card>
+          <nb-card-header>Active</nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+                <div style="margin-left:5px; margin-right:5px;">
+                <div *ngIf="!loading && !error">
+                <div [ngStyle]="overlay">
+                  <div *ngIf="list.dealflow_State == 'Active'" style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <a [routerLink]="['/pages/dealflowpage']" [queryParams]="{dealflowname: list.dealflow_Name}">
+                          <div style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family:DINPro-Light;font-weight:bold;">{{list.dealflow_Name}}</div>
+                        </a>
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-archive" (click)="archiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;margin-right:10px;font-size: 18px;"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div> 
+                </div>
+              </div>
+              <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+                <div class="spinner"></div>
+              </div>
+              <!-- <div *ngIf="error || list?.dealflow_State != 'Dealflow'" style="margin: 0 auto;width: 450px;">
+                <p>Could not find any active Dealflow lists.</p>
+              </div> -->
+            </div>
+          </nb-card-body>
+        </nb-card>
+        <nb-card>
+          <nb-card-header>Feedback</nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+                <div style="margin-left:5px; margin-right:5px;">
+                <div *ngIf="!loading && !error">
+                <div [ngStyle]="overlay">
+                  <div *ngIf="list.dealflow_State == 'Feedback'" style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <a [routerLink]="['/pages/dealflowpage']" [queryParams]="{dealflowname: list.dealflow_Name}">
+                          <div style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family:DINPro-Light;font-weight:bold;">{{list.dealflow_Name}}</div>
+                        </a>
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-archive" (click)="archiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;margin-right:10px;font-size: 18px;"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div> 
+                </div>
+              </div>
+              <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+                <div class="spinner"></div>
+              </div>
+              <!-- <div *ngIf="error || list?.dealflow_State != 'Feedback'" style="margin: 0 auto;width: 450px;">
+                <p>Could not find any feedback Dealflow lists.</p>
+              </div> -->
+            </div>
+          </nb-card-body>
+        </nb-card>
+        <nb-card>
+          <nb-card-header>Complete</nb-card-header>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+                <div style="margin-left:5px; margin-right:5px;">
+                <div *ngIf="!loading && !error">
+                <div [ngStyle]="overlay">
+                  <div *ngIf="list.dealflow_State == 'Complete'" style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <a [routerLink]="['/pages/dealflowpage']" [queryParams]="{dealflowname: list.dealflow_Name}">
+                          <div style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family:DINPro-Light;font-weight:bold;">{{list.dealflow_Name}}</div>
+                        </a>
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-archive" (click)="archiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;margin-right:10px;font-size: 18px;"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div> 
+                </div>
+              </div>
+              <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+                <div class="spinner"></div>
+              </div>
+              <!-- <div *ngIf="error || list?.dealflow_State != 'Complete'" style="margin: 0 auto;width: 450px;">
+                <p>Could not find any complete Dealflow lists.</p>
+              </div> -->
+            </div>
+          </nb-card-body>
+        </nb-card>
+
       <nb-card>
         <nb-card-body>
           <div class="row show-grid">
