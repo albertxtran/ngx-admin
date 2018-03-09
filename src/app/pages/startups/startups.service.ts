@@ -147,10 +147,10 @@ export class StartupsService {
         return this._http.post('/rest/plugandplay/api/v1/ventures/addtop20',"{\"id\":"+id+",\"listName\":\""+listName+"\"}",options);
     }
 
-    addToDealflow(id:Number,listName:String) { 
+    addToDealflow(id:Number,listName:String, api_key: String) { 
         let header = new Headers({ 'Accept': 'application/json','Content-Type':'application/json','Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS','Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'});
         let options = new RequestOptions({ headers: header });
-        return this._http.post('/rest/plugandplay/api/v1/ventures/adddealflow',"{\"id\":"+id+",\"listName\":\""+listName+"\"}",options);
+        return this._http.post('/rest/plugandplay/api/v1/ventures/adddealflow',"{\"id\":"+id+",\"listName\":\""+listName+"\",\"api_key\":\""+api_key+"\"}",options);
     }
 
     addToBatch(id:Number,listName:String) { 
