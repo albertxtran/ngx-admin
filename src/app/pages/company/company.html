@@ -81,13 +81,22 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-12" style="border-top: 1px solid  #dddddd; padding-top:10px; padding-bottom:10px;"></div>
+              </div>
+              <div class="row">
               <div *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))"
               class="col-md-12" id="profileButtons" style="margin-left:0px;margin-right:0px;">
-                <div class="col-md-12" style="font-family:DINPro-Light;border-top: 1px solid  #dddddd; border-bottom: 1px solid #dddddd; padding-top:10px; padding-bottom:20px;">
-                  <div class="col-md-4" style="padding:0px">
+                  <div class="row">
+                  <div class="col-md-4">
                     <div *ngIf="!loading">
-                      <p style="font-size: 12px;margin-top:15px;margin-bottom:5px;font-family:DINPro-Light;font-size:12px;color:#3c3c3c;">Select a list, add to top 100!</p>
-                      <div class="col-md-8" style="padding:0px;">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p style="font-size: 12px;margin-top:15px;margin-bottom:5px;font-family:DINPro-Light;font-size:12px;color:#3c3c3c;">Select a list, add to top 100!</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                      <div class="col-md-8">
                         <div class="form-group">
                           <select #top100select class="form-control" id="Top100Select">
                             <option *ngFor="let list of lists">{{list.listName}}</option>
@@ -100,6 +109,7 @@
                         </a>
                         <!--<a *ngIf="company?.top100" class="top100" href="javascript:void(0)" (click)="removeTop100(company.id)"><p style="text-align: center;color: #ffffff;margin:0px;">Remove</p></a>-->
                       </div>
+                      </div>
                     </div>
                     <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
                       <div class="playbook-loader"></div>
@@ -111,8 +121,13 @@
                                   <a href="#" class="becomeFan" onclick="becomeFan(this)" id="$profile.getId()"><p style="text-align: center;color: #ffffff;">Deal Flows</p></a>
                                 </div>-->
                     <div *ngIf="!loading20">
-                      <p style="font-size: 12px;margin-top:15px;margin-bottom:5px;font-family:DINPro-Light;font-size:12px;color:#3c3c3c;">Select a list, add to top 20!</p>
-                      <div class="col-md-8" style="padding:0px;">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p style="font-size: 12px;margin-top:15px;margin-bottom:5px;font-family:DINPro-Light;font-size:12px;color:#3c3c3c;">Select a list, add to top 20!</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                      <div class="col-md-8">
                         <div class="form-group">
                           <select #top20select class="form-control" id="Top20Select">
                             <option *ngFor="let list of top20list">{{list.listName}}</option>
@@ -125,14 +140,15 @@
                         </a>
                         <!--<a *ngIf="company?.top100" class="top100" href="javascript:void(0)" (click)="removeTop100(company.id)"><p style="text-align: center;color: #ffffff;margin:0px;">Remove</p></a>-->
                       </div>
+                    </div>
                       <div *ngIf="loading20" style="margin: 0 auto;width: 100px;">
                         <div class="playbook-loader"></div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4" style="padding:0px;margin:0px;z-index:100;">
-                    <div *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))"
-                      class="col-md-12" style="float:left;">
+                  <div class="col-md-4" style="z-index:100;">
+                    <div class="row">
+                    <div class="col-md-12" *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))">
                       <div *ngIf="creatingpdf" class="loader">Loading...</div>
                       <div *ngIf="!creatingpdf" class="button-wrapper">
                         <button (click)="exportToPDF()" type="button" id="executivesummary" class="btn btn-default btn-raised" style="margin-top:20px;">
@@ -147,12 +163,20 @@
                         </a>
                       </div>
                     </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-12">
+            </div>
+            <div class="row">
+              <div class="col-md-12" style="border-top: 1px solid  #dddddd; margin-top:10px; margin-bottom:10px;"></div>
+            </div>
+            <div class="row">
                   <div class="col-md-6">
-                    <div class="col-md-12" style="font-family:DINPro-Light;font-size:20px; padding-top:20px; padding-bottom:20px; ">About</div>
+                    <div class="row">
+                      <div class="col-md-12" style="font-family:DINPro-Light;font-size:20px; padding-top:20px; padding-bottom:20px; ">About</div>
+                    </div>
+                    <div class="row">
                     <div class="col-md-12" style="padding-bottom:10px;border-bottom: 1px solid #ffffff;">
                       <div style="font-size: 12px; color: black; opacity: .54;">LOGO</div>
                         <div *ngIf="!company?.thumbnail">
@@ -185,11 +209,16 @@
                       <div *ngIf="company?.intlBusinessOpp" style="font-size: 10px; color: black; opacity: .40;">INTERNATIONAL OFFICE BUSINESS OPPORTUNITIES</div>
                       <div *ngIf="company?.intlBusinessOpp" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px; white-space:pre-wrap;">{{company?.intlBusinessOpp}}</div>
                     </div>
+                    </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="col-md-12" style="font-family:DINPro-Light;font-size:20px; padding:0px;padding-top:20px; padding-bottom:20px;">Quick Facts</div>
-                    <div class="col-md-12" style="padding:0px;">
-                      <div class="col-md-6" style="padding:0px;">
+                    <div class="row">
+                      <div class="col-md-12" style="font-family:DINPro-Light;font-size:20px; padding:0px;padding-top:20px; padding-bottom:20px;">Quick Facts</div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-12">
+                      <div class="row" >
+                      <div class="col-md-6">
                         <div *ngIf="company?.totalMoneyRaised" style="font-size: 10px;margin-top:10px;font-size: 12px; color: #000000; opacity: .40;">MONEY RAISED</div>
                         <div *ngIf="company?.totalMoneyRaised" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;border-bottom: 1px solid #dddddd;padding-bottom:10px;">{{company?.totalMoneyRaised}}</div>
                         <div *ngIf="company?.stage" style="font-size: 10px;margin-top:10px;font-size: 12px; color: #000000; opacity: .40;">STAGE</div>
@@ -230,72 +259,164 @@
                       </div>
                     </div>
                     </div>
+                    </div>
+                    </div>
                   </div>
           </mat-tab>
           <mat-tab label="Ratings">
-                <div class="col-md-12" style="padding-top:20px;padding-top:20px;border-bottom:1px solid #dddddd;">
-                    <div class="col-md-12">
-                      <div class="col-md-6" style="float: left; padding:0; padding-bottom:10px;padding-top:30px;">
-                        <div style="font-family:DINPro-Light;color:black;font-weight:bold;font-size:40px;">{{company?.companyName}}</div>
-                      </div>
-                      <div class="col-md-6">
-    
-                      </div>
-                    </div>
-                    <div class="col-md-12" style="padding:0px;padding-top:10px;padding-bottom:20px;">
-                      <div class="col-md-6" style="font-family:DINPro-Light;float: left">
-                        <div *ngIf="company?.founded" style="font-size: 12px; color:#343434;">Founded: {{company.founded}}</div>
-                        <div *ngIf="company?.website" style="display:block;">
-                          <div class="fa fa-external-link" *ngIf="company?.website" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
-                          <div *ngIf="company?.website" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
-                            <a style="color: #343434" href="{{company.website}}" target="_blank">{{company.website}}</a>
+              <div class="row">
+                  <div class="col-md-12" style="padding-top:5px;">
+                      <div class="row">
+                        <div class="col-md-12">
+                            <div *ngIf="company?.portfolio" style="font-family:DINPro-Light;display: inline;font-size: 12px;color: goldenrod;font-weight: 400;">PORTFOLIO COMPANY</div>
+                            <div style="font-family:DINPro-Light;color:black;font-weight:bold;font-size:40px;padding-bottom:15px;">{{company?.companyName}}</div>
+                        </div>
+                        </div>
+                      <div class="row" style="padding-bottom:10px;">
+                        <div class="col-md-3" style="font-family:DINPro-Light;">                     
+                            <div *ngIf="company?.founded" style="font-size: 12px; color:#343434;">Founded: {{company.founded}}</div>
+                            <div *ngIf="company?.website" style="display:block;">
+                            <div class="fa fa-external-link" *ngIf="company?.website" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                            <div *ngIf="company?.website" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
+                              <a style="color: #343434" href="{{company.website}}" target="_blank">{{company.website}}</a>
+                            </div>
+                            </div>
+                            <div class="fa fa-globe" *ngIf="company?.city || company?.location" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                            <div *ngIf="company?.city && !company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.city}}</div>
+                            <div *ngIf="company?.city && company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.city}}, {{company?.location}}</div>
+                            <div *ngIf="!company?.city && company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.location}}</div>
+                            <div *ngIf="company?.materials" style="display:block;">
+                              <div class="fa fa-external-link" *ngIf="company?.materials" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                              <div *ngIf="company?.materials" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
+                                <a style="color: #343434" href="{{company.materials}}" target="_blank">Pitch Deck</a>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div *ngIf="(role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))) || (currentUser?.role=='startup' && currentUser?.ref_id == id)" class="col-md-12" style="padding:0px;margin:0px;width:auto;display:inline-block;">
+                            <div *ngIf="company?.pnpContact" style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">COMPANY CONTACT</div>
+                            <div *ngIf="company?.contactName" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{company?.contactName}}</div>
+                            <div *ngIf="company?.email" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{company?.email}}</div>
+                            <div *ngIf="company?.phoneNumber" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{company?.phoneNumber}}</div>
                           </div>
                         </div>
-                        <div class="fa fa-globe" *ngIf="company?.city || company?.location" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
-                        <div *ngIf="company?.city && !company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.city}}</div>
-                        <div *ngIf="company?.city && company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.city}}, {{company?.location}}</div>
-                        <div *ngIf="!company?.city && company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.location}}</div>
-                        <div *ngIf="company?.materials" style="display:block;">
-                          <div class="fa fa-external-link" *ngIf="company?.materials" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
-                          <div *ngIf="company?.materials" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
-                            <a style="color: #343434" href="{{company.materials}}" target="_blank">{{company.materials}}</a>
+                        <div class="col-md-6">
+                            <div class="row">
+                              <div class="col-md-3" style="display:inline-block; padding:0;">
+                                <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">TOP 20</div>
+                                <div *ngFor="let list of company?.top20" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                              </div>
+                              <div class="col-md-3" style="display:inline-block; padding:0;">
+                                <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">TOP 100</div>
+                                <div *ngFor="let list of company?.top100" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                              </div>
+                              <div class="col-md-3" style="display:inline-block; padding:0;">
+                                <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">DEALFLOW</div>
+                                <div *ngFor="let list of company?.dealflow" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                              </div>
+                              <div class="col-md-3" style="display:inline-block; padding:0;">
+                                <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">BATCH</div>
+                                <div *ngFor="let list of company?.batch" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6" style="font-family:DINPro-Light;float: right">
-                        <div *ngIf="(role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))) || (currentUser?.role=='startup' && currentUser?.ref_id == id)"
-                          class="col-md-12" style="padding:0px;margin:0px;">
-                          <div class="col-md-12" style="display:inline-block;vertical-align:top;padding:0px;">
-                              <p *ngIf="obj?.portfolio" style="font-family: DINPro-Light, CenturyGothic, AppleGothic, sans-serif;display: inline;font-size: 12px;color: goldenrod;font-weight: 400;">PORTFOLIO COMPANY</p>
-                          </div>
-                        </div>
+                          
+                          <!-- <div *ngIf="role=='operations' || role=='global'" class="col-md-3" style="padding:0px;margin:0px;float:right;z-index:100;">
+                            <div class="col-md-12" style="float:left;">
+                              <div *ngIf="creatingpdf" class="loader">Loading...</div>
+                              <div *ngIf="!creatingpdf" class="button-wrapper">
+                                <button (click)="this.creatingpdf=true;exportToPDF()" type="button" id="executivesummary" class="btn btn-default btn-raised" style="margin-top:20px;">
+                                  Executive Summary
+                                </button>
+                              </div>
+                              <div *ngIf="company?.id && role!='global'">
+                                <a [routerLink]="['/pages/editcompany', company.id]">
+                                  <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;">
+                                    Edit Profile
+                                  </button>
+                                </a>
+                              </div>
+                            </div>
+                          </div> -->
                       </div>
                     </div>
                   </div>
           </mat-tab>
           <mat-tab label="Engagements">
-                <div class="col-md-12" style="padding-top:20px;padding-top:20px;border-bottom:1px solid #dddddd;">
-                    <div class="col-md-12">
-                      <div class="col-md-6" style="float: left; padding:0; padding-bottom:10px;padding-top:30px;">
-                        <div style="font-family:DINPro-Light;color:black;font-weight:bold;font-size:40px;">{{company?.companyName}}</div>
-                      </div>
-                      <div class="col-md-6">
-    
-                      </div>
-                    </div>
-                    <div class="col-md-12" style="padding:0px;padding-top:10px;padding-bottom:20px;">
-                      <div class="col-md-6" style="font-family:DINPro-Light;float: left">
-                        <div *ngIf="company?.founded" style="font-size: 12px; color:#343434;">Founded: {{company.founded}}</div>
-                        <div *ngIf="company?.website" style="display:block;">
-                          <div class="fa fa-external-link" *ngIf="company?.website" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
-                          <div *ngIf="company?.website" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
-                            <a style="color: #343434" href="{{company.website}}" target="_blank">{{company.website}}</a>
+              <div class="row">
+                  <div class="col-md-12" style="padding-top:5px;">
+                      <div class="row">
+                        <div class="col-md-12">
+                            <div *ngIf="company?.portfolio" style="font-family:DINPro-Light;display: inline;font-size: 12px;color: goldenrod;font-weight: 400;">PORTFOLIO COMPANY</div>
+                            <div style="font-family:DINPro-Light;color:black;font-weight:bold;font-size:40px;padding-bottom:15px;">{{company?.companyName}}</div>
+                        </div>
+                        </div>
+                      <div class="row" style="padding-bottom:10px;">
+                        <div class="col-md-3" style="font-family:DINPro-Light;">                     
+                            <div *ngIf="company?.founded" style="font-size: 12px; color:#343434;">Founded: {{company.founded}}</div>
+                            <div *ngIf="company?.website" style="display:block;">
+                            <div class="fa fa-external-link" *ngIf="company?.website" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                            <div *ngIf="company?.website" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
+                              <a style="color: #343434" href="{{company.website}}" target="_blank">{{company.website}}</a>
+                            </div>
+                            </div>
+                            <div class="fa fa-globe" *ngIf="company?.city || company?.location" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                            <div *ngIf="company?.city && !company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.city}}</div>
+                            <div *ngIf="company?.city && company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.city}}, {{company?.location}}</div>
+                            <div *ngIf="!company?.city && company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.location}}</div>
+                            <div *ngIf="company?.materials" style="display:block;">
+                              <div class="fa fa-external-link" *ngIf="company?.materials" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                              <div *ngIf="company?.materials" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
+                                <a style="color: #343434" href="{{company.materials}}" target="_blank">Pitch Deck</a>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div *ngIf="(role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(company?.pnpOffice))) || (currentUser?.role=='startup' && currentUser?.ref_id == id)" class="col-md-12" style="padding:0px;margin:0px;width:auto;display:inline-block;">
+                            <div *ngIf="company?.pnpContact" style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">COMPANY CONTACT</div>
+                            <div *ngIf="company?.contactName" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{company?.contactName}}</div>
+                            <div *ngIf="company?.email" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{company?.email}}</div>
+                            <div *ngIf="company?.phoneNumber" style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{company?.phoneNumber}}</div>
                           </div>
                         </div>
-                        <div class="fa fa-globe" *ngIf="company?.city || company?.location" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
-                        <div *ngIf="company?.city && !company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.city}}</div>
-                        <div *ngIf="company?.city && company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.city}}, {{company?.location}}</div>
-                        <div *ngIf="!company?.city && company?.location" style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">{{company?.location}}</div>
+                        <div class="col-md-6">
+                            <div class="row">
+                              <div class="col-md-3" style="display:inline-block; padding:0;">
+                                <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">TOP 20</div>
+                                <div *ngFor="let list of company?.top20" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                              </div>
+                              <div class="col-md-3" style="display:inline-block; padding:0;">
+                                <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">TOP 100</div>
+                                <div *ngFor="let list of company?.top100" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                              </div>
+                              <div class="col-md-3" style="display:inline-block; padding:0;">
+                                <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">DEALFLOW</div>
+                                <div *ngFor="let list of company?.dealflow" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                              </div>
+                              <div class="col-md-3" style="display:inline-block; padding:0;">
+                                <div  style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">BATCH</div>
+                                <div *ngFor="let list of company?.batch" style="font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{list.listName}}</div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <!-- <div *ngIf="role=='operations' || role=='global'" class="col-md-3" style="padding:0px;margin:0px;float:right;z-index:100;">
+                            <div class="col-md-12" style="float:left;">
+                              <div *ngIf="creatingpdf" class="loader">Loading...</div>
+                              <div *ngIf="!creatingpdf" class="button-wrapper">
+                                <button (click)="this.creatingpdf=true;exportToPDF()" type="button" id="executivesummary" class="btn btn-default btn-raised" style="margin-top:20px;">
+                                  Executive Summary
+                                </button>
+                              </div>
+                              <div *ngIf="company?.id && role!='global'">
+                                <a [routerLink]="['/pages/editcompany', company.id]">
+                                  <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;">
+                                    Edit Profile
+                                  </button>
+                                </a>
+                              </div>
+                            </div>
+                          </div> -->
                       </div>
                     </div>
                   </div>

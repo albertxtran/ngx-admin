@@ -52,27 +52,12 @@ const routes: Routes = [{
     path: 'editcorporation',
     loadChildren: './editcorporation/editcorporation.module#EditCorporationModule',
   },{
-    path: 'ui-features',
-    loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
-  }, {
-    path: 'components',
-    loadChildren: './components/components.module#ComponentsModule',
-  }, {
-    path: 'maps',
-    loadChildren: './maps/maps.module#MapsModule',
-  }, {
-    path: 'charts',
-    loadChildren: './charts/charts.module#ChartsModule',
-  }, {
-    path: 'editors',
-    loadChildren: './editors/editors.module#EditorsModule',
-  }, {
-    path: 'forms',
-    loadChildren: './forms/forms.module#FormsModule',
-  }, {
-    path: 'tables',
-    loadChildren: './tables/tables.module#TablesModule',
-  }, {
+    path: 'top20lists',
+    loadChildren: './top20lists/top20lists.module#Top20ListsModule',
+  },{
+    path: 'top20',
+    loadChildren: './top20/top20.module#Top20Module',
+  },{
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',

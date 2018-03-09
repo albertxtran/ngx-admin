@@ -52,4 +52,13 @@ export class DealflowPageService {
         return this._http.post('/rest/plugandplay/api/v1/dealflow/updatestate/',body,options)
             .map(res => res.json());
     }
+
+    selectPriority(id: Number, dealflow_name: String, priority: String){
+        console.log("inside select Priority: " + id + dealflow_name + priority);
+        let headers = new Headers({ 'Accept': 'application/json','Content-Type':'application/json','Access-Control-Allow-Origin': '*' });
+        let options = new RequestOptions({ headers: headers });
+        let body = "{\"venture_id\":"+id+",\"dealflow_name\":"+dealflow_name+",\"priority\":"+priority+"}";
+        return this._http.post('/rest/plugandplay/api/v1/dealflow/updatePriority/',body,options)
+            .map(res => res.json());
+    }
 }
