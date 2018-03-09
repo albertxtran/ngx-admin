@@ -1,0 +1,105 @@
+<nb-card>
+  <nb-card-body>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div #refresh (click)="refreshList()"></div>
+        <div class="row"> 
+        <div class="col-md-4">
+          <div class="form-group">
+            <input #input type="text" class="form-control" id="input03" placeholder="Search for list...">
+          </div>
+        </div>
+        <div class="col-md-8">
+        <div class="input-group">
+          <input #top20list type="text" class="form-control" placeholder="Create a new top20 list!">
+          <span class="input-group-btn">
+              <button (click)="addTop20List(top20list.value);top20list.value=''" style="background-color: #21cd98;border-color: #ffffff;"class="btn btn-danger" type="button">Add!</button>
+          </span>
+        </div>
+        </div>
+        </div>
+
+        <div class="row">   
+        <div class="col-md-12">  
+          <div class="row">
+          <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value">
+            <div style="margin-left:5px; margin-right:5px;">
+            <div *ngIf="!loading && !error">
+            <div >            
+            <div class="row">
+            <div class="col-md-12" [ngStyle]="overlay" style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
+              <div class="row">
+              <div class="col-md-9">
+                <a [routerLink]="['/pages/top20', list.listName]">
+                  <div style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif;">{{list.listName}}</div>
+                </a>
+              </div>
+              <div class="col-md-2" style="padding-right:0px;">
+                <i class="fa fa-archive" (click)="archiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;padding-left: 10px;font-size: 18px;"></i>
+              </div>
+              <div class="col-md-1" style="padding:0px">
+              <div *ngIf="currentUser.role=='admin'">
+                <a class="deleteTop20List" href="javascript:void(0)" (click)="deleteTop20List(list)">
+                  <span title="Delete Top 20 List"><i style="padding-top:3px;color:black" class="fa fa-trash-o" aria-hidden="true"></i></span>
+                </a>
+              </div>
+              </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            
+            </div>
+          </div>
+          </div>        
+          <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+            <div class="playbook-loader"></div>
+          </div>
+          <div *ngIf="error" style="margin-left: 15px; margin-top:15px;width: 500px;">
+            <p>Could not find any Top 100 lists.</p>
+          </div>
+        </div>
+        </div>
+
+          <div class="row">
+
+          <div class="col-md-12" style="margin-bottom: 10px;padding-left: 5px;padding-top:20px;">
+          <span style="letter-spacing:1px;font-family:arial;color:rgba(68, 68, 68, 0.9);font-weight:bold;font-size:25px;padding-top: 20px;padding-bottom:20px;">Archived Lists</span>
+          </div>
+          </div>
+
+          <div class="row">
+          <div class="col-md-4" *ngFor="let list of archived" style="padding:0px;">
+            <div style="margin-left:5px; margin-right:5px;">
+            <div *ngIf="!loading && !errorArchived">
+            <div [ngStyle]="overlay" style="padding-top: 6%;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
+              <div class="row">
+              <div class="col-md-10">
+                <a [routerLink]="['/pages/top20', list.listName]">
+                    <div style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif;">{{list.listName}}</div>
+                </a>
+              </div>
+               <div class="col-md-2">
+                  <i class="fa fa-arrow-up" (click)="unarchiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;font-size: 18px;"></i>
+               </div>
+              </div> 
+            </div>
+            </div>                       
+            </div>
+          </div>
+         </div>
+          <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
+            <div class="playbook-loader"></div>
+          </div>
+          <div *ngIf="errorArchived" style="margin: 0 auto;width: 500px;">
+            <p>Could not find any Top 20 archived lists.</p>
+          </div>
+        
+    </div>
+  </div>
+
+  </nb-card-body>
+</nb-card>

@@ -1,6 +1,10 @@
 import { NbMenuItem } from '@nebular/theme';
 
+
 export const MENU_ITEMS: NbMenuItem[] = [
+
+  // DO NOT USE THIS ANYMORE, use ./_menu/*-menu.ts
+
   {
     title: 'Dashboard',
     icon: 'nb-home',
@@ -21,6 +25,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Portfolio',
     icon: 'nb-home',
     link: '/pages/portfolio',
+  },
+  {
+    title: 'Dealflows',
+    icon: 'nb-home',
+    link: '/pages/dealflowlists',
   },
   {
     title: 'FEATURES',

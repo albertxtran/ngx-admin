@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 export interface CustomModal {
-  company: any;
+  list: any;
 }
 @Component({  
     selector: 'confirm',
@@ -9,7 +9,7 @@ export interface CustomModal {
                 <div class="modal-content">
                    <div class="modal-header">
                      <button type="button" class="close" (click)="close()" >&times;</button>
-                     <h4 class="modal-title">Are you sure you want to delete '{{company.companyName}}'?</h4>
+                     <h4 class="modal-title">Are you sure you want to delete '{{list.listName}}'?</h4>
                    </div>
 
                    <div class="modal-footer">
@@ -20,7 +20,7 @@ export interface CustomModal {
               </div>`
 })
 export class ConfirmModal extends DialogComponent<CustomModal, Boolean> implements CustomModal, OnInit {
-  company: any;
+  list: any;
 
   constructor(dialogService: DialogService) {
     super(dialogService);    

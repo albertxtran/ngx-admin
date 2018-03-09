@@ -5,22 +5,22 @@ import { Observable } from 'rxjs/Rx';
 import { ToasterService } from '../../@theme/providers/toaster.service';
 import { FileUploader } from 'ng2-file-upload';
 
-import { EditCompanyService } from './editcompany.service';
+import { EditCorporationService } from './editcorporation.service';
 import * as CryptoJS from 'crypto-js';
 import { Router } from '@angular/router';
 
 const URL = '/rest/plugandplay/api/v1/ventures/logo';
 
 @Component({
-  selector: 'editcompany',
-  styleUrls: ['./editcompany.scss'], 
-  templateUrl: './editcompany.html'
+  selector: 'editcorporation',
+  styleUrls: ['./editcorporation.scss'], 
+  templateUrl: './editcorporation.html',
 })
-export class EditCompanyComponent implements OnInit, OnDestroy {
+export class EditCorporationComponent implements OnInit, OnDestroy {
   id: number;
   private sub: any;
-  company: any;
-  formData: any;
+  corporation: Object;
+  formData: Object;
   top100: Object;
   top20: Object;
   lists: any[];
@@ -32,18 +32,18 @@ export class EditCompanyComponent implements OnInit, OnDestroy {
   submitAttempt = false;
   public uploader:FileUploader = new FileUploader({url: URL});
   currentUser: any;
-  role: any;
+  role: Observable<any>;
   
 
-constructor(private route: ActivatedRoute, private _companyService: EditCompanyService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
+constructor(private route: ActivatedRoute, private _corporationService: EditCorporationService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
   var bytes  = CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!');
   this.currentUser = JSON.parse(bytes.toString(CryptoJS.enc.Utf8)); 
   // VERY IMPORTANT these methods will update the menu and routes dependent on the user role
   // this._menuService.updateMenuByRoutes(this._menuService.getPageMenu(this.currentUser));
   // this.router.resetConfig(this._menuService.getAuthRoutes(this.currentUser));    
   this.role = this.currentUser.role;
-  this._companyService = _companyService;    
-  this._toasterService.toastr.setRootViewContainerRef(vcr);     
+  this._corporationService = _corporationService;    
+  this._toasterService.toastr.setRootViewContainerRef(vcr);   
       
       
 }
@@ -54,7 +54,7 @@ constructor(private route: ActivatedRoute, private _companyService: EditCompanyS
 
        // In a real app: dispatch action to load the details here.       //JSON.stringify(data)
     });
-    this._companyService.getVenture(this.id).subscribe(data => this.company = data,
+    this._corporationService.getCorporations(this.id).subscribe(data => this.corporation = data,
     error => console.error('Error: ' + error),
         () => console.log('Completed!')
     );
@@ -81,7 +81,8 @@ constructor(private route: ActivatedRoute, private _companyService: EditCompanyS
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-  updateCompany(){
+  
+  updateCorporation(){
     // console.log("Update test: "+JSON.stringify(form));
     //console.log("Update test: "+JSON.stringify(this.formData));
     for (var key in this.formData) {
@@ -89,16 +90,16 @@ constructor(private route: ActivatedRoute, private _companyService: EditCompanyS
          //console.log(key + ': ' + this.formData[key])
         if(this.formData[key] != null){
           //console.log(key + " -> " + this.formData[key]);
-          this.company[key] = this.formData[key];
+          this.corporation[key] = this.formData[key];
         }
       }
     }
-    this._companyService.updateVenture(JSON.stringify(this.company)).map(res => {
+    this._corporationService.updateCorporation(JSON.stringify(this.corporation)).map(res => {
       // If request fails, throw an Error that will be caught
       if(res.status == 204) {
         this._toasterService.showError("Couldn't find venture in database to udpate.", "Error", 4000)
       } else if (res.status < 200 || res.status >= 300){
-        this._toasterService.showError("Could not update company, please try again.", "Error", 4000)
+        this._toasterService.showError("Could not update corporation, please try again.", "Error", 4000)
       }
       // If everything went fine, return the response
       else {
@@ -106,7 +107,7 @@ constructor(private route: ActivatedRoute, private _companyService: EditCompanyS
         return res.json();
         
       }
-    }).subscribe(data => this.company = data,
+    }).subscribe(data => this.corporation = data,
       err => console.error('Error: ' + err),
           () => console.log("Completed!")
       );
@@ -114,10 +115,13 @@ constructor(private route: ActivatedRoute, private _companyService: EditCompanyS
   }
   initForm(){
     this.formData = {
-      companyName : null,
+      corporationName : null,
       blurb : null,
       verticals : null,
       website : null,
+      champions: null,
+      primaryAccountManager: null,
+      accountManagers: null,
       pnpContact : null,
       contactName : null,
       email : null,

@@ -4,10 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { ToasterService } from '../../@theme/providers/toaster.service';
 
-// import { ModalComponent } from './custom.modal';
-// import { ConfirmModal } from './confirm.modal';
-// import { DialogService } from "ng2-bootstrap-modal";
-
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as CryptoJS from 'crypto-js';
@@ -79,7 +75,7 @@ export class CorporationComponent implements OnInit, OnDestroy {
   public loading20: boolean;
   public creatingpdf: boolean;
   public pageload: boolean = false;
-  role: Observable<any>;
+  role: any;
   currentUser: any;
   champions: Object;
   managers: Object;
