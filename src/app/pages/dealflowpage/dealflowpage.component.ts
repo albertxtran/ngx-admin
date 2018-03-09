@@ -53,9 +53,13 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   dealflowpage: any;
   dealflowstartup: any;
   dealflow_startup: any[];
+  timeSlots: any[];
   lists: any[];
   dealflow: any;
   venturesList: any[] = [];
+  primaryStartups: any[] = [];
+  secondaryStartups: any[] = [];
+  rejectedStartups: any[]= [];
   lead_name: String;
   account_manager_name: String;
   venture_associate_name: String;
@@ -133,6 +137,8 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
       // If everything went fine, return the response
       else {
         this.dealflow = res;
+        console.log("this is the dealflow time slots " + this.dealflow.event_Agenda);
+        this.timeSlots = this.dealflow.event_Agenda.split(/\r?\n/);
         this.attendee_array = JSON.parse(res.attendees);
         console.log("this is the dealflow info: " + JSON.stringify(this.dealflow));
         return res;
@@ -277,9 +283,23 @@ getVenturesById(id: Number, count: number, length: number){
     else {
       console.log("return of getVenturesById: " + JSON.stringify(res));
       this.venturesList.push(res);
-      count++;
       console.log("this is the ventures info: " + JSON.stringify(this.venturesList[count]));
+      count++;
       if(count == length){
+        for(var i = 0; i < count; i++){
+          if(this.dealflow_startup[i].dealflow_Priority === "Primary")
+          {
+            this.primaryStartups.push(this.venturesList[i]);
+          }
+          else if(this.dealflow_startup[i].dealflow_Priority === "Secondary")
+          {
+            this.secondaryStartups.push(this.venturesList[i]);
+          }
+          else if(this.dealflow_startup[i].dealflow_Priority === "Rejected")
+          {
+            this.rejectedStartups.push(this.venturesList[i]);
+          }
+        }
         this.loading = false;
       }
       else{
