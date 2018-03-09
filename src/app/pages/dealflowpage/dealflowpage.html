@@ -4,7 +4,7 @@
       <div class="col-md-12">
           <mat-tab-group [selectedIndex]="0">
             <mat-tab label="Details">
-              <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px;">
+              <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px; width:100%">
                   <div class="row">
                     <div class="col-md-6">
                       <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflow?.dealflow_State}}</div>
@@ -191,6 +191,71 @@
                   </div>
                 </div>
             </mat-tab>
+
+            <mat-tab label="Scheduling">
+                <div class="row" style="width: 100%;">
+                    <div class="col-md-12" style="margin-left:15px;margin-top:15px;">
+                        <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
+                            Submit
+                        </button>
+                        <div class="row" style="width:100%;">
+                          <div class="row show-grid col-md-4">
+                            <div *ngIf="!loading && !error">
+                              <div *ngIf="primaryStartups.length >0 ">Primary
+                                <div *ngFor="let primary of primaryStartups" class="col-md-12" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);">
+                                  <div [ngStyle]="overlay">
+                                      <div style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{primary.companyName}}</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="secondaryStartups.length > 0">Secondary
+                                <div *ngFor="let secondary of secondaryStartups" class="col-md-12" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);">
+                                  <div [ngStyle]="overlay">
+                                      <div style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{secondary.companyName}}</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="secondaryStartups != null">Rejected
+                                <div *ngFor="let rejected of rejectedStartups" class="col-md-12" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);">
+                                    <div [ngStyle]="overlay">
+                                        <div style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{rejected.companyName}}</div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div *ngIf="loading" style="margin: 0 auto;width: 100px;padding-top:70px;">
+                              <div class="playbook-loader"></div>
+                            </div>
+                            <div *ngIf="error"  style="margin-left: 15px; margin-top:15px;width: 500px;">
+                              <p>Could not find any {{listname}} Top 20 ventures.</p>
+                            </div>
+                          </div>
+                          <div class="row show-grid col-md-8">
+                            <table style="width:100%">
+                                <tr>
+                                  <th style="width:90%">Time</th>
+                                  <th>Startup</th> 
+                                </tr>
+                                <tr *ngFor="let timeSlots of timeSlots">
+                                    <td *ngIf="!loading && !error">{{timeSlots}}</td>
+                                    <td *ngIf="!loading && !error">
+                                      <select>
+                                          <option value="" selected disabled hidden>Choose Startup</option>
+                                          <option disabled>Primary</option>
+                                          <option disabled *ngIf="!primaryStartups.length > 0">No Primary Startups</option>
+                                          <option *ngFor="let primary of primaryStartups">{{primary.companyName}}</option>
+                                          <option disabled>Secondary</option>
+                                          <option disabled *ngIf="!secondaryStartups.length > 0">No Secondary Startups</option>
+                                          <option *ngFor="let secondary of secondaryStartups">{{secondary.companyName}}</option>
+                                        </select>
+                                    </td>
+                                </tr>    
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+              </mat-tab>
           </mat-tab-group>
       </div>
     </div>
