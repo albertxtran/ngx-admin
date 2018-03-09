@@ -114,8 +114,7 @@
       </div>
     </div>
 
-    <!-- <form #filterForm="ngForm" (ngSubmit)="filterSearch(filterForm)"> -->
-    <form [formGroup]="filterForm" (ngSubmit)="filterSearch(filterForm)">
+    <form [formGroup]="filterForm" (ngSubmit)="filterSearch()">
       <div class="row show-grid">
         <div class="col-md-3" style="margin-top:5px;margin-bottom:5px;" *ngFor="let filter of filters;">
           <div class="col-md-12" style="padding-left:0px;padding-right:2px;"> 

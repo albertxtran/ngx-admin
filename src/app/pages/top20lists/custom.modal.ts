@@ -15,7 +15,7 @@ interface CheckForm {
                 <div class="modal-content">
                    <div class="modal-header">
                      <button type="button" class="close" (click)="close()" >&times;</button>
-                     <h4 class="modal-title">Add '{{company.companyName}}' to a {{title}} List</h4>
+                     <h4 class="modal-title">Add '{{list.listName}}' to a {{title}} List</h4>
                    </div>
                    <form #frm="ngForm" > 
                      <div *ngFor="let item of formArray; let i=index" class="modal-body" style="padding-top:5px;padding-bottom:5px;">
