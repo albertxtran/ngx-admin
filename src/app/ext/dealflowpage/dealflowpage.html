@@ -111,11 +111,6 @@
             <mat-tab label="Top 20">
               <div class="row" style="width: 100%;">
                   <div class="col-md-12" style="margin-left:15px;margin-top:15px;">
-                      <a [routerLink]="['/pages/startups']" [queryParams]="{dealflowname: dealflowname}">
-                        <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
-                          Add Startup
-                        </button>
-                      </a>
                       <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
                           Submit
                       </button>
@@ -147,7 +142,7 @@
                                     <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Secondary')" type="radio" value="middle" ng-reflect-value="middle" name="ngb-radio-2"> Secondary
                                   </label>
                                   <label class="btn btn-outline-primary" ngbbuttonlabel="">
-                                    <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Reject')" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Reject
+                                    <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Rejected')" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Reject
                                   </label>
                                 </div>
                             <!--<div>
