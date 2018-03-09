@@ -26,8 +26,7 @@
           <div class="row">
           <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value">
             <div style="margin-left:5px; margin-right:5px;">
-            <div *ngIf="!loading && !error">
-            <div >            
+            <div *ngIf="!loading && !error">          
             <div class="row">
             <div class="col-md-12" [ngStyle]="overlay" style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
               <div class="row">
@@ -46,7 +45,6 @@
                 </a>
               </div>
               </div>
-            </div>
             </div>
             </div>
             </div>
