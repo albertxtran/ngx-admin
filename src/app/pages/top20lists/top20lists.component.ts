@@ -216,11 +216,11 @@ export class Top20ListsComponent implements OnInit {
   }
 
   setOverlay(){
-    this.overlay = {'background-color' : 'Black', 'opacity': '0.7', 'border-radius' : '7px'};
+    this.overlay = {'background-color' : 'Grey', 'opacity': '0.1', 'border-radius' : '7px', };
   }
 
   unsetOverlay(){
-    this.overlay = {};
+    this.overlay = {'border-radius' : '7px'};
   }
 }
 

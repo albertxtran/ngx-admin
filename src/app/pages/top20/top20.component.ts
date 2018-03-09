@@ -139,7 +139,7 @@ export class Top20Component implements OnInit, OnDestroy  {
       );
   }
   setOverlay(){
-    this.overlay = {'background-color' : 'Black', 'opacity': '0.7'};
+    this.overlay = {'background-color' : 'Grey', 'opacity': '0.1'};
   }
 
   unsetOverlay(){

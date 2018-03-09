@@ -35,7 +35,8 @@ import { ToasterService } from '../../@theme/providers/toaster.service';
     DealflowModalComponent
   ],
   providers: [
-    Top20Service
+    Top20Service,
+    ToasterService
   ],
 
 })
