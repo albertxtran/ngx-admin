@@ -1,0 +1,13 @@
+<div class="auth-main">
+  <div class="auth-block" style="min-height: 250px;">
+    <div *ngIf="verified">
+      <h1>Congratulations! Your email address has been verified with Playbook</h1>
+      <a routerLink="/login" class="auth-link">Sign in here!</a>
+    </div>
+
+    <div ng-cloak class="ng-cloak" *ngIf="!verified && processed">
+      <h1>Sorry, we could not verify your email address.  Please try again later.</h1>
+      <a routerLink="/login" class="auth-link">Sign in here!</a>
+    </div>
+  </div>
+</div>

@@ -40,6 +40,10 @@ const routes: Routes = [
         loadChildren: 'app/@auth/login/login.module#LoginModule',
       },
       {
+        path: 'verify',
+        loadChildren: 'app/@auth/verify/verify.module#VerifyModule',
+      },
+      {
         path: 'register',
         loadChildren: 'app/@auth/register/register.module#RegisterModule',
       },

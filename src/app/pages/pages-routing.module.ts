@@ -58,6 +58,12 @@ const routes: Routes = [{
     path: 'top20',
     loadChildren: './top20/top20.module#Top20Module',
   },{
+    path: 'top100lists',
+    loadChildren: './top100lists/top100lists.module#Top100ListsModule',
+  },{
+    path: 'top100',
+    loadChildren: './top100/top100.module#Top100Module',
+  },{
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
