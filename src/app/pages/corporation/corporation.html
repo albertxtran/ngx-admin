@@ -62,6 +62,40 @@
               <div class="row">
                 <div class="col-md-12" style="font-family:DINPro-Light; border-bottom: 1px solid #dddddd;"></div>
               </div>
+              <div class="row" *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(corporation?.pnpOffice))">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-3">
+                    <template ngbModalContainer></template>
+                    <div *ngIf="creatingpdf" class="loader">Loading...</div>
+                      <div *ngIf="!creatingpdf" class="button-wrapper">
+                        <button (click)="this.creatingpdf=true;exportToPDF()" type="button" id="executivesummary" class="btn btn-default btn-raised" style="margin-top:20px;width:250px;">
+                          Executive Summary
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div *ngIf="corporation?.id && ((role=='admin' || role=='venture' || (currentUser?.role=='corporation' && currentUser?.cref_id == id)))" style="float:left;">
+                        <a [routerLink]="['/pages/editcorporation', corporation.id]">
+                          <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;width:250px">
+                            Edit Profile
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  <div class="col-md-3">  
+                    <div *ngIf="corporation?.id && (role=='admin' || role=='venture')" style="float:left;">
+                        <button class="btn btn-success" (click)="managerModalShow()" style="margin-top:20px;width:250px;text-align:center;">Add Account Manager</button>
+                    </div>
+                  </div> 
+                  <div class="col-md-3"> 
+                    <div *ngIf="corporation?.id && (role=='admin' || role=='venture')" style="float:left;">
+                      <button class="btn btn-success" (click)="championModalShow()" style="margin-top:20px;width:250px">Add Champion</button>
+                  </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
 
               <div class="row">
 
@@ -122,73 +156,31 @@
                       </div>
                     </div>
                     <div class="col-md-4">
-                        <div *ngIf="!loading">
-                          <div class="row">
-                            <div class="col-md-12">
-                                <p style="font-size: 12px;margin-top:15px;margin-bottom:5px;font-family:DINPro-Light;font-size:12px;color:#3c3c3c;">Select a list, add to dealflow!</p>
-                            </div>
-                          </div>
-                          <div class="row">
-                          <div class="col-md-8">
-                            <div class="form-group">
-                              <select #dealflowselect class="form-control" id="DealflowSelect">
-                                <option *ngFor="let list of dealflowlist">{{list.listName}}</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <a class="dealflow" style="margin-top:5px;width:auto; float:left;" href="javascript:void(0)" (click)="addDealflowLists(corporation.id,dealflowselect.value)">
-                              <p style="text-align: center;color: #ffffff;margin:0px;">Add</p>
-                            </a>
-                            <!--<a *ngIf="corporation?.top100" class="top100" href="javascript:void(0)" (click)="removeTop100(corporation.id)"><p style="text-align: center;color: #ffffff;margin:0px;">Remove</p></a>-->
-                          </div>
-                        </div>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="row" *ngIf="role=='admin' || role=='venture' || (role=='global' && currentUser?.pnpOffice.includes(corporation?.pnpOffice))">
-                    <div class="col-md-6">
-                          <div class="row">
-                          <div class="col-md-12">
-                          <template ngbModalContainer></template>
-                          <div *ngIf="creatingpdf" class="loader">Loading...</div>
-                          <div *ngIf="!creatingpdf" class="button-wrapper">
-                            <button (click)="this.creatingpdf=true;exportToPDF()" type="button" id="executivesummary" class="btn btn-default btn-raised" style="margin-top:20px;">
-                              Executive Summary
-                            </button>
-                          </div>
-                        </div>
-                        </div>
+                      <div *ngIf="!loading">
                         <div class="row">
                           <div class="col-md-12">
-                          <div *ngIf="corporation?.id && ((role=='admin' || role=='venture' || (currentUser?.role=='corporation' && currentUser?.cref_id == id)))" style="float:left;">
-                            <a [routerLink]="['/pages/editcorporation', corporation.id]">
-                              <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;">
-                                Edit Profile
-                              </button>
-                            </a>
+                              <p style="font-size: 12px;margin-top:15px;margin-bottom:5px;font-family:DINPro-Light;font-size:12px;color:#3c3c3c;">Select a list, add to dealflow!</p>
                           </div>
                         </div>
+                        <div class="row">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <select #dealflowselect class="form-control" id="DealflowSelect">
+                              <option *ngFor="let list of dealflowlist">{{list.listName}}</option>
+                            </select>
+                          </div>
                         </div>
+                        <div class="col-md-4">
+                          <a class="dealflow" style="margin-top:5px;width:auto; float:left;" href="javascript:void(0)" (click)="addDealflowLists(corporation.id,dealflowselect.value)">
+                            <p style="text-align: center;color: #ffffff;margin:0px;">Add</p>
+                          </a>
+                          <!--<a *ngIf="corporation?.top100" class="top100" href="javascript:void(0)" (click)="removeTop100(corporation.id)"><p style="text-align: center;color: #ffffff;margin:0px;">Remove</p></a>-->
                         </div>
-                        <div class="col-md-6">  
-                          <div class="row">
-                              <div class="col-md-12">
-                            <div *ngIf="corporation?.id && (role=='admin' || role=='venture')" style="float:left;">
-                                <button class="btn btn-success" (click)="managerModalShow()" style="margin-top:20px;">Add Account Manager</button>
-                            </div>
-                            </div>
-                          </div>  
-                          <div class="row">
-                              <div class="col-md-12"> 
-                            <div *ngIf="corporation?.id && (role=='admin' || role=='venture')" style="float:left;">
-                              <button class="btn btn-success" (click)="championModalShow()" style="margin-top:20px;">Add Champion</button>
-                          </div>
-                          </div>
-                          </div>
-                       </div>
+                      </div>
                       </div>
                     </div>
+                  </div>
+                </div>
                
              
            
