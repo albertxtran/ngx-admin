@@ -40,6 +40,9 @@ const routes: Routes = [{
     path: 'dealflowlists',
     loadChildren: './dealflowlists/dealflowlists.module#DealflowListsModule',
   },{
+    path: 'dealflowform',
+    loadChildren: './dealflowform/dealflowform.module#DealflowFormModule',
+  },{
     path: 'dealflowpage',
     loadChildren: './dealflowpage/dealflowpage.module#DealflowPageModule',
   },{
