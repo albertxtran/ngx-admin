@@ -2,6 +2,7 @@ import { NgModule }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { DealflowPageComponent } from './dealflowpage.component';
 import { DealflowPageService } from './dealflowpage.service';
 import { ThemeModule } from '../../@theme/theme.module';
@@ -16,6 +17,7 @@ import { ToasterService } from '../../@theme/providers/toaster.service';
     CommonModule,
     FormsModule,
     MatTabsModule,
+    MatCheckboxModule,
   ],
   declarations: [
     ...routedComponents,
