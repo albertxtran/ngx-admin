@@ -134,6 +134,9 @@
                           Add Startup
                         </button>
                       </a>
+                      <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
+                          Submit
+                      </button>
                       <nb-card>
                         <nb-card-body>
                           <div *ngIf="!loading && !error">
@@ -166,7 +169,7 @@
                                 <a class="top20" href="javascript:void(0)" (click)="removeDealflow(obj.venture_Id,dealflow.dealflow_Name)" style="z-index: 100;cursor: pointer;position: relative; margin:10px;"><span title="Remove from Top 20"><i aria-hidden="true" class="fa fa-times" style="color:white;"></i></span></a>
                               </div> -->
                               <div *ngIf="(role=='admin' || role=='corporation')">
-                                <a class="top20" href="javascript:void(0)" style="z-index: 100;cursor: pointer;position: relative; margin:10px;margin-bottom:30px;"><span title="Remove from Top 20" style="color: white;">ACCEPT<i aria-hidden="true" class="fa fa-check" style="color:white;margin-left:10px;"></i></span></a>
+                                <a class="top20" href="javascript:void(0)" style="z-index: 100;cursor: pointer;position: relative; margin:10px;"><span title="Remove from Top 20" style="color: white;">ACCEPT<i aria-hidden="true" class="fa fa-check" style="color:white;margin-left:10px;"></i></span></a>
                                 <a class="top20" href="javascript:void(0)" (click)="removeDealflow(obj.venture_Id,dealflow.dealflow_Name)" style="z-index: 100;cursor: pointer;position: relative; margin:10px;"><span title="Remove from Top 20" style="color: white;">REJECT<i aria-hidden="true" class="fa fa-times" style="color:white;margin-left:10px;"></i></span></a>
                               </div>
                             </div>
@@ -192,34 +195,34 @@
             <mat-tab label="Scheduling">
                 <div class="row" style="width: 100%;">
                     <div class="col-md-12" style="margin-left:15px;margin-top:15px;">
+
                         <div class="row" style="width:100%;">
-                          <div class="row show-grid col-md-3">
+                          <div class="row show-grid col-md-4">
                             <div *ngIf="!loading && !error">
-                              <mat-checkbox ng-model="isChecked" aria-label="Finished?" *ngIf="primaryStartups.length > 0" >Primary</mat-checkbox>
-                                <div *ngIf="!primaryStartups.length>0">None</div>
+                              <mat-checkbox ng-model="isChecked" aria-label="Finished?">Primary</mat-checkbox>
+                                <div *ngIf="!primaryStartups.length > 0">None</div>
                                 <div *ngFor="let primary of primaryStartups" class="col-md-12" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);">
                                   <div [ngStyle]="overlay">
                                       <mat-checkbox ng-model="isChecked" aria-label="Finished?" name="primary" style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{primary.companyName}}</mat-checkbox>
                                   </div>
                                 </div>
-                              </div>
-                              <div>Secondary
+                              <mat-checkbox ng-model="isChecked" aria-label="Finished?">Secondary</mat-checkbox>
                                 <div *ngIf="!secondaryStartups.length > 0">None</div>
                                 <div *ngFor="let secondary of secondaryStartups" class="col-md-12" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);">
                                   <div [ngStyle]="overlay">
                                       <mat-checkbox ng-model="isChecked" aria-label="Finished?" name="secondary" style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{secondary.companyName}}</mat-checkbox>
                                   </div>
                                 </div>
-                              </div>
-                              <div>Rejected
-                              <div *ngIf="!rejectedStartups.length > 0">None</div>
+                              
+                              <mat-checkbox ng-model="isChecked" aria-label="Finished?">Rejected</mat-checkbox>
+                                <div *ngIf="!rejectedStartups.length > 0">None</div>
                                 <div *ngFor="let rejected of rejectedStartups" class="col-md-12" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);">
                                     <div [ngStyle]="overlay">
                                         <mat-checkbox ng-model="isChecked" aria-label="Finished?" name="rejected" style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{rejected.companyName}}</mat-checkbox>
                                     </div>
                                 </div>
                               </div>
-                            </div>
+                            
                             <div *ngIf="loading" style="margin: 0 auto;width: 100px;padding-top:70px;">
                               <div class="playbook-loader"></div>
                             </div>
@@ -227,7 +230,7 @@
                               <p>Could not find any {{listname}} Top 20 ventures.</p>
                             </div>
                           </div>
-                          <div class="row show-grid col-md-9">
+                          <div class="row show-grid col-md-8">
                             <table style="width:100%">
                                 <tr>
                                   <th style="width:90%">Time</th>
@@ -238,7 +241,7 @@
                                     <td *ngIf="!loading && !error">
                                       <select>
                                           <option value="open" selected>Open</option>
-                                          <option value="close">Close</option>
+                                          <option value="close">Close</option>                                          
                                           <option disabled>Primary</option>
                                           <option disabled *ngIf="!primaryStartups.length > 0">No Primary Startups</option>
                                           <option *ngFor="let primary of primaryStartups">{{primary.companyName}}</option>
