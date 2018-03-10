@@ -201,24 +201,23 @@
                         <div class="row" style="width:100%;">
                           <div class="row show-grid col-md-4">
                             <div *ngIf="!loading && !error">
-                              <div *ngIf="primaryStartups.length >0 ">Primary
+                              <mat-checkbox ng-model="isChecked" aria-label="Finished?" *ngIf="primaryStartups.length > 0" >Primary</mat-checkbox>
                                 <div *ngFor="let primary of primaryStartups" class="col-md-12" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);">
                                   <div [ngStyle]="overlay">
-                                      <div style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{primary.companyName}}</div>
+                                      <mat-checkbox ng-model="isChecked" aria-label="Finished?" name="primary" style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{primary.companyName}}</mat-checkbox>
                                   </div>
                                 </div>
-                              </div>
                               <div *ngIf="secondaryStartups.length > 0">Secondary
                                 <div *ngFor="let secondary of secondaryStartups" class="col-md-12" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);">
                                   <div [ngStyle]="overlay">
-                                      <div style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{secondary.companyName}}</div>
+                                      <mat-checkbox ng-model="isChecked" aria-label="Finished?" name="secondary" style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{secondary.companyName}}</mat-checkbox>
                                   </div>
                                 </div>
                               </div>
                               <div *ngIf="secondaryStartups != null">Rejected
                                 <div *ngFor="let rejected of rejectedStartups" class="col-md-12" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);">
                                     <div [ngStyle]="overlay">
-                                        <div style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{rejected.companyName}}</div>
+                                        <mat-checkbox ng-model="isChecked" aria-label="Finished?" name="rejected" style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{rejected.companyName}}</mat-checkbox>
                                     </div>
                                 </div>
                               </div>
