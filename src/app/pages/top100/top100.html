@@ -1,11 +1,7 @@
-<div class="widgets">
-
-  <div class="row">
-    <div class="col-md-12">
-
-    <ba-card title="{{listname}} Top 100" baCardClass="with-scroll"> <!--<ba-card title="{{listname}}" baCardClass="with-scroll">-->
-        
-        <div class="row show-grid">
+<nb-card>
+    <nb-card-header>{{listname}} Top 100</nb-card-header>
+    <nb-card-body>      
+        <div class="row">
           <div class="col-md-8">
           <div class="form-group">
             <input #input type="text" class="form-control form-control-rounded" id="input03" placeholder="Search for...">
@@ -23,11 +19,13 @@
                   <button (click)="this.creatingcsv=true;exportToCSV()" type="button" id="exportcsv" class="btn btn-default btn-raised" style="float:right;">Export to CSV</button>
                 </div>
           </div>
+          </div>
           <div *ngIf="!loading && !error">
           
-          <div class="col-md-12" style="padding-top:15px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);" *ngFor="let obj of companies | smArraySearch: input.value">
+          <div class="col-md-12" style="padding-top:15px;padding-bottom:15px;border-top: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);" *ngFor="let obj of companies | smArraySearch: input.value">
             <div [ngStyle]="overlay">
-            <div class="col-md-1" style="padding-left:0px;">
+            <div class="row">
+            <div class="col-md-1">
              <div *ngFor="let list of obj.top100">
                 <div *ngIf="list.listName == listname" >
                   <input style="background:transparent;border:none;font-size: 32px;color: inherit;display:block; width:100%"  type="number" #position min="1" max="{{companies?.length}}" value="{{list?.order}}" (keyup.enter)="changePosition(position.value, obj?.id,list.order)"> <!--(focusout)="changePosition(position.value)"-->
@@ -59,6 +57,7 @@
               <div *ngIf="obj?.email" style="font-size: 10px; color: #000000; opacity: .38;">Email:</div>
               <div *ngIf="obj?.email" style="font-size: 12px; color: #000000; opacity: .54;">{{obj.email}}</div>
             </div>
+          </div>
             </div>
           </div>
           </div>
@@ -68,15 +67,11 @@
           <div *ngIf="error"  style="margin-left: 15px; margin-top:15px;width: 500px;">
             <p>Could not find any {{listname}} Top 100 ventures.</p>
           </div>
-        </div>
+       
 
       <!--  <div *ngFor='#key of StartupsData'>
           <h3>{{dataObject[key].id}}</h3>
           <p>{{dataObject[key].companyName}}</p>
         </div>-->
-
-      </ba-card>
-    </div>
-  </div>
-
-</div>
+  </nb-card-body>
+</nb-card>

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { ToasterService } from '../../@theme/providers/toaster.service';
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as CryptoJS from 'crypto-js';
 import { Router } from '@angular/router';
@@ -100,13 +101,8 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
         // Defaults to 0 if no query param provided.
         this.dealflowname = params['dealflowname'] || 0;
       });
-      this._dealflowPageService.getDealflowStartup(this.dealflowname).subscribe(data => {this.dealflow_startup = data 
-        //console.log("this is the top 20 list from constructor: " + JSON.stringify(this.dealflow_startup));}
+      this._dealflowPageService.getDealflowStartup(this.dealflowname).subscribe(data => {this.dealflow_startup = data
         console.log(this.dealflow_startup.length);
-        /*for(var i = 0; i < this.dealflow_startup.length; i++){
-          console.log("count = " + i);
-          this.getVenturesById(this.dealflow_startup[i].venture_id, i, this.dealflow_startup.length);
-        }*/
       },
           error => console.error('Error: ' + error)
       );    
