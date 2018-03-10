@@ -6,6 +6,11 @@
 // theme changes
 .btn-default{
   background: linear-gradient(to right, #40dcb2, #40dc7e);
+  border: 0px !important;
+}
+
+.top20{
+  background: linear-gradient(to right, #40dcb2, #40dc7e);
 }
 
 // which themes you what to enable (empty to enable all)

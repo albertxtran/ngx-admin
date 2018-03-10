@@ -54,9 +54,9 @@
 
     <div class="row show-grid">
       <div class="col-md-4" *ngFor="let obj of asyncCompanies | async | paginate: { id: 'server', itemsPerPage: 12, currentPage: p, totalItems: total }"> <!--| smArraySearch: input.value-->
-        <div *ngIf="!loading && !error"  style="padding-top:15px;padding-bottom:15px;overflow: hidden;padding-right:1px;padding-left:1px;">
+        <div *ngIf="!loading && !error"  style="padding-top:15px;padding-bottom:15px;overflow: hidden;">
           
-          <div class="col-md-12" style="background: linear-gradient(to right, #40dcb2, #40dc7e);border-radius: 10px;padding:6px;">
+          <div class="col-md-12" style="background: linear-gradient(to bottom, #40dcb2, #40dc7e);border-radius: 10px;padding:2px;">
             <div style="height:370px;padding:15px;overflow:hidden;background: white;border-radius:7px;">
               <div class="row">
                 <div class ="col-md-3">

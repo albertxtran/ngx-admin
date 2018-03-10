@@ -5,17 +5,18 @@
         <nb-card>
           <nb-card-body>
             <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
+              <div class="col-md-12">
+                <div class="form-group" style="margin:0px;">
                   <input #input type="text" class="form-control" id="input03" placeholder="Search for list...">
                 </div>
               </div>
-              <div class="col-md-8">
-                <div class="input-group">
-                  <input #dealflowlist type="text" class="form-control" placeholder="Create a new dealflow list!">
-                  <span class="input-group-btn">
-                      <button (click)="addDealflowList(dealflowlist.value);dealflowlist.value=''" style="background-color: #21cd98;border-color: #ffffff;"class="btn btn-danger" type="button">Add!</button>
-                  </span>
+              <div class="row">
+                <div class="col-md-12">
+                  <a [routerLink]="['/pages/dealflowform']">
+                    <div class="button-wrapper">
+                      <button type="button" class="btn btn-default btn-raised" style="margin:15px;margin-bottom:0px;">New Dealflow</button>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>
