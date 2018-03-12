@@ -85,6 +85,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   currentUser: any;
   primaryCheckAll: boolean = false;
   secondaryCheckAll: boolean = false;
+  sendList: any[]= [];
 
   
 
@@ -356,7 +357,55 @@ SubmitTop20(){
 }
 
 checkUncheck(obj: any){
-  console.log("in checkUncheck!!!!!!!!!!!!!! "+ JSON.stringify(obj.companyName));
+  console.log("in check uncheck");
+    var idx = this.sendList.indexOf(obj.id);
+    if (idx > -1) {
+      this.sendList.splice(idx, 1);
+    }
+    else {
+      this.sendList.push(obj.id);
+    }
+    console.log(this.sendList);
+}
+
+allPrimary(){
+  if(this.primaryCheckAll){
+    this.primaryStartups.forEach(startup =>{
+      var idx = this.sendList.indexOf(startup.id);
+      if (idx <= -1) {
+        this.sendList.push(startup.id);
+      }
+    });
+  }
+  else{
+    this.primaryStartups.forEach(startup => {
+      var idx = this.sendList.indexOf(startup.id);
+      if (idx > -1) {
+        this.sendList.splice(idx, 1);
+      }
+    });
+  }
+  console.log(this.sendList);
+}
+
+allSecondary(){
+  if(this.secondaryCheckAll){
+    this.secondaryStartups.forEach(startup =>{
+      var idx = this.sendList.indexOf(startup.id);
+      if (idx <= -1) {
+        this.sendList.push(startup.id);
+      }
+    });
+  }
+  else{
+    this.secondaryStartups.forEach(startup => {
+      var idx = this.sendList.indexOf(startup.id);
+      if (idx > -1) {
+        this.sendList.splice(idx, 1);
+      }
+    });
+  }
+  console.log(this.sendList);
 }
 
 exportToPDF() {
