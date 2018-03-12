@@ -83,6 +83,9 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   public pageload: boolean = false;
   role: string;
   currentUser: any;
+  primaryCheckAll: boolean = false;
+  secondaryCheckAll: boolean = false;
+
   
 
 constructor(private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
@@ -350,6 +353,10 @@ SubmitTop20(){
       return res;
     }
   }).subscribe();
+}
+
+checkUncheck(obj: any){
+  console.log("in checkUncheck!!!!!!!!!!!!!! "+ JSON.stringify(obj.companyName));
 }
 
 exportToPDF() {
