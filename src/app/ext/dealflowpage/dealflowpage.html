@@ -3,88 +3,107 @@
 <nb-card>
     <nb-card-body>
     <div class="row">
-      <div class="col-md-12" style="padding:0;">
-        <div class="row show-grid">
+      <div class="col-md-12">
           <mat-tab-group [selectedIndex]="0">
             <mat-tab label="Details">
               <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px;">
-                  <div class="row">
-                    <div class="col-md-12" style="padding-top:5px;">
-                      <div style="font-family: DINPro-Light, CenturyGothic, AppleGothic, sans-serif;display: inline;font-size: 12px;color: goldenrod;font-weight: 400;">{{dealflow?.dealflow_State}}</div>
-                      <div style="font-family:DINPro-Light;color:black;font-weight:bold;font-size:40px;padding-bottom:15px;padding-top:15px;">{{dealflow.dealflow_Name}}</div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflow?.dealflow_State}}</div>
+                    <div style="font-family:DINPro-Light;font-weight:bold;font-size:40px">{{dealflow.dealflow_Name}}</div>
+                  </div>
+                  <div class="col-md-6" style="padding-top:5px;">
+                    <a [routerLink]="['/pages/editdealflow']" [queryParams]="{dealflowname: dealflowname}">
+                      <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;">
+                        Edit Dealflow
+                      </button>
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div style="font-family:DINPro-Light;color:black;font-size:20px;">
+                      <div>Date: {{dealflow?.event_Date}}</div>
+                      <div>Time: {{dealflow?.event_Start}} - {{dealflow?.event_Stop}}</div>
                     </div>
-                    <div class="col-md-12" style="padding-top:5px;">
-                      <div style="font-family:DINPro-Light;color:black;font-size:20px;padding-top:25px;">
-                        <div>{{dealflow?.event_Date}}</div>
-                        <div style="font-size:13px;">{{dealflow?.event_Start}} - {{dealflow?.event_Stop}}</div>
+                  </div>
+                </div>
+                <div class="row" style="padding:0px;padding-bottom:20px; padding-top: 20px;margin-bottom:20px; border-bottom: 1px solid #dddddd;">
+                  <!-- <div class="col-md-3" style="width:auto; padding:0px;">
+                    <div class="col-md-12" style="font-family:DINPro-Light;float: left">
+                      <div style="font-size: 12px; color:#343434;">Corporation: Test Corp</div>
+                      <div style="display:block;">
+                        <div class="fa fa-external-link" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                        <div style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
+                            <a style="color: #343434" href="http://google.com/" target="_blank">Website</a>
+                        </div>
+                      </div>
+                      <div class="fa fa-globe" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                      <div style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">Santa Clara, CA</div>
+                      <div style="display:block;">
+                        <div class="fa fa-external-link" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
+                        <div style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
+                          <a style="color: #343434" href="http://google.com/" target="_blank">Pitch Deck</a>
+                        </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-12" style="padding-top:5px;">
-                        <a [routerLink]="['/pages/editdealflow']" [queryParams]="{dealflowname: dealflowname}">
-                          <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;">
-                            Edit Dealflow
-                          </button>
-                        </a>
+                  </div> -->
+                  <div class="col-md-2" style="width:auto;">
+                    <div class="col-md-12" style="display:inline-block;padding:0px;">
+                      <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">LEAD</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{lead_name}}</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{lead_email}}</div>
+                    </div>
+                  </div>
+                  <div class="col-md-2" style="width:auto;">  
+                    <div class="col-md-12" style="display:inline-block;padding:0px;">
+                      <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">ACCOUNT MANAGER</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{account_manager_name}}</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{account_manager_email}}</div>
+                    </div>
+                  </div>
+                  <div class="col-md-2" style="width:auto;">
+                    <div class="col-md-12" style="display:inline-block;padding:0px;">
+                      <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">VENTURE ASSOCIATE</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{venture_associate_name}}</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{venture_associate_email}}</div>
+                    </div>
+                  </div>
+                  <div class="col-md-2" style="width:auto;">
+                    <div class="col-md-12" style="display:inline-block;padding:0px;">
+                      <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">CHAMPION</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{champion_name}}</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{champion_email}}</div>
+                    </div>
+                  </div>
+                  <div class="col-md-2" style="width:auto;">
+                    <div class="col-md-12" style="display:inline-block;padding:0px;">
+                      <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">SUPPORTING MEMBERS</div>
+                      <div *ngIf="supporting_member1_name" style="padding-bottom:5px;">
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member1_name}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member1_email}}</div>
+                      </div>
+                      <div *ngIf="supporting_member2_name" style="padding-bottom:5px;">
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member2_name}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member2_email}}</div>
+                      </div>
+                      <div *ngIf="supporting_member3_name" style="padding-bottom:5px;">
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member3_name}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member3_email}}</div>
                       </div>
                     </div>
                   </div>
-                  <div class="row" style="padding:0px;padding-bottom:20px; margin-bottom:20px; border-bottom: 1px solid #dddddd;">
-                    <div class="col-md-2" style="width:auto; margin-right:3%;">
-                      <div class="col-md-12" style="display:inline-block;padding:0px;">
-                        <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">LEAD</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{lead_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{lead_email}}</div>
-                      </div>
-                    </div>
-                    <div class="col-md-2" style="width:auto; margin-right:3%;">  
-                      <div class="col-md-12" style="display:inline-block;padding:0px;">
-                        <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">ACCOUNT MANAGER</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{account_manager_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{account_manager_email}}</div>
-                      </div>
-                    </div>
-                    <div class="col-md-2" style="width:auto; margin-right:3%;">
-                      <div class="col-md-12" style="display:inline-block;padding:0px;">
-                        <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">VENTURE ASSOCIATE</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{venture_associate_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{venture_associate_email}}</div>
-                      </div>
-                    </div>
-                    <div class="col-md-2" style="width:auto; margin-right:3%;">
-                      <div class="col-md-12" style="display:inline-block;padding:0px;">
-                        <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">CHAMPION</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{champion_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{champion_email}}</div>
-                      </div>
-                    </div>
-                    <div class="col-md-2" style="width:auto; padding:0px; margin-right:3%;">
-                      <div class="col-md-12" style="display:inline-block;padding:0px;">
-                        <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">SUPPORTING MEMBERS</div>
-                        <div *ngIf="supporting_member1_name">
-                          <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{supporting_member1_name}}</div>
-                          <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">{{supporting_member1_email}}</div>
-                        </div>
-                        <div>
-                          <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">Alex Tran</div>
-                          <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">atran@pnptc.com</div>
-                        </div>
-                        <div>
-                          <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">Raj Desai</div>
-                          <div style="font-family:DINPro-Light;font-size: 12px;font-family:DINPro-Light;color:#3c3c3c;overflow:hidden;">raj@pnptc.com</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                </div>
               </div>
-              <div class="col-md-12">
-                  <div class="col-md-5" width="auto; margin-right: 2%;">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-6" style="float:left;width:35%;">
                     <div style="font-size: 10px; color: black; opacity: .40;">EVENT SUMMARY</div>
                     <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.event_Summary}}</div>
                     <div style="font-size: 10px; color: black; opacity: .40;">EVENT LOCATION</div>
                     <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.event_Location}}</div>
                     <div style="font-size: 10px; color: black; opacity: .40;">EVENT AGENDA</div>
-                    <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.event_Agenda}}</div>
+                    <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;white-space:pre-wrap;">{{dealflow?.event_Agenda}}</div>
                     <div style="font-size: 10px; color: black; opacity: .40;">ADDITIONAL ATTENDEES</div>
                     <div *ngFor="let each of attendee_array" class="col-md-12" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-left:0px;padding-bottom:10px;">
                       <div class="col-md-12" style="width:auto;padding-left:0px;">
@@ -94,7 +113,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-5" style="padding:0px;" width="auto;">
+                  <div class="col-md-6" style="float:left;width:35%;">
                     <div style="font-size: 10px; color: black; opacity: .40;">VERTICALS</div>
                     <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.verticals}}</div>
                     <div style="font-size: 10px; color: black; opacity: .40;">PURPOSE</div>
@@ -106,6 +125,7 @@
                     <div style="font-size: 10px; color: black; opacity: .40;">EXTRA DETAIL</div>
                     <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.extra_Detail}}</div>
                   </div>
+                </div>
               </div>
             </mat-tab>
             <mat-tab label="Top 20">
@@ -114,37 +134,45 @@
                       <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
                           Submit
                       </button>
-                      <div class="row show-grid">
-                        <div *ngIf="!loading && !error">
-                        <div *ngFor="let obj of venturesList" class="col-md-12" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);">
-                          <div [ngStyle]="overlay">
-                          <div class="col-md-5" style="padding-left:0px;">
-                            <a [routerLink]="['/pages/company', obj.id]">
-                              <div style="font-size: 20px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif; padding-bottom: 5px">{{obj.companyName}}</div>
-                            </a>
-                            <div *ngIf="obj?.blurb" style="font-size: 11px; color: #000000; opacity: .54;">{{obj?.blurb}}</div>
-                            <div *ngIf="obj?.companyName" style="overflow-wrap: break-word;font-size: 10px"><a style="color: #24a2ff" href="{{obj.companyName}}" target="_blank">{{obj?.companyName}}</a></div>
-                            <div *ngIf="obj?.website" style="font-size: 13px; color: #000000; opacity: .38; font-weight: 400">{{obj?.website}}</div>
-                            <div *ngIf="obj?.location" style="font-size: 12px; color: #000000; opacity: .38;">{{obj?.location}}</div>
-                          </div>
-                          <div class="col-md-3">
-                            <div *ngIf="obj?.verticals" style="font-size: 10px; color: #000000; opacity: .38;">Verticals:</div>
-                            <div *ngIf="obj?.verticals" style="font-size: 12px; color: #000000; opacity: .54;">{{obj?.verticals}}</div>
-                            <div *ngIf="obj?.tags" style="font-size: 10px; color: #000000; opacity: .38;">Tags:</div>
-                            <div *ngIf="obj?.tags" style="font-size: 12px; color: #000000; opacity: .54;">{{obj?.tags}}</div>
-                          </div>
-                          <div class="col-md-3">
-                              <div class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" role="group" ng-reflect-model="left">
-                                  <label class="btn btn-outline-primary" [class.active]="buttonSelect === 1" ngbbuttonlabel="">
-                                    <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Primary')" type="radio" value="left" ng-reflect-value="left" name="ngb-radio-2"> Primary
-                                  </label>
-                                  <label class="btn btn-outline-primary" [class.active]="buttonSelect === 2" ngbbuttonlabel="">
-                                    <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Secondary')" type="radio" value="middle" ng-reflect-value="middle" name="ngb-radio-2"> Secondary
-                                  </label>
-                                  <label class="btn btn-outline-primary" [class.active]="buttonSelect === 3" ngbbuttonlabel="">
-                                    <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Rejected')" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Not Applicable
-                                  </label>
-                                </div>
+                      <nb-card>
+                        <nb-card-body>
+                          <div *ngIf="!loading && !error">
+                            <div *ngFor="let obj of venturesList" class="row" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);width:auto;">
+                              <div [ngStyle]="overlay">
+                                  <div class="col-md-4" style="padding-left:0px;width:auto;display:inline-block;">
+                                    <a [routerLink]="['/pages/company', obj.id]">
+                                      <div style="font-size: 20px; color: #000000; opacity: .87;font-family:DINPro-Light; padding-bottom: 10px">{{obj.companyName}}</div>
+                                    </a>
+                                    <div *ngIf="obj?.blurb" style="font-size: 11px; color: #000000; opacity: .54;margin-bottom:10px;">{{obj?.blurb}}</div>
+                                    <div *ngIf="obj?.website" style="font-size: 13px; color: #000000; opacity: .38; font-weight: 400;margin-bottom:10px;"><a style="color: #24a2ff" href="{{obj?.website}}" target="_blank">{{obj?.website}}</a></div>
+                                    <div *ngIf="obj?.location" style="font-size: 12px; color: #000000; opacity: .38;">{{obj?.location}}</div>
+                                  </div>
+                                  <div class="col-md-2" style="width:auto;display:inline-block;">
+                                    <div *ngIf="obj?.verticals" style="font-size: 10px; color: #000000; opacity: .38;">Verticals:</div>
+                                    <div *ngIf="obj?.verticals" style="font-size: 12px; color: #000000; opacity: .54;margin-bottom:10px;">{{obj?.verticals}}</div>
+                                    <div *ngIf="obj?.tags" style="font-size: 10px; color: #000000; opacity: .38;">Tags:</div>
+                                    <div *ngIf="obj?.tags" style="font-size: 12px; color: #000000; opacity: .54;overflow-wrap: break-word;">{{obj?.tags}}</div>
+                                  </div>
+                                  <div class="col-md-2" style="width:auto;display:inline-block;">
+                                    <div *ngIf="obj?.pnpContact" style="font-size: 10px; color: #000000; opacity: .38;">Account Manager:</div>
+                                    <div *ngIf="obj?.pnpContact" style="font-size: 12px; color: #000000; opacity: .54;margin-bottom:10px;">{{obj?.pnpContact}}</div>
+                                    <div *ngIf="obj?.contactName" style="font-size: 10px; color: #000000; opacity: .38;">Primary Contact:</div>
+                                    <div *ngIf="obj?.contactName" style="font-size: 12px; color: #000000; opacity: .54;margin-bottom:10px;">{{obj?.contactName}}</div> 
+                                    <div *ngIf="obj?.email" style="font-size: 10px; color: #000000; opacity: .38;">Email:</div>
+                                    <div *ngIf="obj?.email" style="font-size: 12px; color: #000000; opacity: .54;">{{obj?.email}}</div>
+                                  </div>
+                                  <div class="col-md-4" style="float:right;margin-top:2%;">
+                                    <div class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" role="group" ng-reflect-model="left">
+                                      <label class="btn btn-outline-primary" [class.active]="buttonSelect === 1" ngbbuttonlabel="">
+                                        <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Primary')" type="radio" value="left" ng-reflect-value="left" name="ngb-radio-2"> Primary
+                                      </label>
+                                      <label class="btn btn-outline-primary" [class.active]="buttonSelect === 2" ngbbuttonlabel="">
+                                        <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Secondary')" type="radio" value="middle" ng-reflect-value="middle" name="ngb-radio-2"> Secondary
+                                      </label>
+                                      <label class="btn btn-outline-primary" [class.active]="buttonSelect === 3" ngbbuttonlabel="">
+                                        <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Rejected')" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Not Applicable
+                                      </label>
+                                  </div>
                             <!--<div>
                               <a class="top20" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Primary')" style="z-index: 100;cursor: pointer;position: relative; margin:10px;"><span title="Primary">Primary</span></a>
                               <a class="top20" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Secondary')" style="z-index: 100;cursor: pointer;position: relative; margin:10px;"><span title="Secondary">Secondary</span></a>
@@ -156,25 +184,24 @@
                             <div *ngIf="obj?.contactName" style="font-size: 12px; color: #000000; opacity: .54;">{{obj?.contactName}}</div> 
                             <div *ngIf="obj?.email" style="font-size: 10px; color: #000000; opacity: .38;">Email:</div>
                             <div *ngIf="obj?.email" style="font-size: 12px; color: #000000; opacity: .54;">{{obj?.email}}</div>
+                          <div *ngIf="loading" style="margin: 0 auto;width: 100px;padding-top:70px;">
+                            <div class="playbook-loader"></div>
                           </div>
+                          <div *ngIf="error"  style="margin-left: 15px; margin-top:15px;width: 500px;">
+                            <p>Could not find any {{listname}} Top 20 ventures.</p>
                           </div>
-                        </div>
-                        </div>
-                        <div *ngIf="loading" style="margin: 0 auto;width: 100px;padding-top:70px;">
-                          <div class="playbook-loader"></div>
-                        </div>
-                        <div *ngIf="error"  style="margin-left: 15px; margin-top:15px;width: 500px;">
-                          <p>Could not find any {{listname}} Top 20 ventures.</p>
-                        </div>
-                      </div>
+                        </nb-card-body>
+                      </nb-card>
                   </div>
                 </div>
             </mat-tab>
           </mat-tab-group>
-        </div>
       </div>
     </div>
 </nb-card-body>
 </nb-card>
 </nb-layout-column>
 </nb-layout>
+
+
+
