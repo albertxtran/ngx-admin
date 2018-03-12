@@ -185,7 +185,7 @@ save(model: FormGroup) {
       }
       // If everything went fine, return the response
       else {
-        this._toasterService.showError("The Dealflow has been created.", "Success!", 4000);
+        this._toasterService.showSuccess("The Dealflow has been Updated.", "Success!", 4000);
         //return res.json();
         
       }

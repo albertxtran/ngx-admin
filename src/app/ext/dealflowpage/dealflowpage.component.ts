@@ -78,7 +78,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   public pageload: boolean = false;
   role: Observable<any>;
   currentUser: any;
-  
+  buttonSelect: number = 3;
 
 constructor(private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
       this.currentUser = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!').toString(CryptoJS.enc.Utf8))
@@ -323,6 +323,16 @@ removeDealflow(id:Number, dealflowname:String) {
 
 selectPriority(id:Number, dealflow_name: String, priority: String) {
   console.log("accept "+id + " dealflowName: " + dealflow_name);
+  if(priority == 'Primary'){
+    this.buttonSelect = 1;
+  }
+  else if(priority == 'Secondary'){
+    this.buttonSelect = 2;
+  }
+  else if(priority == 'Rejected'){
+    this.buttonSelect = 3;
+  }
+  console.log("this button select: "+this.buttonSelect);
   this._dealflowPageService.selectPriority(id,dealflow_name,priority).subscribe(data => this.dealflowstartup = data,
   error => {
     this._toasterService.showError("Could not select Priority!", "Error", 4000)}, 
