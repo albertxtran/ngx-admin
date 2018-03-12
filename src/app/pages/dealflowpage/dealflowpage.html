@@ -167,7 +167,7 @@
                                   </div>
 
                                   <div class="col-md-2" style="float:right;">
-                                    <div *ngIf="(role=='admin' || role=='venture')" style="float:right;width:50px;margin-right:90%;">
+                                    <div *ngIf="(role=='admin' || role=='venture')" style="float:right;width:50px;margin-right:50%;">
                                       <a class="top20" href="javascript:void(0)" (click)="removeDealflow(obj.venture_Id,dealflow.dealflow_Name)" style="z-index: 100;cursor: pointer;position: relative; margin:10px;width:auto;"><span title="Remove from Top 20"><i aria-hidden="true" class="fa fa-times" style="color:white;"></i></span></a>
                                     </div>
                                   </div>
@@ -192,7 +192,7 @@
                 <div class="row" style="width: 100%;">
                     <div class="col-md-12" style="margin-left:15px;margin-top:15px;">
 
-                        <div class="row" style="width:100%;">
+                        <div class="row" style="width:100%;margin-top:2%">
                           <div class="row show-grid col-md-4">
                             <div *ngIf="!loading && !error">
                               <mat-checkbox ng-model="isChecked" aria-label="Finished?" style="font:bold; padding-top:15px" (change)="primaryCheckAll = !primaryCheckAll; allPrimary()">Primary</mat-checkbox>
