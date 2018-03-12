@@ -78,7 +78,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   public pageload: boolean = false;
   role: Observable<any>;
   currentUser: any;
-  buttonSelect: number = 3;
+  buttonSelect: number[]= [];
 
 constructor(private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
       this.currentUser = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!').toString(CryptoJS.enc.Utf8))
@@ -99,6 +99,17 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
       this._dealflowPageService.getDealflowStartup(this.dealflowname).subscribe(data => {this.dealflow_startup = data 
         //console.log("this is the top 20 list from constructor: " + JSON.stringify(this.dealflow_startup));}
         console.log(this.dealflow_startup.length);
+        this.dealflow_startup.forEach(data=>{
+          if(data.dealflow_Priority == 'Primary'){
+            this.buttonSelect.push(1);
+          }
+          else if(data.dealflow_Priority == 'Secondary'){
+            this.buttonSelect.push(2);
+          }
+          else if(data.dealflow_Priority == 'Rejected'){
+            this.buttonSelect.push(3);
+          }
+        });
         /*for(var i = 0; i < this.dealflow_startup.length; i++){
           console.log("count = " + i);
           this.getVenturesById(this.dealflow_startup[i].venture_id, i, this.dealflow_startup.length);
@@ -321,18 +332,17 @@ removeDealflow(id:Number, dealflowname:String) {
   );
 }
 
-selectPriority(id:Number, dealflow_name: String, priority: String) {
-  console.log("accept "+id + " dealflowName: " + dealflow_name);
+selectPriority(id:Number, dealflow_name: String, priority: String, index: number) {
+  console.log(this.buttonSelect);
   if(priority == 'Primary'){
-    this.buttonSelect = 1;
+    this.buttonSelect[index] = 1;
   }
   else if(priority == 'Secondary'){
-    this.buttonSelect = 2;
+    this.buttonSelect[index] = 2;
   }
   else if(priority == 'Rejected'){
-    this.buttonSelect = 3;
+    this.buttonSelect[index] = 3;
   }
-  console.log("this button select: "+this.buttonSelect);
   this._dealflowPageService.selectPriority(id,dealflow_name,priority).subscribe(data => this.dealflowstartup = data,
   error => {
     this._toasterService.showError("Could not select Priority!", "Error", 4000)}, 
