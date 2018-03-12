@@ -172,23 +172,16 @@
                                       <label class="btn btn-outline-primary" [class.active]="buttonSelect === 3" ngbbuttonlabel="">
                                         <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Rejected')" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Not Applicable
                                       </label>
+                                    </div>
                                   </div>
-                            <!--<div>
-                              <a class="top20" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Primary')" style="z-index: 100;cursor: pointer;position: relative; margin:10px;"><span title="Primary">Primary</span></a>
-                              <a class="top20" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Secondary')" style="z-index: 100;cursor: pointer;position: relative; margin:10px;"><span title="Secondary">Secondary</span></a>
-                              <a class="top20" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Reject')" style="z-index: 100;cursor: pointer;position: relative; margin:10px;"><span title="Reject">Reject</span></a>
-                            </div>-->
-                            <div *ngIf="obj?.pnpContact" style="font-size: 10px; color: #000000; opacity: .38;">Account Manager:</div>
-                            <div *ngIf="obj?.pnpContact" style="font-size: 12px; color: #000000; opacity: .54;">{{obj?.pnpContact}}</div>
-                            <div *ngIf="obj?.contactName" style="font-size: 10px; color: #000000; opacity: .38;">Primary Contact:</div>
-                            <div *ngIf="obj?.contactName" style="font-size: 12px; color: #000000; opacity: .54;">{{obj?.contactName}}</div> 
-                            <div *ngIf="obj?.email" style="font-size: 10px; color: #000000; opacity: .38;">Email:</div>
-                            <div *ngIf="obj?.email" style="font-size: 12px; color: #000000; opacity: .54;">{{obj?.email}}</div>
-                          <div *ngIf="loading" style="margin: 0 auto;width: 100px;padding-top:70px;">
-                            <div class="playbook-loader"></div>
-                          </div>
-                          <div *ngIf="error"  style="margin-left: 15px; margin-top:15px;width: 500px;">
-                            <p>Could not find any {{listname}} Top 20 ventures.</p>
+                                  <div *ngIf="loading" style="margin: 0 auto;width: 100px;padding-top:70px;">
+                                    <div class="playbook-loader"></div>
+                                  </div>
+                                  <div *ngIf="error"  style="margin-left: 15px; margin-top:15px;width: 500px;">
+                                    <p>Could not find any {{listname}} Top 20 ventures.</p>
+                                  </div>
+                              </div>
+                            </div>
                           </div>
                         </nb-card-body>
                       </nb-card>
