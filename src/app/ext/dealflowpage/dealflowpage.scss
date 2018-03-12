@@ -1,4 +1,10 @@
-
+.btn-outline-toggle-group .btn-outline-primary{
+    &:hover{
+        border-color: #776ddb;
+        color: black;
+        background-color:#9f97ed;
+    }
+}
 // .top20 {
 //   background-color:#21cd98;
 //   -moz-border-radius:6px;

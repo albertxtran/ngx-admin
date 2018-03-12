@@ -135,14 +135,14 @@
                           </div>
                           <div class="col-md-3">
                               <div class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" role="group" ng-reflect-model="left">
-                                  <label class="btn btn-outline-primary active" ngbbuttonlabel="">
+                                  <label class="btn btn-outline-primary" [class.active]="buttonSelect === 1" ngbbuttonlabel="">
                                     <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Primary')" type="radio" value="left" ng-reflect-value="left" name="ngb-radio-2"> Primary
                                   </label>
-                                  <label class="btn btn-outline-primary" ngbbuttonlabel="">
+                                  <label class="btn btn-outline-primary" [class.active]="buttonSelect === 2" ngbbuttonlabel="">
                                     <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Secondary')" type="radio" value="middle" ng-reflect-value="middle" name="ngb-radio-2"> Secondary
                                   </label>
-                                  <label class="btn btn-outline-primary" ngbbuttonlabel="">
-                                    <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Rejected')" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Reject
+                                  <label class="btn btn-outline-primary" [class.active]="buttonSelect === 3" ngbbuttonlabel="">
+                                    <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Rejected')" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Not Applicable
                                   </label>
                                 </div>
                             <!--<div>

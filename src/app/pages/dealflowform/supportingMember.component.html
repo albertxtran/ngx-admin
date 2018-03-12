@@ -2,7 +2,7 @@
     <div class="row">
         <div class="form-group col-md-12"> 
             <span style="font-size:.8em">Supporting Member 1</span>
-            <input list="usersList" class="form-control" id="supportingMembersInput1" name="supporting_member1" (keyup)="getSuggestions($event)" (input)="nameSelected($event)">
+            <input list="usersList" class="form-control" id="supportingMembersInput1" name="supporting_member1" (keyup)="getSuggestions($event)" (input)="nameSelected($event)" autocomplete="new-password">
             <datalist id="usersList">
                 <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
             </datalist>
@@ -12,7 +12,7 @@
     <div class="row">
         <div class="form-group col-md-12"> 
             <span style="font-size:.8em">Supporting Member 2</span>
-            <input list="usersList2" class="form-control" id="supportingMembersInput2" name="supporting_member2" (keyup)="getSuggestions($event)" (input)="nameSelected($event)">
+            <input list="usersList2" class="form-control" id="supportingMembersInput2" name="supporting_member2" (keyup)="getSuggestions($event)" (input)="nameSelected($event)" autocomplete="new-password">
             <datalist id="usersList2">
                 <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
             </datalist>
@@ -22,7 +22,7 @@
     <div class="row">
         <div class="form-group col-md-12"> 
             <span style="font-size:.8em">Supporting Member 3</span>
-            <input list="usersList3" class="form-control" id="supportingMembersInput3" name="supporting_member3" (keyup)="getSuggestions($event)" (input)="nameSelected($event)">
+            <input list="usersList3" class="form-control" id="supportingMembersInput3" name="supporting_member3" (keyup)="getSuggestions($event)" (input)="nameSelected($event)" autocomplete="new-password">
             <datalist id="usersList3">
                 <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
             </datalist>
