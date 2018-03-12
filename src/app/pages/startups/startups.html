@@ -45,9 +45,14 @@
           </h2>
       </div>
       <div *ngIf="dealflowname != '0' && permission" style="padding-top:10px;padding-bottom:5px;">                   
-          <h2>
+          <h1>
             Add Startups to {{dealflowname}} Dealflow
-          </h2>
+          </h1>
+      </div>
+      <div *ngIf="dealflowname != '0' && permission" style="padding-top:10px;padding-bottom:5px;">
+        <div class="button-wrapper">
+          <button  type="button" class="btn btn-default btn-raised" (click)="backClicked()">Go Back</button>
+        </div>
       </div>
     </div>
 

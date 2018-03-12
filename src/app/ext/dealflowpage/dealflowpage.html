@@ -12,13 +12,13 @@
                     <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflow?.dealflow_State}}</div>
                     <div style="font-family:DINPro-Light;font-weight:bold;font-size:40px">{{dealflow.dealflow_Name}}</div>
                   </div>
-                  <div class="col-md-6" style="padding-top:5px;">
+                  <!-- <div class="col-md-6" style="padding-top:5px;">
                     <a [routerLink]="['/pages/editdealflow']" [queryParams]="{dealflowname: dealflowname}">
                       <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;">
                         Edit Dealflow
                       </button>
                     </a>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="row">
                   <div class="col-md-6">
@@ -72,7 +72,8 @@
                           <div *ngIf="!loading && !error">
                             <div *ngFor="let obj of venturesList" class="row" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);width:auto;">
                               <div [ngStyle]="overlay">
-                                  <div class="col-md-4" style="padding-left:0px;width:auto;display:inline-block;">
+                                <div class="row">
+                                  <div class="col-md-5" style="width:auto;display:inline-block;">
                                     <a [routerLink]="['/pages/company', obj.id]">
                                       <div style="font-size: 20px; color: #000000; opacity: .87;font-family:DINPro-Light; padding-bottom: 10px">{{obj.companyName}}</div>
                                     </a>
@@ -80,39 +81,44 @@
                                     <div *ngIf="obj?.website" style="font-size: 13px; color: #000000; opacity: .38; font-weight: 400;margin-bottom:10px;"><a style="color: #24a2ff" href="{{obj?.website}}" target="_blank">{{obj?.website}}</a></div>
                                     <div *ngIf="obj?.location" style="font-size: 12px; color: #000000; opacity: .38;">{{obj?.location}}</div>
                                   </div>
-                                  <div class="col-md-2" style="width:auto;display:inline-block;">
+                                  <div class="col-md-3" style="width:auto;display:inline-block;">
                                     <div *ngIf="obj?.verticals" style="font-size: 10px; color: #000000; opacity: .38;">Verticals:</div>
                                     <div *ngIf="obj?.verticals" style="font-size: 12px; color: #000000; opacity: .54;margin-bottom:10px;">{{obj?.verticals}}</div>
                                     <div *ngIf="obj?.tags" style="font-size: 10px; color: #000000; opacity: .38;">Tags:</div>
-                                    <div *ngIf="obj?.tags" style="font-size: 12px; color: #000000; opacity: .54;overflow-wrap: break-word;">{{obj?.tags}}</div>
-                                  </div>
-                                  <div class="col-md-2" style="width:auto;display:inline-block;">
+                                    <div *ngIf="obj?.tags" style="font-size: 12px; color: #000000; opacity: .54;overflow-wrap: break-word; margin-bottom:10px;">{{obj?.tags}}</div>
                                     <div *ngIf="obj?.pnpContact" style="font-size: 10px; color: #000000; opacity: .38;">Account Manager:</div>
                                     <div *ngIf="obj?.pnpContact" style="font-size: 12px; color: #000000; opacity: .54;margin-bottom:10px;">{{obj?.pnpContact}}</div>
-                                    <div *ngIf="obj?.contactName" style="font-size: 10px; color: #000000; opacity: .38;">Primary Contact:</div>
-                                    <div *ngIf="obj?.contactName" style="font-size: 12px; color: #000000; opacity: .54;margin-bottom:10px;">{{obj?.contactName}}</div> 
-                                    <div *ngIf="obj?.email" style="font-size: 10px; color: #000000; opacity: .38;">Email:</div>
-                                    <div *ngIf="obj?.email" style="font-size: 12px; color: #000000; opacity: .54;">{{obj?.email}}</div>
+                                    <div *ngIf="role=='admin' || role=='venture'">
+                                      <div *ngIf="obj?.contactName" style="font-size: 10px; color: #000000; opacity: .38;">Primary Contact:</div>
+                                      <div *ngIf="obj?.contactName" style="font-size: 12px; color: #000000; opacity: .54;margin-bottom:10px;">{{obj?.contactName}} <br>{{obj?.email}}</div> 
+                                    </div>
                                   </div>
-                                  <div class="col-md-4" style="float:right;margin-top:2%;margin-right:2%;padding:0px;width:auto;">
-                                    <div class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" role="group" ng-reflect-model="left">
-                                      <label class="btn btn-outline-primary" [class.active]="buttonSelect === 1" ngbbuttonlabel="">
+
+                                  <div class="col-md-4" style="float:right;">
+                                    <div class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" style="width:50%;" role="group" ng-reflect-model="left">
+                                      <label class="btn btn-outline-primary" [class.active]="buttonSelect === 1" ngbbuttonlabel="" style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
                                         <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Primary')" type="radio" value="left" ng-reflect-value="left" name="ngb-radio-2"> Primary
                                       </label>
+                                    </div>
+                                    <div class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" style="width:50%;" role="group" ng-reflect-model="left">
                                       <label class="btn btn-outline-primary" [class.active]="buttonSelect === 2" ngbbuttonlabel="">
                                         <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Secondary')" type="radio" value="middle" ng-reflect-value="middle" name="ngb-radio-2"> Secondary
                                       </label>
-                                      <label class="btn btn-outline-primary" [class.active]="buttonSelect === 3" ngbbuttonlabel="">
+                                    </div>
+                                    <div class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" style="width:50%;" role="group" ng-reflect-model="left">
+                                      <label class="btn btn-outline-primary" [class.active]="buttonSelect === 3" ngbbuttonlabel=""  style="border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;">
                                         <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Rejected')" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Not Applicable
                                       </label>
                                     </div>
                                   </div>
+
                                   <div *ngIf="loading" style="margin: 0 auto;width: 100px;padding-top:70px;">
                                     <div class="playbook-loader"></div>
                                   </div>
                                   <div *ngIf="error"  style="margin-left: 15px; margin-top:15px;width: 500px;">
                                     <p>Could not find any {{listname}} Top 20 ventures.</p>
                                   </div>
+                                </div>
                               </div>
                             </div>
                           </div>

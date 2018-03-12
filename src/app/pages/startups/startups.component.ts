@@ -9,7 +9,7 @@ import { ModalComponent } from './custom.modal';
 import { FilterModal } from './filter.modal';
 import { ConfirmModal } from './confirm.modal';
 import { DialogService } from "ng2-bootstrap-modal";
-
+import { Location } from '@angular/common';
 import { ToasterService } from '../../@theme/providers/toaster.service';
 
 import { FormArray, FormControl, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -74,7 +74,7 @@ export class StartupsComponent implements OnInit {
   permission: boolean = false;
   
   constructor(private _startupService: StartupsService, private dialogService:DialogService, public _toasterService: ToasterService, vcr: ViewContainerRef, 
-    private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, ){ //private _menuService: BaMenuService
+    private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, private _location: Location, ){ //private _menuService: BaMenuService
     this.currentUser = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!').toString(CryptoJS.enc.Utf8));
     // VERY IMPORTANT these methods will update the menu and routes dependent on the user role
     //this._menuService.updateMenuByRoutes(this._menuService.getPageMenu(this.currentUser));
@@ -416,6 +416,10 @@ ngOnInit(){
                 }
 
             });            
+    }
+
+    backClicked() {
+        this._location.back();
     }
 
     noScroll(){
