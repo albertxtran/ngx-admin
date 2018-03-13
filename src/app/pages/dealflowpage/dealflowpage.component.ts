@@ -316,7 +316,6 @@ getVenturesById(id: Number, count: number, length: number){
 }
 
 removeDealflow(id:Number, dealflowname:String) {
-  console.log("Remove "+id);
   this._dealflowPageService.removeFromDealflow(id,dealflowname).subscribe(data => this.dealflowstartup = data,
   error => {
     this._toasterService.showError("Could not remove Dealflow, please try again!", "Error", 4000)}, 

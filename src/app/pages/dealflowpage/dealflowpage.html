@@ -168,7 +168,7 @@
 
                                   <div class="col-md-2" style="float:right;">
                                     <div *ngIf="(role=='admin' || role=='venture')" style="float:right;width:50px;margin-right:50%;">
-                                      <a class="top20" href="javascript:void(0)" (click)="removeDealflow(obj.venture_Id,dealflow.dealflow_Name)" style="z-index: 100;cursor: pointer;position: relative; margin:10px;width:auto;"><span title="Remove from Top 20"><i aria-hidden="true" class="fa fa-times" style="color:white;"></i></span></a>
+                                      <a class="top20" (click)="removeDealflow(obj.id,dealflow.dealflow_Name)" style="z-index: 100;cursor: pointer;position: relative; margin:10px;width:auto;"><span title="Remove from Top 20"><i aria-hidden="true" class="fa fa-times" style="color:white;"></i></span></a>
                                     </div>
                                   </div>
 

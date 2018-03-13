@@ -31,6 +31,7 @@ export class DealflowPageService {
     }
 
     removeFromDealflow(id:Number,dealflow_name:String) { 
+        console.log("in remove servie: id = " + id + " dealflow_name = " + dealflow_name);
         let headers = new Headers({ 'Accept': 'application/json','Content-Type':'application/json','Access-Control-Allow-Origin': '*' });
         let options = new RequestOptions({ headers: headers });
         let body = "{\"id\":"+id+",\"dealflow_name\":\""+dealflow_name+"\"}";
