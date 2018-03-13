@@ -6,6 +6,7 @@ import { ToasterService } from '../../@theme/providers/toaster.service';
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSelectModule} from '@angular/material/select';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as CryptoJS from 'crypto-js';
 import { Router } from '@angular/router';
@@ -52,6 +53,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   attendee_array: any[];
   private sub: any;
   dealflowpage: any;
+  dealflowState: string;
   dealflowstartup: any;
   dealflow_startup: any[];
   timeSlots: any[];
@@ -86,6 +88,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   primaryCheckAll: boolean = false;
   secondaryCheckAll: boolean = false;
   sendList: any[]= [];
+  selected: any[]= [];
 
   
 
@@ -137,8 +140,12 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
       // If everything went fine, return the response
       else {
         this.dealflow = res;
+        this.dealflowState = this.dealflow.dealflow_State;
         console.log("this is the dealflow time slots " + this.dealflow.event_Agenda);
         this.timeSlots = this.dealflow.event_Agenda.split(/\r?\n/);
+        for(var i = 0; i < this.timeSlots.length; i++){
+          this.selected.push("close");
+        }
         this.attendee_array = JSON.parse(res.attendees);
         console.log("this is the dealflow info: " + JSON.stringify(this.dealflow));
         return res;
@@ -410,6 +417,21 @@ allSecondary(){
     });
   }
   console.log(this.sendList);
+}
+
+updateState(event:any){
+  //console.log("this is test: " + event.target.value);
+  this._dealflowPageService.updateDealflowState(this.dealflow.id,event.target.value).map(res => {
+    // If request fails, throw an Error that will be caught
+    if (res.status < 200 || res.status >= 300){
+      this.loading = false;
+      throw new Error('This request has failed ' + res.status);
+    }
+    else {
+      this._toasterService.showSuccess("Dealflow state has been changed to "+event.target.value,"",4000);
+      return res;
+    }
+  }).subscribe();
 }
 
 exportToPDF() {

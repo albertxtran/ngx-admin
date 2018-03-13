@@ -22,12 +22,12 @@
             </div>
           </nb-card-body>
         </nb-card>
-            
+        
         <nb-card>
           <nb-card-header>Submitted</nb-card-header>
           <nb-card-body>
             <div class="row" style="width:102%">
-              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+              <div class="col-md-4" *ngFor="let list of submittedList | smArraySearch: input.value" style="padding:0px;">
                 <div style="margin-left:5px; margin-right:5px;">
                 <div *ngIf="!loading && !error">
                 <div [ngStyle]="overlay">
@@ -60,7 +60,7 @@
           <nb-card-header>Review</nb-card-header>
           <nb-card-body>
             <div class="col-md-row" style="width:102%">
-              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+              <div class="col-md-4" *ngFor="let list of reviewList | smArraySearch: input.value" style="padding:0px;">
                 <div style="margin-left:5px; margin-right:5px;">
                 <div *ngIf="!loading && !error">
                 <div [ngStyle]="overlay">
@@ -93,7 +93,7 @@
           <nb-card-header>Scheduling</nb-card-header>
           <nb-card-body>
             <div class="row" style="width:102%">
-              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+              <div class="col-md-4" *ngFor="let list of schedulingList | smArraySearch: input.value" style="padding:0px;">
                 <div style="margin-left:5px; margin-right:5px;">
                 <div *ngIf="!loading && !error">
                 <div [ngStyle]="overlay">
@@ -126,7 +126,7 @@
           <nb-card-header>Selecting</nb-card-header>
           <nb-card-body>
             <div class="row" style="width:102%">
-              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+              <div class="col-md-4" *ngFor="let list of selectingList | smArraySearch: input.value" style="padding:0px;">
                 <div style="margin-left:5px; margin-right:5px;">
                 <div *ngIf="!loading && !error">
                 <div [ngStyle]="overlay">
@@ -159,7 +159,7 @@
           <nb-card-header>Pending</nb-card-header>
           <nb-card-body>
             <div class="row" style="width:102%">
-              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+              <div class="col-md-4" *ngFor="let list of pendingList | smArraySearch: input.value" style="padding:0px;">
                 <div style="margin-left:5px; margin-right:5px;">
                 <div *ngIf="!loading && !error">
                 <div [ngStyle]="overlay">
@@ -192,7 +192,7 @@
           <nb-card-header>Active</nb-card-header>
           <nb-card-body>
             <div class="row" style="width:102%">
-              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+              <div class="col-md-4" *ngFor="let list of activeList | smArraySearch: input.value" style="padding:0px;">
                 <div style="margin-left:5px; margin-right:5px;">
                 <div *ngIf="!loading && !error">
                 <div [ngStyle]="overlay">
@@ -225,7 +225,7 @@
           <nb-card-header>Feedback</nb-card-header>
           <nb-card-body>
             <div class="row" style="width:102%">
-              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+              <div class="col-md-4" *ngFor="let list of feedbackList | smArraySearch: input.value" style="padding:0px;">
                 <div style="margin-left:5px; margin-right:5px;">
                 <div *ngIf="!loading && !error">
                 <div [ngStyle]="overlay">
@@ -258,7 +258,7 @@
           <nb-card-header>Complete</nb-card-header>
           <nb-card-body>
             <div class="row" style="width:102%">
-              <div class="col-md-4" *ngFor="let list of lists | smArraySearch: input.value" style="padding:0px;">
+              <div class="col-md-4" *ngFor="let list of completeList | smArraySearch: input.value" style="padding:0px;">
                 <div style="margin-left:5px; margin-right:5px;">
                 <div *ngIf="!loading && !error">
                 <div [ngStyle]="overlay">
