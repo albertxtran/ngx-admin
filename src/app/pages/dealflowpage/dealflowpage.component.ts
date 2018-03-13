@@ -89,6 +89,8 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   secondaryCheckAll: boolean = false;
   sendList: any[]= [];
   selected: any[]= [];
+  timeStart: String;
+  timeEnd: String;
 
   
 
@@ -140,6 +142,22 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
       // If everything went fine, return the response
       else {
         this.dealflow = res;
+        var tmp: any= JSON.stringify(this.dealflow.event_Start)[1] + JSON.stringify(this.dealflow.event_Start)[2];
+        console.log("tmp!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "+tmp);
+        if(tmp > 12){
+          this.timeStart = (tmp - 12) + ":" + JSON.stringify(this.dealflow.event_Start)[4] + JSON.stringify(this.dealflow.event_Start)[5] + " PM" ;
+        }
+        else{
+          this.timeStart = tmp + ":" + JSON.stringify(this.dealflow.event_Start)[4] + JSON.stringify(this.dealflow.event_Start)[5] + " AM" ;
+        }
+        tmp = JSON.stringify(this.dealflow.event_Stop)[1] + JSON.stringify(this.dealflow.event_Stop)[2];
+        if(tmp > 12){
+          this.timeEnd = (tmp - 12) + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " PM" ;
+        }
+        else{
+          this.timeEnd = tmp + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " AM" ;
+        }
+        console.log("timeStart: " + this.timeStart + " timeEnd: " + this.timeEnd);
         this.dealflowState = this.dealflow.dealflow_State;
         console.log("this is the dealflow time slots " + this.dealflow.event_Agenda);
         this.timeSlots = this.dealflow.event_Agenda.split(/\r?\n/);

@@ -1,6 +1,6 @@
 <nb-layout style="overflow:scroll">
     <nb-layout-column>
-  <nb-card>
+  <nb-card style="width:90%;margin-left:5%;">
       <nb-card-body>
       <div class="row">
         <div class="col-md-12">
@@ -14,33 +14,25 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="margin-bottom:10px;">
                       <div style="font-family:DINPro-Light;color:black;font-size:20px;">
-                        <div>Date: {{dealflow?.event_Date}}</div>
-                        <div>Time: {{dealflow?.event_Start}} - {{dealflow?.event_Stop}}</div>
+                        <div style="float:left;">Date: {{dealflow?.event_Date}}</div>
+                        <div style="float:left;margin-left:15px;">Time: {{timeStart}} - {{timeEnd}}</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="col-md-6" style="float:left;width:35%;">
+                    <div class="col-md-4" style="float:left;width:35%;">
                       <div style="font-size: 10px; color: black; opacity: .40;">EVENT SUMMARY</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.event_Summary}}</div>
                       <div style="font-size: 10px; color: black; opacity: .40;">EVENT LOCATION</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.event_Location}}</div>
                       <div style="font-size: 10px; color: black; opacity: .40;">EVENT AGENDA</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;white-space:pre-wrap;">{{dealflow?.event_Agenda}}</div>
-                      <div style="font-size: 10px; color: black; opacity: .40;">ADDITIONAL ATTENDEES</div>
-                      <div *ngFor="let each of attendee_array" class="col-md-12" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-left:0px;padding-bottom:10px;">
-                        <div class="col-md-12" style="width:auto;padding-left:0px;">
-                            <div class="col-md-4" style="font-family:DINPro-Light;font-size:12px;width:auto;padding-right:5px;padding-left:0px;">{{each.name}}</div>
-                            <div class="col-md-4" style="font-family:DINPro-Light;font-size:12px;width:auto;padding-right:5px;padding-left:0px;">{{each.position}}</div>
-                            <div class="col-md-4" style="font-family:DINPro-Light;font-size:12px;width:auto;padding-right:5px;padding-left:0px;">{{each.email}}</div>
-                        </div>
-                      </div>
                     </div>
-                    <div class="col-md-6" style="float:left;width:35%;">
+                    <div class="col-md-4" style="float:left;width:35%;">
                       <div style="font-size: 10px; color: black; opacity: .40;">VERTICALS</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.verticals}}</div>
                       <div style="font-size: 10px; color: black; opacity: .40;">PURPOSE</div>
@@ -50,6 +42,16 @@
                         <div *ngIf="!dealflow?.virtual_Join" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">WebEx is not okay</div>
                       <div style="font-size: 10px; color: black; opacity: .40;">EXTRA DETAIL</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.extra_Detail}}</div>
+                    </div>
+                    <div class="col-md-4" style="float:left;width:35%;">
+                      <div style="font-size: 10px; color: black; opacity: .40;">ATTENDEES</div>
+                      <div *ngFor="let each of attendee_array" class="col-md-12" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-left:0px;padding-bottom:10px;">
+                        <div class="col-md-12" style="width:auto;padding-left:0px;">
+                            <div class="col-md-4" style="font-family:DINPro-Light;font-size:12px;width:auto;padding-right:5px;padding-left:0px;">{{each.name}}</div>
+                            <div class="col-md-4" style="font-family:DINPro-Light;font-size:12px;width:auto;padding-right:5px;padding-left:0px;">{{each.position}}</div>
+                            <div class="col-md-4" style="font-family:DINPro-Light;font-size:12px;width:auto;padding-right:5px;padding-left:0px;">{{each.email}}</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
