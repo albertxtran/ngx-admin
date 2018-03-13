@@ -79,6 +79,8 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   role: Observable<any>;
   currentUser: any;
   buttonSelect: number[]= [];
+  timeStart: String;
+  timeEnd: String;
 
 constructor(private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
       this.currentUser = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!').toString(CryptoJS.enc.Utf8))
@@ -128,30 +130,45 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
     this.sub.unsubscribe();
   }
   
-    getLists() {
-      this.loading = true;
-      this.error = false;
-      this._dealflowPageService.getDealflowByName(this.dealflowname).map(res => {
-      // If request fails, throw an Error that will be caught
-      if(res.status == 204) {
-        this.loading = false;
-        this.error = true;
-        console.log("Search did not return any results.") 
-      } else if (res.status < 200 || res.status >= 300){
-        this.loading = false;
-        throw new Error('This request has failed ' + res.status);
+  getLists() {
+    this.loading = true;
+    this.error = false;
+    this._dealflowPageService.getDealflowByName(this.dealflowname).map(res => {
+    // If request fails, throw an Error that will be caught
+    if(res.status == 204) {
+      this.loading = false;
+      this.error = true;
+      console.log("Search did not return any results.") 
+    } else if (res.status < 200 || res.status >= 300){
+      this.loading = false;
+      throw new Error('This request has failed ' + res.status);
+    }
+    // If everything went fine, return the response
+    else {
+      this.dealflow = res;
+      var tmp: any= JSON.stringify(this.dealflow.event_Start)[1] + JSON.stringify(this.dealflow.event_Start)[2];
+      if(tmp > 12){
+        this.timeStart = (tmp - 12) + ":" + JSON.stringify(this.dealflow.event_Start)[4] + JSON.stringify(this.dealflow.event_Start)[5] + " PM" ;
       }
-      // If everything went fine, return the response
-      else {
-        this.dealflow = res;
-        this.attendee_array = JSON.parse(res.attendees);
-        console.log("this is the dealflow info: " + JSON.stringify(this.dealflow));
-        return res;
+      else{
+        this.timeStart = tmp + ":" + JSON.stringify(this.dealflow.event_Start)[4] + JSON.stringify(this.dealflow.event_Start)[5] + " AM" ;
       }
-    }).subscribe((res)=>{ this.getUserById(res.lead_Id, 1, res)});
-    //}).subscribe((res)=>{ this.getNames(res)});
- 
-  }
+      tmp = JSON.stringify(this.dealflow.event_Stop)[1] + JSON.stringify(this.dealflow.event_Stop)[2];
+      if(tmp > 12){
+        this.timeEnd = (tmp - 12) + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " PM" ;
+      }
+      else{
+        this.timeEnd = tmp + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " AM" ;
+      }
+
+      this.attendee_array = JSON.parse(res.attendees);
+      console.log("this is the dealflow info: " + JSON.stringify(this.dealflow));
+      return res;
+    }
+  }).subscribe((res)=>{ this.getUserById(res.lead_Id, 1, res)});
+  //}).subscribe((res)=>{ this.getNames(res)});
+
+}
 
   getUserById(user_id:Number, name: number, dealflow: any){
     this.error = false;
