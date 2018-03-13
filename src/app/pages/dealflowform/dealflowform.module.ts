@@ -10,6 +10,7 @@ import { DealflowFormService } from './dealflowform.service';
 import { DealflowPageRoutingModule, routedComponents } from './dealflowform-routing-module'
 import {AttendeeComponent} from './attendee.component';
 import {SupportingMemberComponent} from './supportingMember.component';
+import {AgendaComponent} from './agenda.component';
 import { ToasterService } from '../../@theme/providers/toaster.service';
 
 @NgModule({
@@ -22,7 +23,7 @@ import { ToasterService } from '../../@theme/providers/toaster.service';
     DealflowPageRoutingModule,
   ],
   declarations: [
-    DealflowFormComponent, AttendeeComponent, SupportingMemberComponent, ...routedComponents,
+    DealflowFormComponent, AttendeeComponent, SupportingMemberComponent, AgendaComponent, ...routedComponents,
   ],
   providers: [
     DealflowFormService,

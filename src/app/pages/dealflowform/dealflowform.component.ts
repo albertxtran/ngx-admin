@@ -45,6 +45,7 @@ export class DealflowFormComponent implements OnInit, OnDestroy {
   page: Number;
   tmp: any[];
   keyuplock: boolean= false;
+  agendaJSON : string = "";
 
 constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _dealflowFormService: DealflowFormService,  public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router,) {
   var bytes  = CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!');
@@ -71,7 +72,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
     event_start: ['', [Validators.required]],
     event_stop: ['', [Validators.required]],
     event_location: ['', [Validators.required]],
-    event_agenda: ['', [Validators.required]],
+    event_agenda: this._fb.array([]),
     verticals : ['', [Validators.required]],
     specific_interests : ['', [Validators.required]],
     purpose : ['', [Validators.required]],
@@ -82,6 +83,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
 
   this.addAttendee();
   this.addSupportingMember();
+  this.addAgenda();
 
   }
 
@@ -104,6 +106,16 @@ initSupportingMember() {
   });
 }
 
+initAgenda() {
+  return this._fb.group({
+      start: [''],
+      end: [''],
+      type: [''],
+      comment: [''],
+      startup: [''],
+  });
+}
+
 addAttendee() {
   const control = <FormArray>this.dealflowForm.controls['attendees'];
   const addrCtrl = this.initAttendee();
@@ -117,7 +129,13 @@ addSupportingMember() {
     const addrCtrl = this.initSupportingMember();
     
     control.push(addrCtrl);
+}
 
+addAgenda() {
+  const control = <FormArray>this.dealflowForm.controls['event_agenda'];
+  const addrCtrl = this.initAgenda();
+  
+  control.push(addrCtrl);
 }
 
 removeAttendee(i: number) {
@@ -127,6 +145,11 @@ removeAttendee(i: number) {
 
 removeSupportingMember(i: number) {
   const control = <FormArray>this.dealflowForm.controls['supportingMembers'];
+  control.removeAt(i);
+}
+
+removeAgenda(i: number) {
+  const control = <FormArray>this.dealflowForm.controls['event_agenda'];
   control.removeAt(i);
 }
 
