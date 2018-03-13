@@ -314,7 +314,6 @@ removeDealflow(id:Number, dealflowname:String) {
           //console.log("Delete company: "+this.companies[i].id)
           this.venturesList.splice(i,1);
           trigger = true;
-          this._toasterService.showSuccess("SUCCESS","Removed Startup from Dealflow",4000);
         }
         if(trigger == true){
           for(var j = 0; j < this.venturesList[i].dealflow.length; j++){
@@ -347,7 +346,6 @@ selectPriority(id:Number, dealflow_name: String, priority: String, index: number
   error => {
     this._toasterService.showError("Could not select Priority!", "Error", 4000)}, 
     () =>{
-      this._toasterService.showSuccess("SUCCESS","You've selected a priority.",4000);
     }
   );
 }
@@ -361,7 +359,6 @@ SubmitTop20(){
       throw new Error('This request has failed ' + res.status);
     }
     else {
-      this._toasterService.showSuccess("Top20 Submitted","The list is now available for review",4000);
       return res;
     }
   }).subscribe();

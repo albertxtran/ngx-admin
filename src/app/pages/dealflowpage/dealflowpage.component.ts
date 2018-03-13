@@ -194,7 +194,12 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
         this.getUserById2(JSON.parse(dealflow.supporting_Members)[0].supporting_member1, 1,dealflow);
       }
       else{
-        this.loading = false;
+        if(this.dealflow_startup.length > 0){
+          this.getVenturesById(this.dealflow_startup[0].venture_id, 0, this.dealflow_startup.length);
+        }
+        else{
+          this.loading = false;
+        }
       }
     }
   }).subscribe();
@@ -311,7 +316,6 @@ getVenturesById(id: Number, count: number, length: number){
 }
 
 removeDealflow(id:Number, dealflowname:String) {
-  console.log("Remove "+id);
   this._dealflowPageService.removeFromDealflow(id,dealflowname).subscribe(data => this.dealflowstartup = data,
   error => {
     this._toasterService.showError("Could not remove Dealflow, please try again!", "Error", 4000)}, 
