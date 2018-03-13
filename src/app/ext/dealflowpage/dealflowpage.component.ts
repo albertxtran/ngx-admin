@@ -199,7 +199,12 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
         this.getUserById2(JSON.parse(dealflow.supporting_Members)[0].supporting_member1, 1,dealflow);
       }
       else{
-        this.loading = false;
+        if(this.dealflow_startup.length > 0){
+          this.getVenturesById(this.dealflow_startup[0].venture_id, 0, this.dealflow_startup.length);
+        }
+        else{
+          this.loading = false;
+        }
       }
     }
   }).subscribe();

@@ -16,6 +16,18 @@
                           Edit Dealflow
                         </button>
                       </a>
+                           <mat-form-field style="float:right; margin-top: 17px">
+                              <mat-select (change)=updateState($event) [(ngModel)]="dealflowState" placeholder="Dealflow State">
+                                  <mat-option value="Submitted">Submitted</mat-option>
+                                  <mat-option value="Review">Review</mat-option>
+                                  <mat-option value="Scheduling">Scheduling</mat-option>
+                                  <mat-option value="Selecting">Selecting</mat-option>
+                                  <mat-option value="Pending">Pending</mat-option>
+                                  <mat-option value="Active">Active</mat-option>
+                                  <mat-option value="Feedback">Feedback</mat-option>
+                                  <mat-option value="Complete">Complete</mat-option>
+                              </mat-select>
+                            </mat-form-field>
                     </div>
                   </div>
                   <div class="row">
@@ -225,19 +237,21 @@
                                   <th style="width:90%">Time</th>
                                   <th>Select Startups</th> 
                                 </tr>
-                                <tr *ngFor="let timeSlots of timeSlots">
+                                <tr *ngFor="let timeSlots of timeSlots, let i = index">
                                     <td *ngIf="!loading && !error">{{timeSlots}}</td>
                                     <td *ngIf="!loading && !error">
-                                      <select>
-                                          <option value="open">Open</option>
-                                          <option value="close" selected>Close</option>                                          
-                                          <option disabled>Primary</option>
-                                          <option disabled *ngIf="!primaryStartups.length > 0">No Primary Startups</option>
-                                          <option *ngFor="let primary of primaryStartups">{{primary.companyName}}</option>
-                                          <option disabled>Secondary</option>
-                                          <option disabled *ngIf="!secondaryStartups.length > 0">No Secondary Startups</option>
-                                          <option *ngFor="let secondary of secondaryStartups">{{secondary.companyName}}</option>
-                                        </select>
+                                      <mat-form-field>
+                                        <mat-select [(ngModel)]="selected[i]">
+                                          <mat-option value="open">Open</mat-option>
+                                          <mat-option value="close" selected>Close</mat-option>                                          
+                                          <mat-option disabled>Primary</mat-option>
+                                          <mat-option disabled *ngIf="!primaryStartups.length > 0">No Primary Startups</mat-option>
+                                          <mat-option *ngFor="let primary of primaryStartups">{{primary.companyName}}</mat-option>
+                                          <mat-option disabled>Secondary</mat-option>
+                                          <mat-option disabled *ngIf="!secondaryStartups.length > 0">No Secondary Startups</mat-option>
+                                          <mat-option *ngFor="let secondary of secondaryStartups">{{secondary.companyName}}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
                                     </td>
                                 </tr>    
                             </table>

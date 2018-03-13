@@ -182,7 +182,7 @@ ngOnInit(){
                     }
                     // If everything went fine, return the response
                     else {
-                      this._toasterService.showSuccess("Successfully deleted startup '" +startup.companyName+"'", "Success!", 2000);
+                      this._toasterService.showSuccess("Successfully deleted startup '" +startup.companyName+"'", "", 2000);
                         //remove element from asyncCompanies
                       
                       this.deleteon = true;
@@ -305,7 +305,7 @@ ngOnInit(){
       // If everything went fine, return the response
       else {
         this.loading = false;
-        this._toasterService.showSuccess("Successfully added to Dealflow list '" +listName+"'", "Success!", 2000);
+        this._toasterService.showSuccess("Successfully added to Dealflow list '" +listName+"'", "", 2000);
         var obj:TopLists = {};
         obj.listName = listName;
         obj.id = id;

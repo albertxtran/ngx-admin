@@ -22,6 +22,14 @@ export class DealflowListsComponent implements OnInit {
   @ViewChild('input')
   input: ElementRef;
   lists: any[] = [];
+  submittedList: any[]= [];
+  reviewList: any[]= [];
+  schedulingList: any[]= [];
+  selectingList: any[]= [];
+  pendingList: any[]= [];
+  activeList: any[]= [];
+  feedbackList: any[]= [];
+  completeList: any[]= [];
   archived: any[] = [];
   private sub: any;
   dealflow: Object;
@@ -70,8 +78,37 @@ export class DealflowListsComponent implements OnInit {
       }
     }).subscribe(data => this.lists = data,
       err => console.error('Error: ' + err),
-          () => console.log('Completed!')
-      )
+          () => {this.sortLists(this.lists);}
+      );
+  }
+
+  sortLists(list: any){
+    list.forEach(element => {
+        if(element.dealflow_State == 'Submitted'){
+          this.submittedList.push(element);
+        }
+        else if(element.dealflow_State == 'Review'){
+          this.reviewList.push(element);
+        }
+        else if(element.dealflow_State == 'Scheduling'){
+          this.schedulingList.push(element);
+        }
+        else if(element.dealflow_State == 'Selecting'){
+          this.selectingList.push(element);
+        }
+        else if(element.dealflow_State == 'Pending'){
+          this.pendingList.push(element);
+        }
+        else if(element.dealflow_State == 'Active'){
+          this.activeList.push(element);
+        }
+        else if(element.dealflow_State == 'Feedback'){
+          this.feedbackList.push(element);
+        }
+        else if(element.dealflow_State == 'Complete'){
+          this.completeList.push(element);
+        }
+    });
   }
 
   getArchivedLists() {
