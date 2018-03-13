@@ -205,7 +205,7 @@
                     <div class="col-md-12" style="margin-left:15px;margin-top:15px;">
 
                         <div class="row" style="width:100%;margin-top:2%">
-                          <div class="row show-grid col-md-4">
+                          <div class="row show-grid col-md-4" style="margin-left:1px;">
                             <div *ngIf="!loading && !error">
                               <mat-checkbox ng-model="isChecked" aria-label="Finished?" style="font:bold; padding-top:15px" (change)="primaryCheckAll = !primaryCheckAll; allPrimary()">Primary</mat-checkbox>
                                 <div *ngIf="!primaryStartups.length > 0" style="padding-top:5px;margin-left:30px;padding-bottom:15px;padding-left:10px; border-bottom: 1px solid #d6d6d6; background-color: rgba(255, 255, 255, 0.8);">None</div>
@@ -232,10 +232,11 @@
                             </div>
                           </div>
                           <div class="row show-grid col-md-8">
-                            <table style="width:100%">
+                            <table>
                                 <tr>
-                                  <th style="width:90%">Time</th>
-                                  <th>Select Startups</th> 
+                                  <th style="width:50%">Time</th>
+                                  <th style="width:30%">Select Startups</th> 
+                                  <th style="width:20%">Status</th>
                                 </tr>
                                 <tr *ngFor="let timeSlots of timeSlots, let i = index">
                                     <td *ngIf="!loading && !error">{{timeSlots}}</td>
@@ -253,6 +254,7 @@
                                         </mat-select>
                                       </mat-form-field>
                                     </td>
+                                    <td>Test</td>
                                 </tr>    
                             </table>
                             <div style="position: relative; left:85%;">
