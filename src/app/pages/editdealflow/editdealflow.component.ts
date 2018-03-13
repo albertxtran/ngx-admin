@@ -7,6 +7,7 @@ import { FileUploader, FileItem } from 'ng2-file-upload';
 import * as CryptoJS from 'crypto-js';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/toPromise';
+import { Location } from '@angular/common';
 
 import { EditDealflowService } from './editdealflow.service';
 
@@ -74,7 +75,7 @@ export class EditDealflowComponent implements OnInit, OnDestroy {
   keyuplock: boolean = false;
 
 
-constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _editDealflowService: EditDealflowService,  public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router, private cdr: ChangeDetectorRef) {
+constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _editDealflowService: EditDealflowService,  public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router, private cdr: ChangeDetectorRef, private _location: Location,) {
   this.currentUser = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!').toString(CryptoJS.enc.Utf8))
   // VERY IMPORTANT these methods will update the menu and routes dependent on the user role
   // this._menuService.updateMenuByRoutes(this._menuService.getPageMenu(this.currentUser));
@@ -140,6 +141,10 @@ initSupportingMember() {
       supporting_member2_name: [''],
       supporting_member3_name: [''],
   });
+}
+
+backClicked() {
+  this._location.back();
 }
 
 addAttendee() {
