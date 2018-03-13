@@ -59,7 +59,7 @@
         <nb-card>
           <nb-card-header>Review</nb-card-header>
           <nb-card-body>
-            <div class="col-md-row" style="width:102%">
+            <div class="row" style="width:102%">
               <div class="col-md-4" *ngFor="let list of reviewList | smArraySearch: input.value" style="padding:0px;">
                 <div style="margin-left:5px; margin-right:5px;">
                 <div *ngIf="!loading && !error">
