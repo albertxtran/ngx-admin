@@ -89,7 +89,7 @@
                                       <div *ngIf="obj?.pnpContact" style="font-size: 10px; color: #000000; opacity: .38;">Account Manager:</div>
                                       <div *ngIf="obj?.pnpContact" style="font-size: 12px; color: #000000; opacity: .54;margin-bottom:10px;">{{obj?.pnpContact}}</div>
                                     </div>
-                                    <div class="col-md-6" style="float:right;">
+                                    <div class="col-md-6" style="margin:auto;">
                                       <div class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" role="group" ng-reflect-model="left" style="width:50%;">
                                         <label class="btn btn-outline-primary" [class.active]="buttonSelect[i] === 1" ngbbuttonlabel="">
                                           <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Primary',i)" type="radio" value="left" ng-reflect-value="left" name="ngb-radio-2"> Primary
