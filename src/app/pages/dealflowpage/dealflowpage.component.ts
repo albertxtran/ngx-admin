@@ -419,8 +419,8 @@ allSecondary(){
   console.log(this.sendList);
 }
 
-updateState(event:any){
-  //console.log("this is test: " + event.target.value);
+/*updateState(event:any){
+  console.log("this is test: " + event.target.value);
   this._dealflowPageService.updateDealflowState(this.dealflow.id,event.target.value).map(res => {
     // If request fails, throw an Error that will be caught
     if (res.status < 200 || res.status >= 300){
@@ -429,6 +429,21 @@ updateState(event:any){
     }
     else {
       this._toasterService.showSuccess("Dealflow state has been changed to "+event.target.value,"",4000);
+      return res;
+    }
+  }).subscribe();
+}*/
+
+updateState(){
+  console.log("this is test: "+this.dealflowState);
+  this._dealflowPageService.updateDealflowState(this.dealflow.id,this.dealflowState).map(res => {
+    // If request fails, throw an Error that will be caught
+    if (res.status < 200 || res.status >= 300){
+      this.loading = false;
+      throw new Error('This request has failed ' + res.status);
+    }
+    else {
+      this._toasterService.showSuccess("Dealflow state has been changed to "+this.dealflowState,"",4000);
       return res;
     }
   }).subscribe();
