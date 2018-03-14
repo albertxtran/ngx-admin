@@ -8,7 +8,7 @@
             <small *ngIf="!dealflowForm.controls.corporate_id.valid" class="text-danger">
               Required.
             </small>
-            <input type="text" list="corporateList" class="form-control" maxlength="200"  name="corporate_id" placeholder="Corporate Name" style="margin-bottom: 1%;" (keyup)="getCorporationSuggestions($event)" (input)="corporationSelected($event)" autocomplete="new-password" required>
+            <input type="text" list="corporateList" class="form-control" maxlength="200"  name="corporate_id" placeholder="Corporate Name" style="margin-bottom: 1%;" (keyup)="getCorporationSuggestions($event)" autocomplete="new-password" required>
               <datalist id="corporateList">
                   <option *ngFor="let obj of asyncCorporations" value="{{obj.companyName}}">
               </datalist>

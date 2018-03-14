@@ -12,6 +12,7 @@ import {AttendeeComponent} from './attendee.component';
 import {SupportingMemberComponent} from './supportingMember.component';
 import {AgendaComponent} from './agenda.component';
 import { ToasterService } from '../../@theme/providers/toaster.service';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { ToasterService } from '../../@theme/providers/toaster.service';
     FileUploadModule,
     ThemeModule,
     DealflowPageRoutingModule,
+    MatSelectModule,
   ],
   declarations: [
     DealflowFormComponent, AttendeeComponent, SupportingMemberComponent, AgendaComponent, ...routedComponents,
