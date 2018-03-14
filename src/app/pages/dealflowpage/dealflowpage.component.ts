@@ -43,6 +43,11 @@ interface Ventures {
   howDidYouHear ? : String;
   intlBusinessOpp ? : String;
 }
+interface startupList {
+  name : string;
+  status : string;
+}
+
 @Component({
   selector: 'dealflowpage',
   styleUrls: ['./dealflowpage.scss'],
@@ -92,6 +97,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   timeStart: String;
   timeEnd: String;
   agendaJSON: any;
+  ignoreList: startupList[]= [];
   
 
 constructor(private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
@@ -324,15 +330,15 @@ getVenturesById(id: Number, count: number, length: number){
         for(var i = 0; i < count; i++){
           if(this.dealflow_startup[i].dealflow_Priority === "Primary")
           {
-            this.primaryStartups.push(this.venturesList[i]);
+            this.primaryStartups.push({"companyName":this.venturesList[i].companyName,"id":this.venturesList[i].id,"status":""});
           }
           else if(this.dealflow_startup[i].dealflow_Priority === "Secondary")
           {
-            this.secondaryStartups.push(this.venturesList[i]);
+            this.secondaryStartups.push({"companyName":this.venturesList[i].companyName,"id":this.venturesList[i].id,"status":""});
           }
           else if(this.dealflow_startup[i].dealflow_Priority === "Rejected")
           {
-            this.rejectedStartups.push(this.venturesList[i]);
+            this.rejectedStartups.push({"companyName":this.venturesList[i].companyName,"id":this.venturesList[i].id,"status":""});
           }
         }
         this.loading = false;
@@ -472,8 +478,17 @@ updateState(){
   }).subscribe();
 }
 
-addIgnore(index: number){
-  console.log("index: " + index);
+addIgnore(input: any, index: number){
+  console.log("index: " + input);
+  /*this.primaryStartups.forEach(data=> {
+    if(data.id == input){
+      data.status = "taken";
+    }
+  })*/
+  this.agendaJSON[index].startup = input;
+  this.agendaJSON.forEach(data=>{
+    console.log("agendaJSON: "+ JSON.stringify(data));
+  });
 }
 
 exportToPDF() {

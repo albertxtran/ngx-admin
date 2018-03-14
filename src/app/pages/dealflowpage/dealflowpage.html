@@ -211,8 +211,8 @@
                               <mat-checkbox ng-model="isChecked" aria-label="Finished?" style="font:bold; padding-top:15px" (change)="primaryCheckAll = !primaryCheckAll; allPrimary()">Primary</mat-checkbox>
                                 <div *ngIf="!primaryStartups.length > 0" style="padding-top:5px;margin-left:30px;padding-bottom:15px;padding-left:10px; border-bottom: 1px solid #d6d6d6; background-color: rgba(255, 255, 255, 0.8);">None</div>
                                 <div *ngFor="let primary of primaryStartups" class="col-md-12" style="padding-top:5px;margin-left:20px; margin-bottom: 10px;padding-bottom:5px;border-bottom: 1px solid #d6d6d6; background-color: rgba(255, 255, 255, 0.8);">
-                                    <mat-checkbox ng-model="isChecked" aria-label="Finished?" name="primary" (change)="checkUncheck(primary)" [checked]="primaryCheckAll" style="font-size: 15px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif;" *ngIf="primary.companyName != 'Velocity'">{{primary.companyName}}</mat-checkbox>
-                                    <mat-checkbox ng-model="isChecked" aria-label="Finished?" name="primary" (change)="checkUncheck(primary)" [checked]="primaryCheckAll" style="font-size: 15px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif;" *ngIf="primary.companyName === 'Velocity'" disabled>{{primary.companyName}}</mat-checkbox>
+                                    <mat-checkbox ng-model="isChecked" aria-label="Finished?" name="primary" (change)="checkUncheck(primary)" [checked]="primaryCheckAll" style="font-size: 15px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif;" *ngIf="primary.companyName != 'taken'">{{primary.companyName}}</mat-checkbox>
+                                    <mat-checkbox ng-model="isChecked" aria-label="Finished?" name="primary" (change)="checkUncheck(primary)" [checked]="primaryCheckAll" style="font-size: 15px; color: #000000; opacity: .87; font-family: 'Arial Narrow', Arial, sans-serif;" *ngIf="primary.status == 'taken'" disabled>{{primary.companyName}}</mat-checkbox>
                                 </div>
                               <mat-checkbox ng-model="isChecked" aria-label="Finished?" style="font:bold; padding-top:15px" (change)="secondaryCheckAll = !secondaryCheckAll; allSecondary()">Secondary</mat-checkbox>
                                 <div *ngIf="!secondaryStartups.length > 0" style="padding-top:5px;margin-left:30px;padding-bottom:15px;padding-left:10px; border-bottom: 1px solid #d6d6d6; background-color: rgba(255, 255, 255, 0.8);">None</div>
@@ -246,15 +246,15 @@
                                     <td *ngIf="!loading && !error">{{this.timeSlots.type}}</td>
                                     <td *ngIf="!loading && !error">
                                       <mat-form-field>
-                                        <mat-select [(ngModel)]="selected[i]" (change)="addIgnore(i)">
+                                        <mat-select [(ngModel)]="selected[i]" (change)="addIgnore(selected[i], i)">
                                           <mat-option value="open">Open</mat-option>
                                           <mat-option value="close">Close</mat-option>                                          
                                           <mat-option disabled>Primary</mat-option>
                                           <mat-option disabled *ngIf="!primaryStartups.length > 0">No Primary Startups</mat-option>
-                                          <mat-option *ngFor="let primary of primaryStartups; let i = index" value="primary.companyName">{{primary.companyName}}</mat-option>
+                                          <mat-option *ngFor="let primary of primaryStartups; let j = index" value="{{primary.id}}">{{primary.companyName}}</mat-option>
                                           <mat-option disabled>Secondary</mat-option>
                                           <mat-option disabled *ngIf="!secondaryStartups.length > 0">No Secondary Startups</mat-option>
-                                          <mat-option *ngFor="let secondary of secondaryStartups" value="secondary.companyName">{{secondary.companyName}}</mat-option>
+                                          <mat-option *ngFor="let secondary of secondaryStartups" value="{{secondary.id}}">{{secondary.companyName}}</mat-option>
                                         </mat-select>
                                       </mat-form-field>
                                     </td>
