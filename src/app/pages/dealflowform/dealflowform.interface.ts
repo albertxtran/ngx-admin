@@ -41,4 +41,5 @@ export interface Agenda {
     type: string;
     comment: string;
     startup: string;
+    status: string;
 }

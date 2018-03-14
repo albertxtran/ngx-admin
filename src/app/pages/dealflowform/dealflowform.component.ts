@@ -113,6 +113,7 @@ initAgenda() {
       type: [''],
       comment: [''],
       startup: [''],
+      status: [''],
   });
 }
 
@@ -159,11 +160,19 @@ save(model: Dealflowform) {
     model["value"].api_key = this.currentUser.api_key;
     this.tmp = model["value"].event_date.split("-");
     model["value"].event_date = this.tmp[1]+'-'+this.tmp[2]+'-'+this.tmp[0];
+    model["value"].event_agenda.forEach(element => {
+      if(element.type == "Startup"){
+        element.status = "Open";
+      }
+      else{
+        element.status = "Close";
+      }
+    });
     model["value"].event_agenda = JSON.stringify(model["value"].event_agenda);
     // call API to save
     console.log(JSON.stringify(model["value"]));
     // ...
-    this._dealflowFormService.createDealflow_form(JSON.stringify(model["value"])).map(res => {
+    /*this._dealflowFormService.createDealflow_form(JSON.stringify(model["value"])).map(res => {
       // If request fails, throw an Error that will be caught
       console.log("res " + res);
       console.log("res.status " + res.status);
@@ -179,7 +188,7 @@ save(model: Dealflowform) {
         //return res.json();
         
       }
-    }).subscribe();
+    }).subscribe();*/
 }
 
 initSubmit(){
