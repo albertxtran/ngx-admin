@@ -45,6 +45,7 @@ export class DealflowFormComponent implements OnInit, OnDestroy {
   page: Number;
   tmp: any[];
   keyuplock: boolean= false;
+  agendaJSON : string = "";
 
 constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _dealflowFormService: DealflowFormService,  public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router,) {
   var bytes  = CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!');
@@ -71,7 +72,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
     event_start: ['', [Validators.required]],
     event_stop: ['', [Validators.required]],
     event_location: ['', [Validators.required]],
-    event_agenda: ['', [Validators.required]],
+    event_agenda: this._fb.array([]),
     verticals : ['', [Validators.required]],
     specific_interests : ['', [Validators.required]],
     purpose : ['', [Validators.required]],
@@ -82,6 +83,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
 
   this.addAttendee();
   this.addSupportingMember();
+  this.addAgenda();
 
   }
 
@@ -104,6 +106,16 @@ initSupportingMember() {
   });
 }
 
+initAgenda() {
+  return this._fb.group({
+      start: [''],
+      end: [''],
+      type: [''],
+      comment: [''],
+      startup: [''],
+  });
+}
+
 addAttendee() {
   const control = <FormArray>this.dealflowForm.controls['attendees'];
   const addrCtrl = this.initAttendee();
@@ -117,7 +129,13 @@ addSupportingMember() {
     const addrCtrl = this.initSupportingMember();
     
     control.push(addrCtrl);
+}
 
+addAgenda() {
+  const control = <FormArray>this.dealflowForm.controls['event_agenda'];
+  const addrCtrl = this.initAgenda();
+  
+  control.push(addrCtrl);
 }
 
 removeAttendee(i: number) {
@@ -130,17 +148,25 @@ removeSupportingMember(i: number) {
   control.removeAt(i);
 }
 
+removeAgenda(i: number) {
+  const control = <FormArray>this.dealflowForm.controls['event_agenda'];
+  control.removeAt(i);
+}
+
 
 save(model: Dealflowform) {
     //if(model["value"].supportingMembers[0].supporting_member1 != null)
     model["value"].api_key = this.currentUser.api_key;
     this.tmp = model["value"].event_date.split("-");
     model["value"].event_date = this.tmp[1]+'-'+this.tmp[2]+'-'+this.tmp[0];
+    model["value"].event_agenda = JSON.stringify(model["value"].event_agenda);
     // call API to save
     console.log(JSON.stringify(model["value"]));
     // ...
     this._dealflowFormService.createDealflow_form(JSON.stringify(model["value"])).map(res => {
       // If request fails, throw an Error that will be caught
+      console.log("res " + res);
+      console.log("res.status " + res.status);
       if(res.status == 204) {
         this._toasterService.showError("Couldn't not submit new dealflow, please try again.", "Error", 4000);
       } else if (res.status < 200 || res.status >= 300){
@@ -148,7 +174,8 @@ save(model: Dealflowform) {
       }
       // If everything went fine, return the response
       else {
-        this._toasterService.showSuccess("The Dealflow has been created.", "Success!", 4000);
+        //this._toasterService.showSuccess("The Dealflow has been created.", "Success!", 4000);
+        this.router.navigate(['/pages/dealflowlists']);
         //return res.json();
         
       }
@@ -204,6 +231,8 @@ getSuggestions(event: any){
     this.searchString = event.target.value;
     this.page = 1;
     this.asyncUsers = null;
+    var idName = event.target.name;
+    this.dealflowForm.controls[idName].setValue(null);
 
     if(this.searchString.length > 2){
         //this.asyncUsers = this._dealflowFormService.getUsersPage(1, this.searchString);//CompleterService.remote('/rest/plugandplay/api/v1/users/query/1?query=','',null);
@@ -223,34 +252,8 @@ getSuggestions(event: any){
   }
 }
 
-getCorporationSuggestions(event: any){
-  if(!this.keyuplock){
-    this.searchString = event.target.value;
-    this.page = 1;
-    this.asyncCorporations = null;
-    var idName = event.target.name;
-    this.dealflowForm.controls[idName].setValue(null);
-
-    if(this.searchString.length > 1){
-        this._dealflowFormService.getCorporationsPage(this.page, this.searchString)
-            .do(res => {
-                if(res.status == 204) {
-                  
-                } else {
-                    this.asyncCorporations=res.data;
-                }                
-            }).map(res => res.data).subscribe();  
-    }
-  }
-  else{
-    this.keyuplock = false;
-  }
-}
-
   nameSelected(event: any)
   {
-      //var selectNum = event.target.value.substr(0,str.indexOf(' '));
-      //var selectName = event.target.value.substr(str.indexOf(' ')+1);
       var tmpList = event.target.value.split(" ");
       var selectEmail = tmpList[tmpList.length - 1];
       var idName = event.target.name;
@@ -271,57 +274,45 @@ getCorporationSuggestions(event: any){
       this.asyncUsers = null;
   }
 
+  getCorporationSuggestions(event: any){
+      this.searchString = event.target.value;
+      this.page = 1;
+      this.asyncCorporations = null;
+      var idName = event.target.name;
+      this.dealflowForm.controls[idName].setValue(null);
+  
+      if(this.searchString.length > 1){
+          this._dealflowFormService.getCorporationsPage(this.page, this.searchString)
+              .do(res => {
+                  if(res.status == 204) {
+                    
+                  } else {
+                      this.asyncCorporations=res.data;
+                      this.corporationSelected(event);
+                  }                
+              }).map(res => res.data).subscribe();  
+      }
+
+  }
+
   corporationSelected(event: any)
   {
-      //document.getElementById('supportingId').value = id;
-      //var selectNum = event.target.value.substr(0,str.indexOf(' '));
-      //var selectName = event.target.value.substr(str.indexOf(' ')+1);
       var selectCompanyName = event.target.value;
       var idName = event.target.name;
 
       if(this.asyncCorporations != null)
       {
           Object.keys(this.asyncCorporations).forEach(eachObj => {
+              console.log(this.asyncCorporations[eachObj].companyName + " ");
               if(selectCompanyName == this.asyncCorporations[eachObj].companyName)
               {
-                this.keyuplock=true;
                 event.target.value = this.asyncCorporations[eachObj].companyName;
-                //(<HTMLInputElement>document.getElementById(idName)).value = this.asyncUsers[eachObj].id;
-                //this.id.nativeElement.value = this.asyncUsers[eachObj].id;
                 this.dealflowForm.controls[idName].setValue(this.asyncCorporations[eachObj].id);
+                this.asyncCorporations = null;
               }
             });
       }
-      this.asyncCorporations = null;
   }
-
-// newDealflow(){
-//   this.uploader.onBuildItemForm = (fileItem: any, form: any) => {form.append('data', JSON.stringify(this.formData) ); console.log("fileItem++++"+fileItem);console.log("form++++"+form);};   
-//   this.uploader.uploadAll();   
-//   this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
-//     //console.log("ImageUpload:uploaded:", item, status);
-//     //console.log("Response: " +response)
-//     if(status == 301) {
-//       //this.showError("Couldn't update profile picture, please try again.", "Error");
-//       this.showError("Failed to update dealflow logo! Error:301", "Error", 4000);
-//     }if(status == 302) {
-//       //this.showError("Couldn't update profile picture, please try again.", "Error");
-//       this.showError("Email has already been used. Error:301", "Error", 4000); 
-//     }if(status == 303) {
-//       //this.showError("Couldn't update profile picture, please try again.", "Error");
-//       this.showError("Website has already been used. Error:303", "Error", 4000); 
-//     }if(status == 304) {
-//       //this.showError("Couldn't update profile picture, please try again.", "Error");
-//       this.showError("There is a problem with creating a thumbnail. Error:304", "Error", 4000); 
-//     }else if (status < 200 || status >= 300){
-//       this.showError("Failed to update dealflow logo!", "Error", 4000);
-//     }
-//     else {
-//       this.showSuccess("The Dealflow has been created.", "Success!", 4000);
-//       this.initForm();
-//     }
-//     };
-//  }
 
 newDealflowForm() {
   this._dealflowFormService.createDealflow_form(JSON.stringify(this.formData)).map(res => {
@@ -342,14 +333,5 @@ newDealflowForm() {
           () => console.log("Completed!")
       );
  }
-
-/*  addAttendee(){
-   this.attendeeCount++;
-   console.log(this.attendeeCount);
- } */
-
-/*  removeAttendee(){
-   this.attendeeCount--;
- } */
 
 }

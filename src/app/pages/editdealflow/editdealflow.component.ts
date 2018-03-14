@@ -335,7 +335,7 @@ else {
     this.getUserById2(JSON.parse(dealflow.supporting_Members)[0].supporting_member1, 1,dealflow);
   }
   else{
-    this.loading = false;
+    this.addValue(dealflow);
   }
 }
 }).subscribe();
@@ -414,6 +414,7 @@ getDealflow() {
 }
 
 addValue(dealflow:any){
+  console.log("in add value");
   this.editDealflow.controls['id'].setValue(dealflow.id);
   this.editDealflow.controls['corporate_id'].setValue(dealflow.corporate_Id);
   this.editDealflow.controls['lead_id'].setValue(dealflow.lead_Id);

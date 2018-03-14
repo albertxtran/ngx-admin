@@ -8,7 +8,7 @@
             <small *ngIf="!dealflowForm.controls.corporate_id.valid" class="text-danger">
               Required.
             </small>
-            <input type="text" list="corporateList" class="form-control" maxlength="200"  name="corporate_id" placeholder="Corporate Name" style="margin-bottom: 1%;" (keyup)="getCorporationSuggestions($event)" (input)="corporationSelected($event)" autocomplete="new-password" required>
+            <input type="text" list="corporateList" class="form-control" maxlength="200"  name="corporate_id" placeholder="Corporate Name" style="margin-bottom: 1%;" (keyup)="getCorporationSuggestions($event)" autocomplete="new-password" required>
               <datalist id="corporateList">
                   <option *ngFor="let obj of asyncCorporations" value="{{obj.companyName}}">
               </datalist>
@@ -113,6 +113,23 @@
         <input type="text" class="form-control" formControlName="event_location" id="event_location" placeholder="Event Location" required>
       </div>
       <div class="form-group">
+          <label>Agenda</label>
+          <div formArrayName="event_agenda">
+            <div *ngFor="let agenda of dealflowForm.controls.event_agenda.controls; let i=index" class="panel panel-default">
+              <div class="panel-body" [formGroupName]="i">
+                <span style="font-size:.8em">Timeslot {{i + 1}}</span>
+                <a *ngIf="dealflowForm.controls.event_agenda.controls.length > 1" (click)="removeAgenda(i)" style="cursor: pointer; float:right"><i class="fa fa-times" aria-hidden="true"></i></a>
+                <agenda [group]="dealflowForm.controls.event_agenda.controls[i]"></agenda>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" style="float:right; margin-bottom: 10px;">
+            <a (click)="addAgenda()" style="cursor: default;">
+              Add another timeslot +
+            </a>
+          </div>
+        </div>
+      <!--<div class="form-group">
         <label>Event Agenda</label>
         <small *ngIf="!dealflowForm.controls.event_agenda.valid" class="text-danger">
           Required.
@@ -122,7 +139,7 @@
         11:00-11:30 Startup 1
         11:30-12:00 Startup 2
         12:00-12:30 Wrap up discussion"></textarea>
-      </div>
+      </div>-->
       <div class="form-group">
         <label for="verticals">Verticals</label>
         <small *ngIf="!dealflowForm.controls.verticals.valid" class="text-danger">
