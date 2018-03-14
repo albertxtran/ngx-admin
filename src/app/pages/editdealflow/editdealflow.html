@@ -181,8 +181,9 @@
           </select>
       </div>
       <div class="form-group">
-        <label>Extra Detail</label>
-        <textarea class="form-control" formControlName="extra_detail" id="extra_detail" placeholder="Extra Detail"></textarea>
+        <label>Extra Detail </label>
+        <small style="display:inline-block" class="form-text text-muted"><code>{{editDealflow.value?.extra_detail?.length}}</code> of 500 characters</small>
+        <textarea maxlength="500" class="form-control" formControlName="extra_detail" id="extra_detail" placeholder="Extra Detail"></textarea>
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary">Submit</button>

@@ -63,6 +63,7 @@
           
           <div class="col-md-12" style="background: linear-gradient(to bottom, #40dcb2, #40dc7e);border-radius: 10px;padding:2px;">
             <div style="height:370px;padding:15px;overflow:hidden;background: white;border-radius:7px;">
+              <div *ngIf="obj?.portfolio" style="font-family: DINPro-Light;font-size: 12px;color: goldenrod;font-weight: 400; margin-bottom: 5px;padding-top:-5px;">PORTFOLIO COMPANY</div>
               <div class="row">
                 <div class ="col-md-3">
                 <a target="_blank" [routerLink]="['/pages/company', obj.id]">
@@ -75,7 +76,7 @@
                 <div class="col-md-9">
                   <div class="col-md-12" style="padding:0;">
                     <a target="_blank" [routerLink]="['/pages/company', obj.id]">
-                      <div style="padding-bottom:5px;font-size: 18px; color: #000000; opacity: .87; font-family: 'DINPro-Light', Arial, sans-serif;">{{obj.companyName}} <p *ngIf="obj?.portfolio" style="font-family: DINPro-Light, CenturyGothic, AppleGothic, sans-serif;display: inline;font-size: 12px;color: goldenrod;font-weight: 400;">PORTFOLIO COMPANY</p></div>              
+                      <div style="padding-bottom:5px;font-size: 18px; color: #000000; opacity: .87; font-family: 'DINPro-Light', Arial, sans-serif;">{{obj.companyName}}</div>              
                     </a>
                   </div>
                   <div  *ngIf="role=='admin' || role=='venture'" class="col-md-12" style="padding:0;">
@@ -92,7 +93,7 @@
                     </div>
                     <div *ngIf="dealflowname != 0 && permission">
                       <div class="button-wrapper">
-                        <button type="button" id="addStartup" class="btn btn-default btn-raised" style="float:left;" (click)="addDealflow(obj.id, dealflowname)">Add Startup</button>
+                        <button type="button" id="addStartup" class="btn btn-default btn-raised" style="float:left;padding:4.5%;font-size:12px" (click)="addDealflow(obj.id, dealflowname)">Add Startup</button>
                       </div>
                       <!--<span>Hello, World!</span>-->
                     </div>
