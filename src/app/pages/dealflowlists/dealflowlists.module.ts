@@ -21,7 +21,9 @@ import { ToasterService } from '../../@theme/providers/toaster.service';
   ],
   declarations: [
     ...routedComponents,
-    SearchArrayPipe
+    SearchArrayPipe,
+    DealflowListsComponent,
+    routedComponents,
   ],
   providers: [
     DealflowListsService,
