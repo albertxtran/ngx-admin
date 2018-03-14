@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <mat-tab-group [selectedIndex]="0">
               <mat-tab label="Details">
-                <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px;">
+                <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px; border-bottom: 1px solid #dddddd; margin-bottom:20px">
                   <div class="row">
                     <div class="col-md-6">
                       <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflow?.dealflow_State}}</div>
@@ -22,24 +22,24 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row" style="margin-top:10px;">
                   <div class="col-md-12">
                     <div class="col-md-4" style="float:left;width:35%;">
                       <div style="font-size: 10px; color: black; opacity: .40;">EVENT SUMMARY</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.event_Summary}}</div>
                       <div style="font-size: 10px; color: black; opacity: .40;">EVENT LOCATION</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.event_Location}}</div>
-                      <div style="font-size: 10px; color: black; opacity: .40;">EVENT AGENDA</div>
-                      <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;white-space:pre-wrap;">{{dealflow?.event_Agenda}}</div>
-                    </div>
-                    <div class="col-md-4" style="float:left;width:35%;">
                       <div style="font-size: 10px; color: black; opacity: .40;">VERTICALS</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.verticals}}</div>
                       <div style="font-size: 10px; color: black; opacity: .40;">PURPOSE</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.purpose}}</div>
+                    </div>
+                    <div class="col-md-4" style="float:left;width:35%;">
                       <div style="font-size: 10px; color: black; opacity: .40;">VIRTUAL JOIN</div>
-                        <div *ngIf="dealflow?.virtual_Join" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">WebEx is okay</div>
-                        <div *ngIf="!dealflow?.virtual_Join" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">WebEx is not okay</div>
+                      <div *ngIf="dealflow?.virtual_Join" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">WebEx is okay</div>
+                      <div *ngIf="!dealflow?.virtual_Join" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">WebEx is not okay</div>
+                      <div style="font-size: 10px; color: black; opacity: .40;">SPECIFIC INTERESTS</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.specific_Interests}}</div>
                       <div style="font-size: 10px; color: black; opacity: .40;">EXTRA DETAIL</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.extra_Detail}}</div>
                     </div>
@@ -58,7 +58,7 @@
               </mat-tab>
               <mat-tab label="Top 20">
                 <div class="row" style="width: 100%;">
-                    <div class="col-md-12" style="margin-left:15px;margin-top:15px;">
+                    <div class="col-md-12" style="margin-left:15px;">
                         <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
                             Submit
                         </button>
