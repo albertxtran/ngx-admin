@@ -33,3 +33,12 @@ export interface SupportingMember {
     supporting_member2: Number;
     supporting_member3: Number;
 }
+
+
+export interface Agenda {
+    start: string;
+    end: string;
+    type: string;
+    comment: string;
+    startup: string;
+}
