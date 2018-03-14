@@ -6,6 +6,7 @@ import { DealflowListsService } from './dealflowlists.service';
 import {Subscription} from 'rxjs';
 import { ToasterService } from '../../@theme/providers/toaster.service';
 import * as CryptoJS from 'crypto-js';
+import { DialogService } from "ng2-bootstrap-modal";
 
 import { Router } from '@angular/router';
 
@@ -13,14 +14,13 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'dealflow',
-  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./dealflowlists.scss'],
   templateUrl: './dealflowlists.html',
-  providers: [DealflowListsService]
 })
 export class DealflowListsComponent implements OnInit {
   @ViewChild('input')
   input: ElementRef;
+  @ViewChild('refresh') refresh: ElementRef;
   lists: any[] = [];
   submittedList: any[]= [];
   reviewList: any[]= [];
@@ -39,6 +39,7 @@ export class DealflowListsComponent implements OnInit {
   public loading: boolean;
   public overlay: any;
   currentUser: any;
+  deleteon: boolean = false;
 
 
   constructor(private _dealflowService: DealflowListsService, public _toasterService: ToasterService , vcr: ViewContainerRef, private router: Router) {
@@ -80,6 +81,16 @@ export class DealflowListsComponent implements OnInit {
       err => console.error('Error: ' + err),
           () => {this.sortLists(this.lists);}
       );
+  }
+
+  refreshList() {
+    if(this.deleteon == true){
+      this.deleteon = false;
+      this.getLists();
+      this.getArchivedLists()
+      //console.log("Getting page!!!")
+      return null;
+    }
   }
 
   sortLists(list: any){

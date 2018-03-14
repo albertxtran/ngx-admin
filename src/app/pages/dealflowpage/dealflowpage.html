@@ -4,7 +4,7 @@
       <div class="col-md-12">
           <mat-tab-group [selectedIndex]="0">
             <mat-tab label="Details">
-              <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px; width:100%">
+              <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px;">
                   <div class="row">
                     <div class="col-md-6">
                       <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflow?.dealflow_State}}</div>
@@ -30,7 +30,7 @@
                               </mat-form-field>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row" style="margin-bottom: 10px;">
                     <div class="col-md-6">
                       <div style="font-family:DINPro-Light;color:black;font-size:20px;">
                         <div style="float:left;">Date: {{dealflow?.event_Date}}</div>
@@ -38,7 +38,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row" style="padding:0px;padding-bottom:20px; padding-top: 20px;margin-bottom:20px; border-bottom: 1px solid #dddddd;">
+                  <div class="row" style="padding:0px;padding-bottom:20px; padding-top: 20px;margin-bottom:20px; border-bottom: 1px solid #dddddd; border-top: 1px solid #dddddd;">
                     <!-- <div class="col-md-3" style="width:auto; padding:0px;">
                       <div class="col-md-12" style="font-family:DINPro-Light;float: left">
                         <div style="font-size: 12px; color:#343434;">Corporation: Test Corp</div>
@@ -59,53 +59,53 @@
                       </div>
                     </div> -->
                     <div class="col-md-2" style="width:auto;">
-                      <div class="col-md-12" style="display:inline-block;padding:0px;">
+                      <div class="col-md-12" style="display:inline-block;padding:0px;overflow-wrap:break-word">
                         <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">LEAD</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{lead_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{lead_email}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 1vw;color:#3c3c3c;overflow-wrap: break-word">{{lead_name}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 1vw;color:#3c3c3c;overflow-wrap: break-word">{{lead_email}}</div>
                       </div>
                     </div>
                     <div class="col-md-2" style="width:auto;">  
-                      <div class="col-md-12" style="display:inline-block;padding:0px;">
+                      <div class="col-md-12" style="display:inline-block;padding:0px;overflow-wrap:break-word">
                         <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">ACCOUNT MANAGER</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{account_manager_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{account_manager_email}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 1vw;color:#3c3c3c;overflow-wrap: break-word">{{account_manager_name}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 1vw;color:#3c3c3c;overflow-wrap: break-word">{{account_manager_email}}</div>
                       </div>
                     </div>
                     <div class="col-md-2" style="width:auto;">
-                      <div class="col-md-12" style="display:inline-block;padding:0px;">
+                      <div class="col-md-12" style="display:inline-block;padding:0px;overflow-wrap:break-word">
                         <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">VENTURE ASSOCIATE</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{venture_associate_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{venture_associate_email}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{venture_associate_name}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{venture_associate_email}}</div>
                       </div>
                     </div>
                     <div class="col-md-2" style="width:auto;">
                       <div class="col-md-12" style="display:inline-block;padding:0px;">
                         <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">CHAMPION</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{champion_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{champion_email}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{champion_name}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word;">{{champion_email}}</div>
                       </div>
                     </div>
                     <div class="col-md-2" style="width:auto;">
-                      <div class="col-md-12" style="display:inline-block;padding:0px;">
+                      <div class="col-md-12" style="display:inline-block;padding:0px;overflow-wrap:break-word">
                         <div style="font-size: 10px;font-size: 12px; color: #000000; opacity: .40;">SUPPORTING MEMBERS</div>
                         <div *ngIf="supporting_member1_name" style="padding-bottom:5px;">
-                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member1_name}}</div>
-                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member1_email}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member1_name}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member1_email}}</div>
                           </div>
                           <div *ngIf="supporting_member2_name" style="padding-bottom:5px;">
-                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member2_name}}</div>
-                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member2_email}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member2_name}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member2_email}}</div>
                           </div>
                           <div *ngIf="supporting_member3_name" style="padding-bottom:5px;">
-                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member3_name}}</div>
-                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow:hidden;">{{supporting_member3_email}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member3_name}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member3_email}}</div>
                           </div>
                       </div>
                     </div>
                   </div>
               </div>
-              <div class="row">
+              <div class="row" style="margin-top:10px;">
                 <div class="col-md-12">
                   <div class="col-md-6" style="float:left;width:35%;">
                     <div style="font-size: 10px; color: black; opacity: .40;">EVENT SUMMARY</div>
@@ -114,6 +114,21 @@
                     <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.event_Location}}</div>
                     <div style="font-size: 10px; color: black; opacity: .40;">EVENT AGENDA</div>
                     <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;white-space:pre-wrap;">{{dealflow?.event_Agenda}}</div>
+                    <div style="font-size: 10px; color: black; opacity: .40;">VERTICALS</div>
+                    <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.verticals}}</div>
+                    <div style="font-size: 10px; color: black; opacity: .40;">PURPOSE</div>
+                    <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.purpose}}</div>
+                    <div style="font-size: 10px; color: black; opacity: .40;">RELATIONSHIP</div>
+                    <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.relationship}}</div>
+                  </div>
+                  <div class="col-md-6" style="float:left;width:35%;">
+                    <div style="font-size: 10px; color: black; opacity: .40;">VIRTUAL JOIN</div>
+                    <div *ngIf="dealflow?.virtual_Join" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">WebEx is okay</div>
+                    <div *ngIf="!dealflow?.virtual_Join" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">WebEx is not okay</div>
+                    <div style="font-size: 10px; color: black; opacity: .40;">SPECIFIC INTERESTS</div>
+                    <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.specific_Interests}}</div>
+                    <div style="font-size: 10px; color: black; opacity: .40;">EXTRA DETAIL</div>
+                    <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.extra_Detail}}</div>
                     <div style="font-size: 10px; color: black; opacity: .40;">ADDITIONAL ATTENDEES</div>
                     <div *ngFor="let each of attendee_array" class="col-md-12" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-left:0px;padding-bottom:10px;">
                       <div class="col-md-12" style="width:auto;padding-left:0px;">
@@ -123,19 +138,6 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6" style="float:left;width:35%;">
-                    <div style="font-size: 10px; color: black; opacity: .40;">VERTICALS</div>
-                    <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.verticals}}</div>
-                    <div style="font-size: 10px; color: black; opacity: .40;">PURPOSE</div>
-                    <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.purpose}}</div>
-                    <div style="font-size: 10px; color: black; opacity: .40;">RELATIONSHIP</div>
-                    <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.relationship}}</div>
-                    <div style="font-size: 10px; color: black; opacity: .40;">VIRTUAL JOIN</div>
-                    <div *ngIf="dealflow?.virtual_Join" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">WebEx is okay</div>
-                    <div *ngIf="!dealflow?.virtual_Join" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">WebEx is not okay</div>
-                    <div style="font-size: 10px; color: black; opacity: .40;">EXTRA DETAIL</div>
-                    <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.extra_Detail}}</div>
-                  </div>
                 </div>
               </div>
             </mat-tab>
@@ -144,7 +146,7 @@
               <div class="row" style="width: 100%;">
                   <div class="col-md-12" style="margin-left:15px;margin-top:15px;">
                       <a [routerLink]="['/pages/startups']" [queryParams]="{dealflowname: dealflowname}">
-                        <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
+                        <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;margin-right:10px;">
                           Add Startup
                         </button>
                       </a>
