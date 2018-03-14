@@ -91,7 +91,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   selected: any[]= [];
   timeStart: String;
   timeEnd: String;
-
+  agendaJSON: any;
   
 
 constructor(private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
@@ -143,7 +143,6 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
       else {
         this.dealflow = res;
         var tmp: any= JSON.stringify(this.dealflow.event_Start)[1] + JSON.stringify(this.dealflow.event_Start)[2];
-        console.log("tmp!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "+tmp);
         if(tmp > 12){
           this.timeStart = (tmp - 12) + ":" + JSON.stringify(this.dealflow.event_Start)[4] + JSON.stringify(this.dealflow.event_Start)[5] + " PM" ;
         }
@@ -157,12 +156,18 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
         else{
           this.timeEnd = tmp + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " AM" ;
         }
-        console.log("timeStart: " + this.timeStart + " timeEnd: " + this.timeEnd);
         this.dealflowState = this.dealflow.dealflow_State;
-        console.log("this is the dealflow time slots " + this.dealflow.event_Agenda);
-        this.timeSlots = this.dealflow.event_Agenda.split(/\r?\n/);
-        for(var i = 0; i < this.timeSlots.length; i++){
-          this.selected.push("close");
+
+        this.agendaJSON = JSON.parse(this.dealflow.event_Agenda);
+        //this.timeSlots = this.dealflow.event_Agenda.split(/\r?\n/);
+        console.log(this.agendaJSON[0]);
+        for(var i = 0; i < this.agendaJSON.length; i++){
+          if(this.agendaJSON[i].type == "Startup"){
+            this.selected.push("open");
+          }
+          else{
+            this.selected.push("close");
+          }   
         }
         this.attendee_array = JSON.parse(res.attendees);
         console.log("this is the dealflow info: " + JSON.stringify(this.dealflow));
@@ -465,6 +470,10 @@ updateState(){
       return res;
     }
   }).subscribe();
+}
+
+addIgnore(index: number){
+  console.log("index: " + index);
 }
 
 exportToPDF() {
