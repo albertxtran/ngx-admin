@@ -39,25 +39,6 @@
                     </div>
                   </div>
                   <div class="row" style="padding:0px;padding-bottom:20px; padding-top: 20px;margin-bottom:20px; border-bottom: 1px solid #dddddd; border-top: 1px solid #dddddd;">
-                    <!-- <div class="col-md-3" style="width:auto; padding:0px;">
-                      <div class="col-md-12" style="font-family:DINPro-Light;float: left">
-                        <div style="font-size: 12px; color:#343434;">Corporation: Test Corp</div>
-                        <div style="display:block;">
-                          <div class="fa fa-external-link" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
-                          <div style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
-                              <a style="color: #343434" href="http://google.com/" target="_blank">Website</a>
-                          </div>
-                        </div>
-                        <div class="fa fa-globe" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
-                        <div style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">Santa Clara, CA</div>
-                        <div style="display:block;">
-                          <div class="fa fa-external-link" aria-hidden="true" style="display:inline-block;color:#3c3c3c;font-size: 16px;"></div>
-                          <div style="display:inline-block;margin-top:4px;margin-left:6px;font-family:DINPro-Light;color:#343434;font-size:12px;">
-                            <a style="color: #343434" href="http://google.com/" target="_blank">Pitch Deck</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
                     <div class="col-md-2" style="width:auto;">
                       <div class="col-md-12" style="display:inline-block;padding:0px;overflow-wrap:break-word">
                         <div style="font-size: 12px; color: #000000; opacity: .40;">LEAD</div>
@@ -163,13 +144,16 @@
                           Add Startup
                         </button>
                       </a>
+                      <button type="button" (click)="selectPriorityOption = !selectPriorityOption" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;margin-right:10px;" [ngClass]="{'Prio-On': selectPriorityOption, 'Prio-Off': !selectPriorityOption}">
+                          Select Priority
+                      </button>
                       <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
                           Send
                       </button>
                       <nb-card>
                         <nb-card-body>
                           <div *ngIf="!loading && !error">
-                            <div *ngFor="let obj of venturesList" class="row" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);width:auto;">
+                            <div *ngFor="let obj of venturesList, let i = index" class="row" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);width:auto;">
                               <div [ngStyle]="overlay">
                                 <div class="row" style="width:99%;">
                                   <div class="col-md-6" style="width:auto;display:inline-block;">
@@ -197,6 +181,17 @@
                                     <div *ngIf="(role=='admin' || role=='venture')" style="float:right;width:50px;margin-right:50%;">
                                       <a class="top20" (click)="removeDealflow(obj.id,dealflow.dealflow_Name)" style="z-index: 100;cursor: pointer;position: relative; margin:10px;width:auto;"><span title="Remove from Top 20"><i aria-hidden="true" class="fa fa-times" style="color:white;"></i></span></a>
                                     </div>
+                                    <div *ngIf="selectPriorityOption" class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" role="group" ng-reflect-model="left" style="width:50%;">
+                                        <label class="btn btn-outline-primary" [class.active]="buttonSelect[i] === 1" ngbbuttonlabel="">
+                                          <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Primary',i)" type="radio" value="left" ng-reflect-value="left" name="ngb-radio-2"> Primary
+                                        </label>
+                                        <label class="btn btn-outline-primary" [class.active]="buttonSelect[i] === 2" ngbbuttonlabel="">
+                                          <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Secondary',i)" type="radio" value="middle" ng-reflect-value="middle" name="ngb-radio-2"> Secondary
+                                        </label>
+                                        <label class="btn btn-outline-primary" [class.active]="buttonSelect[i] === 3" ngbbuttonlabel="">
+                                          <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Rejected',i)" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Not Applicable
+                                        </label>
+                                      </div>
                                   </div>
 
                                   <div *ngIf="loading" style="margin: 0 auto;width: 100px;padding-top:70px;">
@@ -273,7 +268,7 @@
                                         </mat-select>
                                       </mat-form-field>
                                     </td>
-                                    <td>Test</td>
+                                    <td>{{timeSlots.status}}</td>
                                 </tr>    
                             </table>
                             <div style="position: relative; left:85%;">

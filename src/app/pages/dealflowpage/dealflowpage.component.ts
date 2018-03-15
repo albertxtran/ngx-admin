@@ -97,7 +97,8 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   timeStart: String;
   timeEnd: String;
   agendaJSON: any;
-  ignoreList: startupList[]= [];
+  buttonSelect: number[]= [];
+  selectPriorityOption: boolean= false;
   
 
 constructor(private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
@@ -117,7 +118,17 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
         this.dealflowname = params['dealflowname'] || 0;
       });
       this._dealflowPageService.getDealflowStartup(this.dealflowname).subscribe(data => {this.dealflow_startup = data
-        console.log(this.dealflow_startup.length);
+        this.dealflow_startup.forEach(data=>{
+          if(data.dealflow_Priority == 'Primary'){
+            this.buttonSelect.push(1);
+          }
+          else if(data.dealflow_Priority == 'Secondary'){
+            this.buttonSelect.push(2);
+          }
+          else if(data.dealflow_Priority == 'Rejected'){
+            this.buttonSelect.push(3);
+          }
+        });
       },
           error => console.error('Error: ' + error)
       );    
@@ -489,6 +500,25 @@ addIgnore(input: any, index: number){
   this.agendaJSON.forEach(data=>{
     console.log("agendaJSON: "+ JSON.stringify(data));
   });
+}
+
+selectPriority(id:Number, dealflow_name: String, priority: String, index: number) {
+  console.log(this.buttonSelect);
+  if(priority == 'Primary'){
+    this.buttonSelect[index] = 1;
+  }
+  else if(priority == 'Secondary'){
+    this.buttonSelect[index] = 2;
+  }
+  else if(priority == 'Rejected'){
+    this.buttonSelect[index] = 3;
+  }
+  this._dealflowPageService.selectPriority(id,dealflow_name,priority).subscribe(data => this.dealflowstartup = data,
+  error => {
+    this._toasterService.showError("Could not select Priority!", "Error", 4000)}, 
+    () =>{
+    }
+  );
 }
 
 exportToPDF() {
