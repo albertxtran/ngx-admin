@@ -113,22 +113,22 @@
         <input type="text" class="form-control" formControlName="event_location" id="event_location" placeholder="Event Location" required>
       </div>
       <div class="form-group">
-          <label>Agenda</label>
-          <div formArrayName="event_agenda">
-            <div *ngFor="let agenda of dealflowForm.controls.event_agenda.controls; let i=index" class="panel panel-default">
-              <div class="panel-body" [formGroupName]="i">
-                <span style="font-size:.8em">Timeslot {{i + 1}}</span>
-                <a *ngIf="dealflowForm.controls.event_agenda.controls.length > 1" (click)="removeAgenda(i)" style="cursor: pointer; float:right"><i class="fa fa-times" aria-hidden="true"></i></a>
-                <agenda [group]="dealflowForm.controls.event_agenda.controls[i]"></agenda>
-              </div>
+        <label>Agenda</label>
+        <div formArrayName="event_agenda">
+          <div *ngFor="let agenda of dealflowForm.controls.event_agenda.controls; let i=index" class="panel panel-default">
+            <div class="panel-body" [formGroupName]="i">
+              <span style="font-size:.8em">Timeslot {{i + 1}}</span>
+              <a *ngIf="dealflowForm.controls.event_agenda.controls.length > 1" (click)="removeAgenda(i)" style="cursor: pointer; float:right"><i class="fa fa-times" aria-hidden="true"></i></a>
+              <agenda [group]="dealflowForm.controls.event_agenda.controls[i]"></agenda>
             </div>
           </div>
-          <div class="col-md-12" style="float:right; margin-bottom: 10px;">
-            <a (click)="addAgenda()" style="cursor: default;">
-              Add another timeslot +
-            </a>
-          </div>
         </div>
+        <div class="col-md-12" style="float:right; margin-bottom: 10px;">
+          <a (click)="addAgenda()" style="cursor: default;">
+            Add another timeslot +
+          </a>
+        </div>
+      </div>
       <!--<div class="form-group">
         <label>Event Agenda</label>
         <small *ngIf="!dealflowForm.controls.event_agenda.valid" class="text-danger">

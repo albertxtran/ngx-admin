@@ -37,3 +37,12 @@ export interface SupportingMember {
     supporting_member2_name: string;
     supporting_member3_name: string;
 }
+
+export interface Agenda {
+    start: string;
+    end: string;
+    type: string;
+    comment: string;
+    startup: string;
+    status: string;
+}

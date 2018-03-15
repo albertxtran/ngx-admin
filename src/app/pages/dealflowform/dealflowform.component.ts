@@ -172,7 +172,7 @@ save(model: Dealflowform) {
     // call API to save
     console.log(JSON.stringify(model["value"]));
     // ...
-    /*this._dealflowFormService.createDealflow_form(JSON.stringify(model["value"])).map(res => {
+    this._dealflowFormService.createDealflow_form(JSON.stringify(model["value"])).map(res => {
       // If request fails, throw an Error that will be caught
       console.log("res " + res);
       console.log("res.status " + res.status);
@@ -188,7 +188,7 @@ save(model: Dealflowform) {
         //return res.json();
         
       }
-    }).subscribe();*/
+    }).subscribe();
 }
 
 initSubmit(){

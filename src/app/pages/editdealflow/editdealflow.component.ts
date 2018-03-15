@@ -108,7 +108,7 @@ ngOnInit() {
     event_start: ['', [Validators.required]],
     event_stop: ['', [Validators.required]],
     event_location: ['', [Validators.required]],
-    event_agenda: ['', [Validators.required]],
+    event_agenda: this._fb.array([]),
     verticals : ['', [Validators.required]],
     specific_interests : ['', [Validators.required]],
     purpose : ['', [Validators.required]],
@@ -119,6 +119,7 @@ ngOnInit() {
 
   this.addAttendee();
   this.addSupportingMember();
+  this.addAgenda();
   }
 
   ngOnDestroy() {
@@ -143,6 +144,17 @@ initSupportingMember() {
   });
 }
 
+initAgenda() {
+  return this._fb.group({
+      start: [''],
+      end: [''],
+      type: [''],
+      comment: [''],
+      startup: [''],
+      status: [''],
+  });
+}
+
 backClicked() {
   this._location.back();
 }
@@ -163,6 +175,13 @@ addSupportingMember() {
 
 }
 
+addAgenda() {
+  const control = <FormArray>this.editDealflow.controls['event_agenda'];
+  const addrCtrl = this.initAgenda();
+  
+  control.push(addrCtrl);
+}
+
 removeAttendee(i: number) {
     const control = <FormArray>this.editDealflow.controls['attendees'];
     control.removeAt(i);
@@ -173,12 +192,25 @@ removeSupportingMember(i: number) {
   control.removeAt(i);
 }
 
+removeAgenda(i: number) {
+  const control = <FormArray>this.editDealflow.controls['event_agenda'];
+  control.removeAt(i);
+}
 
 save(model: FormGroup) {
     //if(model["value"].supportingMembers[0].supporting_member1 != null)
     model["value"].api_key = this.currentUser.api_key;
     this.tmp = model["value"].event_date.split("-");
     model["value"].event_date = this.tmp[1]+'-'+this.tmp[2]+'-'+this.tmp[0];
+    model["value"].event_agenda.forEach(element => {
+      if(element.type == "Startup"){
+        element.status = "Open";
+      }
+      else{
+        element.status = "Close";
+      }
+    });
+    model["value"].event_agenda = JSON.stringify(model["value"].event_agenda);
     console.log(JSON.stringify(model["value"]));
     // ...
     this._editDealflowService.updateDealflow_form(JSON.stringify(model["value"])).map(res => {
@@ -418,7 +450,6 @@ addValue(dealflow:any){
   this.editDealflow.controls['id'].setValue(dealflow.id);
   this.editDealflow.controls['corporate_id'].setValue(dealflow.corporate_Id);
   this.editDealflow.controls['lead_id'].setValue(dealflow.lead_Id);
-  this.editDealflow.controls['corporate_id'].setValue(dealflow.corporate_Id);
   this.editDealflow.controls['account_manager_id'].setValue(dealflow.accountManager_Id);
   this.editDealflow.controls['venture_associate_id'].setValue(dealflow.ventureAssociate_Id);
   this.editDealflow.controls['champion_id'].setValue(dealflow.champion_Id);
@@ -428,7 +459,19 @@ addValue(dealflow:any){
   this.editDealflow.controls['event_start'].setValue(dealflow.event_Start);
   this.editDealflow.controls['event_stop'].setValue(dealflow.event_Stop);
   this.editDealflow.controls['event_location'].setValue(dealflow.event_Location);
-  this.editDealflow.controls['event_agenda'].setValue(dealflow.event_Agenda);
+  //this.editDealflow.controls['event_agenda'].setValue(dealflow.event_Agenda);
+  var tmp = JSON.parse(dealflow.event_Agenda);
+  var index = 0;
+  tmp.forEach(element => {
+    if(index > 0){
+      this.addAgenda();
+    }
+    (<FormArray>this.editDealflow.controls['event_agenda']).at(index).get("start").setValue(element.start);
+    (<FormArray>this.editDealflow.controls['event_agenda']).at(index).get("end").setValue(element.end);
+    (<FormArray>this.editDealflow.controls['event_agenda']).at(index).get("type").setValue(element.type);
+    (<FormArray>this.editDealflow.controls['event_agenda']).at(index).get("comment").setValue(element.comment);
+    index++;
+  });
   this.editDealflow.controls['verticals'].setValue(dealflow.verticals);
   this.editDealflow.controls['specific_interests'].setValue(dealflow.specific_Interests);
   this.editDealflow.controls['purpose'].setValue(dealflow.purpose);
