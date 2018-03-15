@@ -1,0 +1,22 @@
+<div [formGroup]="agendaForm">
+    <div class="row">
+        <div class="form-group col-md-2" style="padding-right:7px;">
+            <input type="time" class="form-control" formControlName="start" placeholder="Start" style="padding-right: 7px;">
+        </div>
+        <div style="padding-top:10px; padding-left:7px; font-size: 25px;">-</div>
+        <div class="form-group col-md-2" style="padding-right:7px;">
+            <input type="time" class="form-control" formControlName="end" placeholder="End" style="padding-right:7px;">
+        </div>
+        <div class="form-group col-md-3">
+            <!--<input type="email" class="form-control" formControlName="type" placeholder="Type">-->
+            <mat-form-field>
+                <mat-select formControlName="type" placeholder="Type">
+                    <mat-option *ngFor="let each of agendaTypes" value="{{each}}">{{each}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group col-md-4">
+                <input type="email" class="form-control" formControlName="comment" placeholder="Comment">
+        </div>
+    </div>  
+</div>
