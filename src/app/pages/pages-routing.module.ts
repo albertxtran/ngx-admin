@@ -2,7 +2,7 @@ import { RouterModule, Routes, Router } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './dash/dashboard.component';
 import { StartupsComponent } from './startups/startups.component';
 import * as CryptoJS from 'crypto-js';
 import { AdminGuard } from './_routes/admin-guard.service'

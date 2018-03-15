@@ -1,0 +1,35 @@
+
+<div class="row">
+  <div class="col-md-3">
+    <nb-card>
+      <nb-card-header style="text-align: center;">Sourced</nb-card-header>
+      <nb-card-body>
+          <div *ngIf="ventureCount?.count" style="font-size: 40px; font-family: 'DINPro-Light'; color: #000000 ; opacity: .54;text-align:center;margin-top:15px;margin-bottom:30px;">{{ventureCount.count}}</div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-3">
+      <nb-card>
+        <nb-card-header style="text-align: center;">Dealflows</nb-card-header>
+        <nb-card-body>
+            <div *ngIf="dealFlowCount?.count" style="font-size: 40px; font-family: 'DINPro-Light'; color: #000000 ; opacity: .54;text-align:center;margin-top:15px;margin-bottom:30px;">{{dealFlowCount.count}}</div>
+        </nb-card-body>
+      </nb-card>
+  </div>  
+  <div class="col-md-3">
+      <nb-card>
+        <nb-card-header style="text-align: center;">Top 100s</nb-card-header>
+        <nb-card-body>
+            <div *ngIf="top100Count?.count" style="font-size: 40px; font-family: 'DINPro-Light'; color: #000000 ; opacity: .54;text-align:center;margin-top:15px;margin-bottom:30px;">{{top100Count.count}}</div>
+        </nb-card-body>
+      </nb-card>
+  </div>
+  <div class="col-md-3">
+      <nb-card>
+        <nb-card-header style="text-align: center;">Top 20s</nb-card-header>
+        <nb-card-body>
+            <div *ngIf="top20Count?.count" style="font-size: 40px; font-family: 'DINPro-Light'; color: #000000 ; opacity: .54;text-align:center;margin-top:15px;margin-bottom:30px;">{{top20Count.count}}</div>
+        </nb-card-body>
+      </nb-card>
+  </div>
+</div>
