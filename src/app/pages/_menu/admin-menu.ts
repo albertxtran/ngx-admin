@@ -4,7 +4,7 @@ export const ADMIN_ITEMS: NbMenuItem[] = [
   {
     title: 'Dashboard',
     icon: 'nb-home',
-    link: '/pages/dashboard',
+    link: '/pages/dash',
     home: true,
   },
   {
