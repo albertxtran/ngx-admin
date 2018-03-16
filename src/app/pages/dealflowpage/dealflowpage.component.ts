@@ -93,6 +93,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   primaryCheckAll: boolean = false;
   secondaryCheckAll: boolean = false;
   sendList: any[]= [];
+  scheduleSendList: any[] = [];
   selected: any[]= [];
   timeStart: String;
   timeEnd: String;
@@ -422,9 +423,17 @@ checkUncheck(obj: any){
 allPrimary(){
   if(this.primaryCheckAll){
     this.primaryStartups.forEach(startup =>{
-      var idx = this.sendList.indexOf(startup.id);
-      if (idx <= -1) {
-        this.sendList.push(startup.id);
+      if(startup.status != "taken"){
+        var idx = this.sendList.indexOf(startup.id);
+        if (idx <= -1) {
+          this.sendList.push(startup.id);
+        }
+      }
+      else{
+        var idx = this.sendList.indexOf(startup.id);
+        if (idx > -1) {
+          this.sendList.splice(idx, 1);
+        }
       }
     });
   }
@@ -442,9 +451,11 @@ allPrimary(){
 allSecondary(){
   if(this.secondaryCheckAll){
     this.secondaryStartups.forEach(startup =>{
-      var idx = this.sendList.indexOf(startup.id);
-      if (idx <= -1) {
-        this.sendList.push(startup.id);
+      if(startup.status != "taken"){
+        var idx = this.sendList.indexOf(startup.id);
+        if (idx <= -1) {
+          this.sendList.push(startup.id);
+        }
       }
     });
   }
@@ -458,21 +469,6 @@ allSecondary(){
   }
   console.log(this.sendList);
 }
-
-/*updateState(event:any){
-  console.log("this is test: " + event.target.value);
-  this._dealflowPageService.updateDealflowState(this.dealflow.id,event.target.value).map(res => {
-    // If request fails, throw an Error that will be caught
-    if (res.status < 200 || res.status >= 300){
-      this.loading = false;
-      throw new Error('This request has failed ' + res.status);
-    }
-    else {
-      this._toasterService.showSuccess("Dealflow state has been changed to "+event.target.value,"",4000);
-      return res;
-    }
-  }).subscribe();
-}*/
 
 updateState(){
   console.log("this is test: "+this.dealflowState);
@@ -489,17 +485,41 @@ updateState(){
   }).subscribe();
 }
 
-addIgnore(input: any, index: number){
-  console.log("index: " + input);
-  /*this.primaryStartups.forEach(data=> {
-    if(data.id == input){
-      data.status = "taken";
-    }
-  })*/
-  this.agendaJSON[index].startup = input;
-  this.agendaJSON.forEach(data=>{
-    console.log("agendaJSON: "+ JSON.stringify(data));
-  });
+addIgnore(venture_id: any, index: number){
+  console.log("venture_id: " + venture_id + " index: " + index);
+  if(venture_id == "open"){
+    this.agendaJSON[index].status = "Open";
+    this.agendaJSON[index].startup = "";
+  }
+  else if(venture_id == "close"){
+    this.agendaJSON[index].status = "Close";
+    this.agendaJSON[index].startup = "";
+  }
+  else{
+    this.agendaJSON[index].startup = venture_id;
+  }
+    this.primaryStartups.forEach(primary=>{
+      primary.status = "";
+      this.agendaJSON.forEach(agenda=>{
+        if(primary.id == agenda.startup)
+        {
+          primary.status = "taken";
+          agenda.status = "Startup Selected";
+        }
+      });
+    });
+    this.secondaryStartups.forEach(secondary=>{
+      secondary.status = "";
+      this.agendaJSON.forEach(agenda=>{
+        if(secondary.id == agenda.startup)
+        {
+          secondary.status = "taken";
+          agenda.status = "Startup Selected";
+        }
+      });
+    });
+    this.allPrimary();
+    this.allSecondary();
 }
 
 selectPriority(id:Number, dealflow_name: String, priority: String, index: number) {
@@ -519,6 +539,23 @@ selectPriority(id:Number, dealflow_name: String, priority: String, index: number
     () =>{
     }
   );
+}
+
+sendCalendarInvites(){
+
+  this.agendaJSON.forEach(element => {
+    if(element.status == "Startup Selected"){
+      console.log(JSON.stringify(element));
+      this.scheduleSendList.push({"start":element.start,"end":element.end,"startup":element.startup});
+    }
+    else if(element.status == "Open"){
+      console.log("sending time: " + JSON.stringify(element) + " to " +this.sendList);
+      this.sendList.forEach(data => {
+        this.scheduleSendList.push({"start":element.start,"end":element.end,"startup":data});
+      });
+    }
+  });
+  console.log("sending invites to...:" + JSON.stringify(this.scheduleSendList));
 }
 
 exportToPDF() {
