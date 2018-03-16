@@ -7,7 +7,7 @@
               <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px;">
                   <div class="row">
                     <div class="col-md-6">
-                      <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflow?.dealflow_State}}</div>
+                      <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflowState}}</div>
                       <div style="font-family:DINPro-Light;font-weight:bold;font-size:40px">{{dealflow.dealflow_Name}}</div>
                     </div>
                     <div class="col-md-6" style="padding-top:5px;">
@@ -17,11 +17,10 @@
                               </button>
                             </a>
                               <mat-form-field style="float:right; margin-top:15px">
-                                <mat-select (change)="updateState(dealflowState)" [(ngModel)]="dealflowState" placeholder="Dealflow State">
+                                <mat-select (change)="updateState(dealflowState,true); refreshPage();" [(ngModel)]="dealflowState" placeholder="Dealflow State">
                                     <mat-option value="Submitted">Submitted</mat-option>
                                     <mat-option value="Review">Review</mat-option>
                                     <mat-option value="Scheduling">Scheduling</mat-option>
-                                    <mat-option value="Selecting">Selecting</mat-option>
                                     <mat-option value="Pending">Pending</mat-option>
                                     <mat-option value="Active">Active</mat-option>
                                     <mat-option value="Feedback">Feedback</mat-option>
@@ -41,46 +40,46 @@
                   <div class="row" style="padding:0px;padding-bottom:20px; padding-top: 20px;margin-bottom:20px; border-bottom: 1px solid #dddddd; border-top: 1px solid #dddddd;">
                     <div class="col-md-2" style="width:auto;">
                       <div class="col-md-12" style="display:inline-block;padding:0px;overflow-wrap:break-word">
-                        <div style="font-size: 12px; color: #000000; opacity: .40;">LEAD</div>
-                        <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{lead_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{lead_email}}</div>
+                        <div style="font-size: 13px; color: #000000; opacity: .40;">LEAD</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{lead_name}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{lead_email}}</div>
                       </div>
                     </div>
                     <div class="col-md-2" style="width:auto;">  
                       <div class="col-md-12" style="display:inline-block;padding:0px;overflow-wrap:break-word">
-                        <div style="font-size: 12px; color: #000000; opacity: .40;">ACCOUNT MANAGER</div>
-                        <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{account_manager_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{account_manager_email}}</div>
+                        <div style="font-size: 13px; color: #000000; opacity: .40;">ACCOUNT MANAGER</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{account_manager_name}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{account_manager_email}}</div>
                       </div>
                     </div>
                     <div class="col-md-2" style="width:auto;">
                       <div class="col-md-12" style="display:inline-block;padding:0px;overflow-wrap:break-word">
-                        <div style="font-size: 12px; color: #000000; opacity: .40;">VENTURE ASSOCIATE</div>
-                        <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{venture_associate_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{venture_associate_email}}</div>
+                        <div style="font-size: 13px; color: #000000; opacity: .40;">VENTURE ASSOCIATE</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{venture_associate_name}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{venture_associate_email}}</div>
                       </div>
                     </div>
                     <div class="col-md-2" style="width:auto;">
                       <div class="col-md-12" style="display:inline-block;padding:0px;">
-                        <div style="font-size: 12px; color: #000000; opacity: .40;">CHAMPION</div>
-                        <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{champion_name}}</div>
-                        <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word;">{{champion_email}}</div>
+                        <div style="font-size: 13px; color: #000000; opacity: .40;">CHAMPION</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{champion_name}}</div>
+                        <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word;">{{champion_email}}</div>
                       </div>
                     </div>
                     <div class="col-md-2" style="width:auto;">
                       <div class="col-md-12" style="display:inline-block;padding:0px;overflow-wrap:break-word">
-                        <div style="font-size: 12px; color: #000000; opacity: .40;">SUPPORTING MEMBERS</div>
+                        <div style="font-size: 13px; color: #000000; opacity: .40;">SUPPORTING MEMBERS</div>
                         <div *ngIf="supporting_member1_name" style="padding-bottom:5px;">
-                            <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member1_name}}</div>
-                            <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member1_email}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member1_name}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member1_email}}</div>
                           </div>
                           <div *ngIf="supporting_member2_name" style="padding-bottom:5px;">
-                            <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member2_name}}</div>
-                            <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member2_email}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member2_name}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member2_email}}</div>
                           </div>
                           <div *ngIf="supporting_member3_name" style="padding-bottom:5px;">
-                            <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member3_name}}</div>
-                            <div style="font-family:DINPro-Light;font-size: 10px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member3_email}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member3_name}}</div>
+                            <div style="font-family:DINPro-Light;font-size: 12px;color:#3c3c3c;overflow-wrap: break-word">{{supporting_member3_email}}</div>
                           </div>
                       </div>
                     </div>
@@ -144,10 +143,11 @@
                           Add Startup
                         </button>
                       </a>
-                      <button type="button" (click)="selectPriorityOption = !selectPriorityOption;" class="btn btn-default btn-raised" style="float:right;margin-top:20px;margin-bottom:20px;margin-right:10px;" [ngClass]="{'Prio-On': selectPriorityOption, 'Prio-Off': !selectPriorityOption}">
+
+                      <button type="button" (click)="selectPriorityOption = !selectPriorityOption; updateState('Scheduling',false); schedulingOn = false;" class="btn btn-default btn-raised" style="float:right;margin-top:20px;margin-bottom:20px;margin-right:10px;" [ngClass]="{'Prio-On': selectPriorityOption, 'Prio-Off': !selectPriorityOption}">
                           Select Priority
                       </button>
-                      <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
+                      <button type="button" (click)="sendStartupForReview();dealflowState='Review'" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
                           Send
                       </button>
                       <nb-card>
@@ -214,8 +214,7 @@
                 </div>
             </mat-tab>
 
-            <mat-tab *ngIf="!(dealflow?.dealflow_State == 'Scheduling' || dealflow?.dealflow_State == 'Selecting')" label="Scheduling" disabled="true"></mat-tab>
-            <mat-tab *ngIf="dealflow?.dealflow_State == 'Scheduling' || dealflow?.dealflow_State == 'Selecting'" label="Scheduling" disabled="false">
+            <mat-tab label="Scheduling" disabled="{{schedulingOn}}">
                 <div class="row" style="width: 100%;">
                     <div class="col-md-12" style="margin-left:15px;margin-top:15px;">
 

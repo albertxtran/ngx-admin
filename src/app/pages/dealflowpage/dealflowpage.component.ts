@@ -56,6 +56,7 @@ interface startupList {
 export class DealflowPageComponent implements OnInit, OnDestroy {
   id: number;
   attendee_array: any[];
+  companies: any[];
   private sub: any;
   dealflowpage: any;
   dealflowState: string;
@@ -63,6 +64,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   dealflow_startup: any[];
   timeSlots: any[];
   lists: any[];
+  
   dealflow: any;
   venturesList: any[] = [];
   primaryStartups: any[] = [];
@@ -101,6 +103,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   buttonSelect: number[]= [];
   selectPriorityOption: boolean= false;
   tmpList: any[]= [];
+  schedulingOn: boolean;
   
 
 constructor(private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
@@ -176,6 +179,12 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
           this.timeEnd = tmp + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " AM" ;
         }
         this.dealflowState = this.dealflow.dealflow_State;
+        if(this.dealflowState == "Scheduling") {
+          this.schedulingOn = false;
+        } else {
+          this.schedulingOn = true;
+        }
+        console.log("check scheduling: " + this.schedulingOn);
 
         this.agendaJSON = JSON.parse(this.dealflow.event_Agenda);
         //this.timeSlots = this.dealflow.event_Agenda.split(/\r?\n/);
@@ -364,6 +373,12 @@ getVenturesById(id: Number, count: number, length: number){
   }).subscribe();
 }
 
+sendStartupForReview(){
+  this.updateState('Review', false);
+  //email the corporate with list of startups
+  this._toasterService.showSuccess("Startup list has been sent for review!", "", 4000);
+}
+
 removeDealflow(id:Number, dealflowname:String) {
   this._dealflowPageService.removeFromDealflow(id,dealflowname).subscribe(data => this.dealflowstartup = data,
   error => {
@@ -407,6 +422,71 @@ SubmitTop20(){
       return res;
     }
   }).subscribe();
+}
+
+// changePosition(position:number, id:Number, current:number) {
+    
+//   if(position > this.companies.length || position < 1){
+//     this._toasterService.showWarning("Please enter a number between 1 and "+this.companies.length, "", 4000);
+//   } else {
+//     /*console.log("{\"id\":"+id+",\"order\":"+position+"}");
+//     console.log("current: "+current)*/
+//     this._dealflowPageService.movePosition("{\"id\":"+id+",\"order\":"+position+",\"listName\":\""+this.dealflowname+"\"}").subscribe(data => this.dealflow = data,
+//     error => {
+//     this._toasterService.showError("Could change position, please try again!", "Error", 4000)}, 
+//     () => {
+//       for(var i = current; i < this.companies.length; i++ ){
+//       for(var j = 0; j < this.companies[i].top20.length; j++){
+
+//             if(this.companies[i].top20[j].listName == this.dealflowname){
+//                 this.companies[i].top20[j].order = this.companies[i].top20[j].order - 1;
+//             }        
+//           }
+//     }
+//     for(var j = 0; j < this.companies[current - 1].top20.length; j++){
+//        if(this.companies[current - 1].top20[j].listName == this.dealflowname){
+//          this.companies[current -1 ].top20[j].order = position;
+//        }
+//     }
+//     this.companies = this.moveItem(this.companies, current - 1, position-1);
+//     for(var i = position; i < this.companies.length; i++){
+//       for(var j = 0; j < this.companies[i].top20.length; j++){
+//         if(this.companies[i].top20[j].listName == this.dealflowname){
+//                 this.companies[i].top20[j].order = this.companies[i].top20[j].order + 1;
+                
+//         }  
+      
+//       }
+//     }
+    
+//     for(var i = 0; i < this.companies.length; i ++) {
+//        for(var j = 0; j < this.companies[i].top20.length; j++){
+//          console.log(this.companies[i].top20[j].venture_id + " " + this.companies[i].top20[j].order)
+//        }
+//     }
+//   }
+//   );
+    
+
+//   }
+  
+// }
+
+moveItem(arr, old_index, new_index) {
+  while (old_index < 0) {
+      old_index += arr.length;
+  }
+  while (new_index < 0) {
+      new_index += arr.length;
+  }
+  if (new_index >= arr.length) {
+      var k = new_index - arr.length;
+      while ((k--) + 1) {
+          arr.push(undefined);
+      }
+  }
+   arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);  
+  return arr;
 }
 
 checkUncheck(obj: any){
@@ -471,16 +551,18 @@ allSecondary(){
   console.log(this.sendList);
 }
 
-updateState(){
-  console.log("this is test: "+this.dealflowState);
-  this._dealflowPageService.updateDealflowState(this.dealflow.id,this.dealflowState).map(res => {
+updateState(dealflow_State: string, notify: boolean){
+  this._dealflowPageService.updateDealflowState(this.dealflow.id,dealflow_State).map(res => {
     // If request fails, throw an Error that will be caught
     if (res.status < 200 || res.status >= 300){
       this.loading = false;
       throw new Error('This request has failed ' + res.status);
     }
     else {
-      this._toasterService.showSuccess("Dealflow state has been changed to "+this.dealflowState,"",4000);
+      if(notify){
+        this.dealflowState = dealflow_State;
+        this._toasterService.showSuccess("Dealflow state has been changed to "+dealflow_State,"",4000);
+      }
       return res;
     }
   }).subscribe();
@@ -584,6 +666,8 @@ sendCalendarInvites(){
     //  console.log("found a timeStart: " + element.start + "found a timeEnd: " + element.end + " type: " + element.type);
    // }
   });*/
+  this._toasterService.showSuccess("Invites sent!", "", 4000);
+  console.log("sending invites to...:" + JSON.stringify(this.scheduleSendList));
 }
 
 saveCalendar(){
@@ -597,6 +681,12 @@ saveCalendar(){
       this._toasterService.showError("Could not submit new dealflow, please try again.", "Error", 4000);
     }
   }).subscribe();
+
+}
+
+refreshPage(){
+  setTimeout(()=>{location.reload();}, 1500);
+
 }
 
 exportToPDF() {

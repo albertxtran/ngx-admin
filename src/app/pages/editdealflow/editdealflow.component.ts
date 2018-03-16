@@ -204,7 +204,9 @@ save(model: FormGroup) {
     model["value"].event_date = this.tmp[1]+'-'+this.tmp[2]+'-'+this.tmp[0];
     model["value"].event_agenda.forEach(element => {
       if(element.type == "Startup"){
-        element.status = "Open";
+        if(element.status == null || element.status == "Close"){
+          element.status = "Open";
+        }
       }
       else{
         element.status = "Close";
