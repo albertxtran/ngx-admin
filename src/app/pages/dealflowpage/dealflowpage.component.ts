@@ -102,6 +102,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   agendaJSON: any;
   buttonSelect: number[]= [];
   selectPriorityOption: boolean= false;
+  schedulingOn: boolean;
   
 
 constructor(private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
@@ -177,6 +178,12 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
           this.timeEnd = tmp + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " AM" ;
         }
         this.dealflowState = this.dealflow.dealflow_State;
+        if(this.dealflowState == "Scheduling") {
+          this.schedulingOn = false;
+        } else {
+          this.schedulingOn = true;
+        }
+        console.log("check scheduling: " + this.schedulingOn);
 
         this.agendaJSON = JSON.parse(this.dealflow.event_Agenda);
         //this.timeSlots = this.dealflow.event_Agenda.split(/\r?\n/);
@@ -365,6 +372,12 @@ getVenturesById(id: Number, count: number, length: number){
   }).subscribe();
 }
 
+sendStartupForReview(){
+  this.updateState('Review', false);
+  //email the corporate with list of startups
+  this._toasterService.showSuccess("Startup list has been sent for review!", "", 4000);
+}
+
 removeDealflow(id:Number, dealflowname:String) {
   this._dealflowPageService.removeFromDealflow(id,dealflowname).subscribe(data => this.dealflowstartup = data,
   error => {
@@ -537,16 +550,17 @@ allSecondary(){
   console.log(this.sendList);
 }
 
-updateState(){
-  console.log("this is test: "+this.dealflowState);
-  this._dealflowPageService.updateDealflowState(this.dealflow.id,this.dealflowState).map(res => {
+updateState(dealflow_State: string, notify: boolean){
+  this._dealflowPageService.updateDealflowState(this.dealflow.id,dealflow_State).map(res => {
     // If request fails, throw an Error that will be caught
     if (res.status < 200 || res.status >= 300){
       this.loading = false;
       throw new Error('This request has failed ' + res.status);
     }
     else {
-      this._toasterService.showSuccess("Dealflow state has been changed to "+this.dealflowState,"",4000);
+      if(notify){
+        this._toasterService.showSuccess("Dealflow state has been changed to "+dealflow_State,"",4000);
+      }
       return res;
     }
   }).subscribe();
@@ -622,7 +636,13 @@ sendCalendarInvites(){
       });
     }
   });
+  this._toasterService.showSuccess("Invites sent!", "", 4000);
   console.log("sending invites to...:" + JSON.stringify(this.scheduleSendList));
+}
+
+refreshPage(){
+  setTimeout(()=>{location.reload();}, 1500);
+
 }
 
 exportToPDF() {
