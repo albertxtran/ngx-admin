@@ -62,4 +62,10 @@ export class DealflowPageService {
         return this._http.post('/rest/plugandplay/api/v1/dealflow/updatePriority/',body,options)
             .map(res => res.json());
     }
+    movePosition(body:String) { 
+        let headers = new Headers({ 'Accept': 'application/json','Content-Type':'application/json','Access-Control-Allow-Origin': '*' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post('/rest/plugandplay/api/v1/dealflow/move',body,options)
+            .map(res => res.json());
+    }
 }

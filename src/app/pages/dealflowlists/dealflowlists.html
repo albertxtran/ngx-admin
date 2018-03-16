@@ -124,39 +124,6 @@
           </nb-card-body>
         </nb-card> 
         <nb-card>
-          <nb-card-header>Selecting</nb-card-header>
-          <nb-card-body>
-            <div class="row" style="width:102%">
-              <div class="col-md-4" *ngFor="let list of selectingList | smArraySearch: input.value" style="padding:0px;">
-                <div style="margin-left:5px; margin-right:5px;">
-                <div *ngIf="!loading && !error">
-                <div [ngStyle]="overlay">
-                  <div *ngIf="list.dealflow_State == 'Selecting'" style="padding-top: 25px;padding-bottom: 25px;border:1px solid #cac3ca;border-radius: 7px;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);height:70px;text-align:center;">
-                    <div class="row">
-                      <div class="col-md-10">
-                        <a [routerLink]="['/pages/dealflowpage']" [queryParams]="{dealflowname: list.dealflow_Name}">
-                          <div style="font-size: 18px; color: rgba(68, 68, 68, 0.9); opacity: .87; font-family:DINPro-Light;font-weight:bold;">{{list.dealflow_Name}}</div>
-                        </a>
-                      </div>
-                      <div class="col-md-2">
-                        <i class="fa fa-archive" (click)="archiveList(list.id)" aria-hidden="true" style="cursor: pointer;display:inline-block;color:#21cd98;margin-right:10px;font-size: 18px;"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                </div> 
-                </div>
-              </div>
-              <div *ngIf="loading" style="margin: 0 auto;width: 100px;">
-                <div class="spinner"></div>
-              </div>
-              <!-- <div *ngIf="error || list?.dealflow_State != 'Selecting'" style="margin: 0 auto;width: 450px;">
-                <p>Could not find any selecting Dealflow lists.</p>
-              </div> -->
-            </div>
-          </nb-card-body>
-        </nb-card> 
-        <nb-card>
           <nb-card-header>Pending</nb-card-header>
           <nb-card-body>
             <div class="row" style="width:102%">

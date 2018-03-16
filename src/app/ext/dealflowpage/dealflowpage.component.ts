@@ -353,6 +353,7 @@ removeDealflow(id:Number, dealflowname:String) {
   );
 }
 
+
 selectPriority(id:Number, dealflow_name: String, priority: String, index: number) {
   console.log(this.buttonSelect);
   if(priority == 'Primary'){
@@ -370,6 +371,28 @@ selectPriority(id:Number, dealflow_name: String, priority: String, index: number
     () =>{
     }
   );
+}
+
+updateState(dealflow_State: string, notify: boolean){
+  this._dealflowPageService.updateDealflowState(this.dealflow.id,dealflow_State).map(res => {
+    // If request fails, throw an Error that will be caught
+    if (res.status < 200 || res.status >= 300){
+      this.loading = false;
+      throw new Error('This request has failed ' + res.status);
+    }
+    else {
+      if(notify){
+        this._toasterService.showSuccess("Dealflow state has been changed to "+dealflow_State,"",4000);
+      }
+      return res;
+    }
+  }).subscribe();
+}
+
+sendStartupForScheduling(){
+  this.updateState('Scheduling', false);
+  //email the corporate with list of startups
+  this._toasterService.showSuccess("Startup list has been sent for scheduling!", "", 4000);
 }
 
 SubmitTop20(){
