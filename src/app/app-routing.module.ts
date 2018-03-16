@@ -24,6 +24,9 @@ const routes: Routes = [
       {
         path:'dealflowpage',
         loadChildren: 'app/ext/dealflowpage/dealflowpage.module#DealflowPageModule',
+      },{
+        path: 'confirmdealflow',
+        loadChildren: 'app/ext/confirmdealflow/confirmdealflow.module#ConfirmDealflowModule',
       },
     ]
   },

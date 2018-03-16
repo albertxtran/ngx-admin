@@ -1,0 +1,82 @@
+<nb-layout style="overflow:scroll">
+    <nb-layout-column>
+  <nb-card style="width:90%;margin-left:5%;">
+      <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+            <mat-tab-group [selectedIndex]="0">
+              <mat-tab label="Details">
+                <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px; border-bottom: 1px solid #dddddd; margin-bottom:20px">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflow?.dealflow_State}}</div>
+                      <div style="font-family:DINPro-Light;font-weight:bold;font-size:40px">{{dealflow.dealflow_Name}}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6" style="margin-bottom:10px;">
+                      <div style="font-family:DINPro-Light;color:black;font-size:20px;">
+                        <div style="float:left;">Date: {{dealflow?.event_Date}}</div>
+                        <div style="float:left;margin-left:15px;">Time: {{timeStart}} - {{timeEnd}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                  <div class="col-md-12">
+                    <div class="col-md-4" style="float:left;">
+                      <div style="font-size: 10px; color: black; opacity: .40;">EVENT SUMMARY</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.event_Summary}}</div>
+                      <div style="font-size: 10px; color: black; opacity: .40;">EVENT LOCATION</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.event_Location}}</div>
+                      <div style="font-size: 10px; color: black; opacity: .40;">ATTENDEES</div>
+                      <div *ngFor="let each of attendee_array" class="col-md-12" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-left:0px;padding-bottom:10px;">
+                        <div class="col-md-12" style="width:auto;padding-left:0px;">
+                            <div class="col-md-4" style="font-family:DINPro-Light;font-size:12px;width:auto;padding-right:5px;padding-left:0px;">{{each.name}}</div>
+                            <div class="col-md-4" style="font-family:DINPro-Light;font-size:12px;width:auto;padding-right:5px;padding-left:0px;">{{each.position}}</div>
+                            <div class="col-md-4" style="font-family:DINPro-Light;font-size:12px;width:auto;padding-right:5px;padding-left:0px;">{{each.email}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4" style="float:left;">
+                      <div style="font-size: 10px; color: black; opacity: .40;">VERTICALS</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.verticals}}</div>
+                      <div style="font-size: 10px; color: black; opacity: .40;">PURPOSE</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.purpose}}</div>
+                      <div style="font-size: 10px; color: black; opacity: .40;">VIRTUAL JOIN</div>
+                      <div *ngIf="dealflow?.virtual_Join" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">WebEx is okay</div>
+                      <div *ngIf="!dealflow?.virtual_Join" style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">WebEx is not okay</div>
+                      <div style="font-size: 10px; color: black; opacity: .40;">SPECIFIC INTERESTS</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.specific_Interests}}</div>
+                      <div style="font-size: 10px; color: black; opacity: .40;">EXTRA DETAIL</div>
+                      <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.extra_Detail}}</div>
+                    </div>
+                    <div class="col-md-4" style="float:left;">
+                        <div style="font-size: 10px; color: black; opacity: .40; margin-bottom:3px;">EVENT AGENDA</div>
+                        <mat-table style="font-family:DINPro-Light;font-size: 16px; color: black;" [dataSource]="agendaJSON">
+                            <ng-container matColumnDef="time">
+                              <mat-header-cell *matHeaderCellDef style="font-size: 16px;float:left;">Time</mat-header-cell>
+                              <mat-cell *matCellDef="let timeSlots, let i = index">{{timeSlots.start}} - {{timeSlots.end}}</mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="confirmation">
+                                <mat-header-cell *matHeaderCellDef style="font-size: 16px;float:left;">Confirmation</mat-header-cell>
+                                <mat-cell *matCellDef="let timeSlots, let i = index">
+                                    <button type="button" class="btn btn-default btn-raised" style="padding:5px 10% 5px 10%;">
+                                        Accept
+                                      </button>
+                                </mat-cell>
+                              </ng-container>
+                            <mat-header-row *matHeaderRowDef ="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+        </div>
+      </div>
+  </nb-card-body>
+  </nb-card>
+  </nb-layout-column>
+  </nb-layout>

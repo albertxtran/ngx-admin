@@ -144,7 +144,7 @@
                           Add Startup
                         </button>
                       </a>
-                      <button type="button" (click)="selectPriorityOption = !selectPriorityOption" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;margin-right:10px;" [ngClass]="{'Prio-On': selectPriorityOption, 'Prio-Off': !selectPriorityOption}">
+                      <button type="button" (click)="selectPriorityOption = !selectPriorityOption" class="btn btn-default btn-raised" style="float:right;margin-top:20px;margin-bottom:20px;margin-right:10px;" [ngClass]="{'Prio-On': selectPriorityOption, 'Prio-Off': !selectPriorityOption}">
                           Select Priority
                       </button>
                       <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
@@ -156,7 +156,7 @@
                             <div *ngFor="let obj of venturesList, let i = index" class="row" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);width:auto;">
                               <div [ngStyle]="overlay">
                                 <div class="row" style="width:99%;">
-                                  <div class="col-md-6" style="width:auto;display:inline-block;">
+                                  <div class="col-md-4" style="width:auto;display:inline-block;" [ngClass]="{'col-md-4': selectPriorityOption, 'col-md-6': !selectPriorityOption}">
                                     <a [routerLink]="['/pages/company', obj.id]">
                                       <div style="font-size: 20px; color: #000000; opacity: .87;font-family:DINPro-Light; padding-bottom: 10px">{{obj.companyName}}</div>
                                     </a>
@@ -164,7 +164,7 @@
                                     <div *ngIf="obj?.website" style="font-size: 13px; color: #000000; opacity: .38; font-weight: 400;margin-bottom:10px;"><a style="color: #24a2ff" href="{{obj?.website}}" target="_blank">{{obj?.website}}</a></div>
                                     <div *ngIf="obj?.location" style="font-size: 12px; color: #000000; opacity: .38;">{{obj?.location}}</div>
                                   </div>
-                                  <div class="col-md-4" style="width:auto;display:inline-block;">
+                                  <div class="col-md-4" style="width:auto;display:inline-block;" [ngClass]="{'col-md-4': selectPriorityOption, 'col-md-5': !selectPriorityOption}">
                                     <div *ngIf="obj?.verticals" style="font-size: 10px; color: #000000; opacity: .38;">Verticals:</div>
                                     <div *ngIf="obj?.verticals" style="font-size: 12px; color: #000000; opacity: .54;margin-bottom:10px;">{{obj?.verticals}}</div>
                                     <div *ngIf="obj?.tags" style="font-size: 10px; color: #000000; opacity: .38;">Tags:</div>
@@ -177,21 +177,25 @@
                                     </div>
                                   </div>
 
-                                  <div class="col-md-2" style="float:right;">
-                                    <div *ngIf="(role=='admin' || role=='venture')" style="float:right;width:50px;margin-right:50%;">
+                                  <div class="col-md-4" style="float:right;" [ngClass]="{'col-md-4': selectPriorityOption, 'col-md-1': !selectPriorityOption}">
+                                    <div *ngIf="(role=='admin' || role=='venture')" style="float:right;">
                                       <a class="top20" (click)="removeDealflow(obj.id,dealflow.dealflow_Name)" style="z-index: 100;cursor: pointer;position: relative; margin:10px;width:auto;"><span title="Remove from Top 20"><i aria-hidden="true" class="fa fa-times" style="color:white;"></i></span></a>
                                     </div>
-                                    <div *ngIf="selectPriorityOption" class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" role="group" ng-reflect-model="left" style="width:50%;">
-                                        <label class="btn btn-outline-primary" [class.active]="buttonSelect[i] === 1" ngbbuttonlabel="">
-                                          <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Primary',i)" type="radio" value="left" ng-reflect-value="left" name="ngb-radio-2"> Primary
-                                        </label>
-                                        <label class="btn btn-outline-primary" [class.active]="buttonSelect[i] === 2" ngbbuttonlabel="">
-                                          <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Secondary',i)" type="radio" value="middle" ng-reflect-value="middle" name="ngb-radio-2"> Secondary
-                                        </label>
-                                        <label class="btn btn-outline-primary" [class.active]="buttonSelect[i] === 3" ngbbuttonlabel="">
-                                          <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Rejected',i)" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Not Applicable
-                                        </label>
-                                      </div>
+                                    <div *ngIf="selectPriorityOption" class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" role="group" ng-reflect-model="left" style="width:70%;">
+                                      <label class="btn btn-outline-primary custom-color" [class.active]="buttonSelect[i] === 1" ngbbuttonlabel="" style="border-radius:10px 10px 0px 0px;">
+                                        <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Primary',i)" type="radio" value="left" ng-reflect-value="left" name="ngb-radio-2"> Primary
+                                      </label>
+                                    </div>
+                                    <div *ngIf="selectPriorityOption" class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" role="group" ng-reflect-model="left" style="width:70%;">
+                                      <label class="btn btn-outline-primary custom-color" [class.active]="buttonSelect[i] === 2" ngbbuttonlabel="" style="border-radius:0px;border-width: 0px 2px 0px 2px;">
+                                        <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Secondary',i)" type="radio" value="middle" ng-reflect-value="middle" name="ngb-radio-2"> Secondary
+                                      </label>
+                                    </div>
+                                    <div *ngIf="selectPriorityOption" class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" role="group" ng-reflect-model="left" style="width:70%;">
+                                      <label class="btn btn-outline-primary custom-color" [class.active]="buttonSelect[i] === 3" ngbbuttonlabel="" style="border-radius:0px 0px 10px 10px;">
+                                        <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Rejected',i)" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Not Applicable
+                                      </label>
+                                    </div>
                                   </div>
 
                                   <div *ngIf="loading" style="margin: 0 auto;width: 100px;padding-top:70px;">
