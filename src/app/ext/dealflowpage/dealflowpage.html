@@ -59,13 +59,10 @@
               <mat-tab label="Top 20">
                 <div class="row" style="width: 100%;">
                     <div class="col-md-12" style="margin-left:15px;">
-                        <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">
-                            Submit
-                        </button>
-                        <nb-card>
+                        <nb-card style="margin-top:25px;">
                           <nb-card-body>
                             <div *ngIf="!loading && !error">
-                              <div *ngFor="let obj of venturesList; let i = index" class="row" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);width:auto;">
+                              <div *ngFor="let obj of venturesList; let i = index" class="row" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);width:100%;">
                                 <div [ngStyle]="overlay">
                                   <div class="row">
                                     <div class="col-md-4" style="width:auto;display:inline-block;">
@@ -84,7 +81,8 @@
                                       <div *ngIf="obj?.pnpContact" style="font-size: 10px; color: #000000; opacity: .38;">Account Manager:</div>
                                       <div *ngIf="obj?.pnpContact" style="font-size: 12px; color: #000000; opacity: .54;margin-bottom:10px;">{{obj?.pnpContact}}</div>
                                     </div>
-                                    <div class="col-md-6" style="margin:auto;">
+                                    <div class="col-md-6" style="width:auto;display:inline-block;">
+                                        <div *ngIf="obj?.verticals" style="font-size: 12px; color: #000000; opacity: .38;margin-bottom:5px;">Select Priority:</div>
                                       <div class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group ng-valid ng-dirty ng-touched" role="group" ng-reflect-model="left" style="width:50%;">
                                         <label class="btn btn-outline-primary" [class.active]="buttonSelect[i] === 1" ngbbuttonlabel="">
                                           <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Primary',i)" type="radio" value="left" ng-reflect-value="left" name="ngb-radio-2"> Primary
@@ -109,6 +107,9 @@
                             </div>
                           </nb-card-body>
                         </nb-card>
+                        <button type="button" (click)="sendStartupForScheduling();dealflowState='Scheduling'"class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;float:right;">
+                            Submit
+                        </button>
                     </div>
                   </div>
               </mat-tab>
