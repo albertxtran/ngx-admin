@@ -17,7 +17,7 @@
                               </button>
                             </a>
                               <mat-form-field style="float:right; margin-top:15px">
-                                <mat-select (change)="updateState()" [(ngModel)]="dealflowState" placeholder="Dealflow State">
+                                <mat-select (change)="updateState(dealflowState)" [(ngModel)]="dealflowState" placeholder="Dealflow State">
                                     <mat-option value="Submitted">Submitted</mat-option>
                                     <mat-option value="Review">Review</mat-option>
                                     <mat-option value="Scheduling">Scheduling</mat-option>
@@ -144,7 +144,7 @@
                           Add Startup
                         </button>
                       </a>
-                      <button type="button" (click)="selectPriorityOption = !selectPriorityOption" class="btn btn-default btn-raised" style="float:right;margin-top:20px;margin-bottom:20px;margin-right:10px;" [ngClass]="{'Prio-On': selectPriorityOption, 'Prio-Off': !selectPriorityOption}">
+                      <button type="button" (click)="selectPriorityOption = !selectPriorityOption;" class="btn btn-default btn-raised" style="float:right;margin-top:20px;margin-bottom:20px;margin-right:10px;" [ngClass]="{'Prio-On': selectPriorityOption, 'Prio-Off': !selectPriorityOption}">
                           Select Priority
                       </button>
                       <button type="button" class="btn btn-default btn-raised" style="margin-top:20px;margin-bottom:20px;">

@@ -100,6 +100,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   agendaJSON: any;
   buttonSelect: number[]= [];
   selectPriorityOption: boolean= false;
+  tmpList: any[]= [];
   
 
 constructor(private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
@@ -536,13 +537,12 @@ selectPriority(id:Number, dealflow_name: String, priority: String, index: number
   this._dealflowPageService.selectPriority(id,dealflow_name,priority).subscribe(data => this.dealflowstartup = data,
   error => {
     this._toasterService.showError("Could not select Priority!", "Error", 4000)}, 
-    () =>{
-    }
+    () =>{}
   );
 }
 
 sendCalendarInvites(){
-
+  this.saveCalendar();
   this.agendaJSON.forEach(element => {
     if(element.status == "Startup Selected"){
       console.log(JSON.stringify(element));
@@ -551,11 +551,52 @@ sendCalendarInvites(){
     else if(element.status == "Open"){
       console.log("sending time: " + JSON.stringify(element) + " to " +this.sendList);
       this.sendList.forEach(data => {
-        this.scheduleSendList.push({"start":element.start,"end":element.end,"startup":data});
+          this.scheduleSendList.push({"start":element.start,"end":element.end,"status":"invited","comment":"","startup":data});
       });
     }
   });
-  console.log("sending invites to...:" + JSON.stringify(this.scheduleSendList));
+  //this._dealflowPageService.sendDealflowInvites()
+  /*this.scheduleSendList.forEach(element => {
+    this.dealflow_startup.forEach(data=> {
+      if(element.startup == data.venture_id){
+        if(JSON.parse(data.dealflow_Invites) != null){
+          this.tmpList = (JSON.parse(data.dealflow_Invites));
+        }
+        else{
+          this.tmpList = [];
+        }
+
+        this.tmpList.push(element);
+        data.dealflow_Invites = JSON.stringify(this.tmpList);
+        this._dealflowPageService.updateDealflow(JSON.stringify(data)).map(res => {
+          // If request fails, throw an Error that will be caught
+          if (res.status < 200 || res.status >= 300){
+            this.loading = false;
+            throw new Error('Failed to send timeslots ' + res.status);
+          }
+          else {
+            return res;
+          }
+        }).subscribe();
+      }
+    });
+    //if(element.start == this.scheduleSendList[0].start && element.end == this.scheduleSendList[0].end){
+    //  console.log("found a timeStart: " + element.start + "found a timeEnd: " + element.end + " type: " + element.type);
+   // }
+  });*/
+}
+
+saveCalendar(){
+  this.dealflow.event_Agenda = JSON.stringify(this.agendaJSON);
+  console.log("FINALLLLLLL: " + JSON.stringify(this.dealflow));
+  this._dealflowPageService.updateDealflow_event_agenda(JSON.stringify(this.dealflow)).map(res => {
+    // If request fails, throw an Error that will be caught
+    if(res.status == 204) {
+      this._toasterService.showError("Couldn't not submit new dealflow, please try again.", "Error", 4000);
+    } else if (res.status < 200 || res.status >= 300){
+      this._toasterService.showError("Could not submit new dealflow, please try again.", "Error", 4000);
+    }
+  }).subscribe();
 }
 
 exportToPDF() {

@@ -32,7 +32,7 @@ export class EditDealflowService {
     updateDealflow_form(body:String) { 
         let header = new Headers({ 'Accept': 'application/json','Content-Type':'application/json','Access-Control-Allow-Origin': 'http://64.245.2.167,*','Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS','Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'});
         let options = new RequestOptions({ headers: header });
-        return this._http.post('/rest/plugandplay/api/v1/dealflowform/update',body,options)
+        return this._http.post('/rest/plugandplay/api/v1/dealflowform/update_event_agenda',body,options)
         .map(res => {
             // If request fails, throw an Error that will be caught
             if(res.status == 204) {

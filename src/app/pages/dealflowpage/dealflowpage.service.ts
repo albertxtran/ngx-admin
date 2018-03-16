@@ -54,6 +54,40 @@ export class DealflowPageService {
             .map(res => res.json());
     }
 
+    updateDealflow_event_agenda(body:String) { 
+        let header = new Headers({ 'Accept': 'application/json','Content-Type':'application/json','Access-Control-Allow-Origin': 'http://64.245.2.167,*','Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS','Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'});
+        let options = new RequestOptions({ headers: header });
+        return this._http.post('/rest/plugandplay/api/v1/dealflowform/update',body,options)
+        .map(res => {
+            // If request fails, throw an Error that will be caught
+            if(res.status == 204) {
+                console.log(res.status);
+                return res;
+            } 
+            // If everything went fine, return the response
+            else {
+            return res.json();
+            }
+        });
+    }
+
+    updateDealflow(body:String){
+        let header = new Headers({ 'Accept': 'application/json','Content-Type':'application/json','Access-Control-Allow-Origin': 'http://64.245.2.167,*','Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS','Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'});
+        let options = new RequestOptions({ headers: header });
+        return this._http.post('/rest/plugandplay/api/v1/dealflow/update',body,options)
+        .map(res => {
+            // If request fails, throw an Error that will be caught
+            if(res.status == 204) {
+                console.log(res.status);
+                return res;
+            } 
+            // If everything went fine, return the response
+            else {
+            return res.json();
+            }
+        });
+    }
+
     selectPriority(id: Number, dealflow_name: String, priority: String){
         console.log("inside select Priority: " + id + dealflow_name + priority);
         let headers = new Headers({ 'Accept': 'application/json','Content-Type':'application/json','Access-Control-Allow-Origin': '*' });
