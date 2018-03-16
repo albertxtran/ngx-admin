@@ -25,6 +25,25 @@
                 <div class="row" style="margin-top:10px;">
                   <div class="col-md-12">
                     <div class="col-md-4" style="float:left;">
+                        <div style="font-size: 10px; color: black; opacity: .40; margin-bottom:3px;">EVENT AGENDA</div>
+                        <mat-table style="font-family:DINPro-Light;font-size: 16px; color: black;" [dataSource]="agendaJSON">
+                            <ng-container matColumnDef="time">
+                              <mat-header-cell *matHeaderCellDef style="font-size: 16px;float:left;">Time</mat-header-cell>
+                              <mat-cell *matCellDef="let timeSlots, let i = index">{{timeSlots.start}} - {{timeSlots.end}}</mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="confirmation">
+                                <mat-header-cell *matHeaderCellDef style="font-size: 16px;float:left;">Confirmation</mat-header-cell>
+                                <mat-cell *matCellDef="let timeSlots, let i = index">
+                                    <button type="button" class="btn btn-default btn-raised" style="padding:5px 10% 5px 10%;">
+                                        Accept
+                                      </button>
+                                </mat-cell>
+                              </ng-container>
+                            <mat-header-row *matHeaderRowDef ="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                    </div>
+                    <div class="col-md-4" style="float:left;">
                       <div style="font-size: 10px; color: black; opacity: .40;">EVENT SUMMARY</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.event_Summary}}</div>
                       <div style="font-size: 10px; color: black; opacity: .40;">EVENT LOCATION</div>
@@ -50,25 +69,6 @@
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.specific_Interests}}</div>
                       <div style="font-size: 10px; color: black; opacity: .40;">EXTRA DETAIL</div>
                       <div style="font-family:DINPro-Light;font-size: 12px; color: black;padding-bottom:10px;">{{dealflow?.extra_Detail}}</div>
-                    </div>
-                    <div class="col-md-4" style="float:left;">
-                        <div style="font-size: 10px; color: black; opacity: .40; margin-bottom:3px;">EVENT AGENDA</div>
-                        <mat-table style="font-family:DINPro-Light;font-size: 16px; color: black;" [dataSource]="agendaJSON">
-                            <ng-container matColumnDef="time">
-                              <mat-header-cell *matHeaderCellDef style="font-size: 16px;float:left;">Time</mat-header-cell>
-                              <mat-cell *matCellDef="let timeSlots, let i = index">{{timeSlots.start}} - {{timeSlots.end}}</mat-cell>
-                            </ng-container>
-                            <ng-container matColumnDef="confirmation">
-                                <mat-header-cell *matHeaderCellDef style="font-size: 16px;float:left;">Confirmation</mat-header-cell>
-                                <mat-cell *matCellDef="let timeSlots, let i = index">
-                                    <button type="button" class="btn btn-default btn-raised" style="padding:5px 10% 5px 10%;">
-                                        Accept
-                                      </button>
-                                </mat-cell>
-                              </ng-container>
-                            <mat-header-row *matHeaderRowDef ="displayedColumns"></mat-header-row>
-                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                        </mat-table>
                     </div>
                   </div>
                 </div>

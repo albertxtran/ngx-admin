@@ -56,6 +56,7 @@ interface startupList {
 export class DealflowPageComponent implements OnInit, OnDestroy {
   id: number;
   attendee_array: any[];
+  companies: any[];
   private sub: any;
   dealflowpage: any;
   dealflowState: string;
@@ -63,6 +64,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   dealflow_startup: any[];
   timeSlots: any[];
   lists: any[];
+  
   dealflow: any;
   venturesList: any[] = [];
   primaryStartups: any[] = [];
@@ -405,6 +407,71 @@ SubmitTop20(){
       return res;
     }
   }).subscribe();
+}
+
+// changePosition(position:number, id:Number, current:number) {
+    
+//   if(position > this.companies.length || position < 1){
+//     this._toasterService.showWarning("Please enter a number between 1 and "+this.companies.length, "", 4000);
+//   } else {
+//     /*console.log("{\"id\":"+id+",\"order\":"+position+"}");
+//     console.log("current: "+current)*/
+//     this._dealflowPageService.movePosition("{\"id\":"+id+",\"order\":"+position+",\"listName\":\""+this.dealflowname+"\"}").subscribe(data => this.dealflow = data,
+//     error => {
+//     this._toasterService.showError("Could change position, please try again!", "Error", 4000)}, 
+//     () => {
+//       for(var i = current; i < this.companies.length; i++ ){
+//       for(var j = 0; j < this.companies[i].top20.length; j++){
+
+//             if(this.companies[i].top20[j].listName == this.dealflowname){
+//                 this.companies[i].top20[j].order = this.companies[i].top20[j].order - 1;
+//             }        
+//           }
+//     }
+//     for(var j = 0; j < this.companies[current - 1].top20.length; j++){
+//        if(this.companies[current - 1].top20[j].listName == this.dealflowname){
+//          this.companies[current -1 ].top20[j].order = position;
+//        }
+//     }
+//     this.companies = this.moveItem(this.companies, current - 1, position-1);
+//     for(var i = position; i < this.companies.length; i++){
+//       for(var j = 0; j < this.companies[i].top20.length; j++){
+//         if(this.companies[i].top20[j].listName == this.dealflowname){
+//                 this.companies[i].top20[j].order = this.companies[i].top20[j].order + 1;
+                
+//         }  
+      
+//       }
+//     }
+    
+//     for(var i = 0; i < this.companies.length; i ++) {
+//        for(var j = 0; j < this.companies[i].top20.length; j++){
+//          console.log(this.companies[i].top20[j].venture_id + " " + this.companies[i].top20[j].order)
+//        }
+//     }
+//   }
+//   );
+    
+
+//   }
+  
+// }
+
+moveItem(arr, old_index, new_index) {
+  while (old_index < 0) {
+      old_index += arr.length;
+  }
+  while (new_index < 0) {
+      new_index += arr.length;
+  }
+  if (new_index >= arr.length) {
+      var k = new_index - arr.length;
+      while ((k--) + 1) {
+          arr.push(undefined);
+      }
+  }
+   arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);  
+  return arr;
 }
 
 checkUncheck(obj: any){
