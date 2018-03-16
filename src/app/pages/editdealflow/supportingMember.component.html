@@ -1,27 +1,33 @@
 <div [formGroup]="supportingMemberForm">
-    <div class="form-group col-md-4" style="padding-left:0px;" > 
-        <span style="font-size:.8em">Supporting Member 1</span>
-        <input list="usersList" class="form-control" id="supportingMembersInput1" name="supporting_member1" formControlName="supporting_member1_name" (keyup)="getSuggestions($event)" (input)="nameSelected($event)">
-        <datalist id="usersList">
-            <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
-        </datalist>
-        <input type="hidden" class="form-control" id="supporting_member1" formControlName="supporting_member1"/>
+    <div class="row">
+        <div class="form-group col-md-12"> 
+            <span style="font-size:.8em">Supporting Member 1</span>
+            <input list="usersList" class="form-control" id="supportingMembersInput1" name="supporting_member1" formControlName="supporting_member1_name" (keyup)="getSuggestions($event)" (input)="nameSelected($event)">
+            <datalist id="usersList">
+                <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
+            </datalist>
+            <input type="hidden" class="form-control" id="supporting_member1" formControlName="supporting_member1"/>
+        </div>
     </div>
-    <div class="form-group col-md-4" style="padding-left:0px;" > 
-        <span style="font-size:.8em">Supporting Member 2</span>
-        <input list="usersList2" class="form-control" id="supportingMembersInput2" name="supporting_member2" formControlName="supporting_member2_name" (keyup)="getSuggestions($event)" (input)="nameSelected($event)">
-        <datalist id="usersList2">
-            <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
-        </datalist>
-        <input type="hidden" class="form-control" id="supporting_member2" formControlName="supporting_member2"/>
+    <div class="row">
+        <div class="form-group col-md-12"> 
+            <span style="font-size:.8em">Supporting Member 2</span>
+            <input list="usersList2" class="form-control" id="supportingMembersInput2" name="supporting_member2" formControlName="supporting_member2_name" (keyup)="getSuggestions($event)" (input)="nameSelected($event)">
+            <datalist id="usersList2">
+                <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
+            </datalist>
+            <input type="hidden" class="form-control" id="supporting_member2" formControlName="supporting_member2"/>
+        </div>
     </div>
-    <div class="form-group col-md-4" style="padding-left:0px;" > 
-        <span style="font-size:.8em">Supporting Member 3</span>
-        <input list="usersList3" class="form-control" id="supportingMembersInput3" name="supporting_member3" formControlName="supporting_member3_name" (keyup)="getSuggestions($event)" (input)="nameSelected($event)">
-        <datalist id="usersList3">
-            <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
-        </datalist>
-        <input type="hidden" class="form-control" id="supporting_member3" formControlName="supporting_member3"/>
+    <div class="row">
+        <div class="form-group col-md-12"> 
+            <span style="font-size:.8em">Supporting Member 3</span>
+            <input list="usersList3" class="form-control" id="supportingMembersInput3" name="supporting_member3" formControlName="supporting_member3_name" (keyup)="getSuggestions($event)" (input)="nameSelected($event)">
+            <datalist id="usersList3">
+                <option *ngFor="let obj of asyncUsers" value="{{obj.name+' -- '+obj.email}}">
+            </datalist>
+            <input type="hidden" class="form-control" id="supporting_member3" formControlName="supporting_member3"/>
+        </div>
     </div>
 </div> 
 

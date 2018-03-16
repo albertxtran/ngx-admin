@@ -5,8 +5,17 @@
 }
 
 .Prio-On{
-  background: linear-gradient(to right, #40dcb2, #40dc7e);
+  background: linear-gradient(to right, #776ddb, #776ddb );
 }
+
+.btn-outline-toggle-group .btn-outline-primary{
+  &:hover{
+      border-color: #776ddb;
+      color: black;
+      background-color:#9f97ed;
+  }
+}
+
 
 select.form-control[multiple] {
   overflow-y: scroll;
