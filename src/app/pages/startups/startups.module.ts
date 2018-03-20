@@ -10,7 +10,7 @@ import { ToasterService } from '../../@theme/providers/toaster.service';
 
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { ModalComponent } from './custom.modal';
-import { FilterModal } from './filter.modal';
+import { FilterModal } from './filter-modal/filter-modal.component';
 import { ConfirmModal } from './confirm.modal';
 import { ReactiveFormsModule } from '@angular/forms';
 

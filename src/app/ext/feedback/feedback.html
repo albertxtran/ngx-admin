@@ -1,0 +1,36 @@
+<nb-layout style="overflow:scroll">
+  <nb-layout-column>
+    <nb-card style="width:90%;margin-left:5%;">
+      <nb-card-header>Dealflow Feedback</nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="dealflowForm" (ngSubmit)="save(dealflowForm)">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="font-family:DINPro-Light;font-size: 15px; color: black;padding-bottom:10px;">How would you rate this dealflow session?</div>
+              <div style="display:inline-block;padding:6px;padding-right:18px;">1</div>
+              <div style="display:inline-block;padding:6px;padding-right:18px;">2</div>
+              <div style="display:inline-block;padding:6px;padding-right:18px;">3</div>
+              <div style="display:inline-block;padding:6px;padding-right:18px;">4</div>
+              <div style="display:inline-block;padding:6px;padding-right:18px;">5</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+                <mat-radio-group name="dealflow_rating">
+                  <mat-radio-button style="margin-right:5px;" value="1"></mat-radio-button>
+                  <mat-radio-button style="margin-right:5px;" value="2"></mat-radio-button>
+                  <mat-radio-button style="margin-right:5px;" value="3"></mat-radio-button>
+                  <mat-radio-button style="margin-right:5px;" value="4"></mat-radio-button>
+                  <mat-radio-button value="5"></mat-radio-button>
+                </mat-radio-group>
+    
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>
+
+
+<!--(click)="sendStartupForScheduling();dealflowState='Scheduling'"-->

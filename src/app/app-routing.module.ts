@@ -27,6 +27,9 @@ const routes: Routes = [
       },{
         path: 'confirmdealflow',
         loadChildren: 'app/ext/confirmdealflow/confirmdealflow.module#ConfirmDealflowModule',
+      },{
+        path: 'feedback',
+        loadChildren: 'app/ext/feedback/feedback.module#FeedbackModule',
       },
     ]
   },
