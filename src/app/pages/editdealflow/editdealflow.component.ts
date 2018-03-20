@@ -202,15 +202,17 @@ save(model: FormGroup) {
     model["value"].api_key = this.currentUser.api_key;
     this.tmp = model["value"].event_date.split("-");
     model["value"].event_date = this.tmp[1]+'-'+this.tmp[2]+'-'+this.tmp[0];
+    var index = 0;
     model["value"].event_agenda.forEach(element => {
       if(element.type == "Startup"){
-        if(element.status == null || element.status == "Close"){
+        if(!this.dealflow.status|| this.dealflow.status === "Close"){
           element.status = "Open";
         }
       }
       else{
         element.status = "Close";
       }
+      index++;
     });
     model["value"].event_agenda = JSON.stringify(model["value"].event_agenda);
     console.log(JSON.stringify(model["value"]));

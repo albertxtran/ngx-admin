@@ -102,6 +102,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   agendaJSON: any;
   buttonSelect: number[]= [];
   selectPriorityOption: boolean= false;
+  tmpList: any[]= [];
   schedulingOn: boolean;
   
 
@@ -167,12 +168,18 @@ constructor(private route: ActivatedRoute, private _dealflowPageService: Dealflo
         if(tmp > 12){
           this.timeStart = (tmp - 12) + ":" + JSON.stringify(this.dealflow.event_Start)[4] + JSON.stringify(this.dealflow.event_Start)[5] + " PM" ;
         }
+        if(tmp == 12){
+          this.timeStart = tmp + ":" + JSON.stringify(this.dealflow.event_Start)[4] + JSON.stringify(this.dealflow.event_Start)[5] + " PM" ;
+        }
         else{
           this.timeStart = tmp + ":" + JSON.stringify(this.dealflow.event_Start)[4] + JSON.stringify(this.dealflow.event_Start)[5] + " AM" ;
         }
         tmp = JSON.stringify(this.dealflow.event_Stop)[1] + JSON.stringify(this.dealflow.event_Stop)[2];
         if(tmp > 12){
           this.timeEnd = (tmp - 12) + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " PM" ;
+        }
+        if(tmp == 12){
+          this.timeEnd = tmp + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " PM" ;
         }
         else{
           this.timeEnd = tmp + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " AM" ;
@@ -489,7 +496,6 @@ moveItem(arr, old_index, new_index) {
 }
 
 checkUncheck(obj: any){
-  console.log("in check uncheck");
     var idx = this.sendList.indexOf(obj.id);
     if (idx > -1) {
       this.sendList.splice(idx, 1);
@@ -497,7 +503,6 @@ checkUncheck(obj: any){
     else {
       this.sendList.push(obj.id);
     }
-    console.log(this.sendList);
 }
 
 allPrimary(){
@@ -525,7 +530,6 @@ allPrimary(){
       }
     });
   }
-  console.log(this.sendList);
 }
 
 allSecondary(){
@@ -559,6 +563,7 @@ updateState(dealflow_State: string, notify: boolean){
     }
     else {
       if(notify){
+        this.dealflowState = dealflow_State;
         this._toasterService.showSuccess("Dealflow state has been changed to "+dealflow_State,"",4000);
       }
       return res;
@@ -567,7 +572,6 @@ updateState(dealflow_State: string, notify: boolean){
 }
 
 addIgnore(venture_id: any, index: number){
-  console.log("venture_id: " + venture_id + " index: " + index);
   if(venture_id == "open"){
     this.agendaJSON[index].status = "Open";
     this.agendaJSON[index].startup = "";
@@ -604,7 +608,6 @@ addIgnore(venture_id: any, index: number){
 }
 
 selectPriority(id:Number, dealflow_name: String, priority: String, index: number) {
-  console.log(this.buttonSelect);
   if(priority == 'Primary'){
     this.buttonSelect[index] = 1;
   }
@@ -617,27 +620,83 @@ selectPriority(id:Number, dealflow_name: String, priority: String, index: number
   this._dealflowPageService.selectPriority(id,dealflow_name,priority).subscribe(data => this.dealflowstartup = data,
   error => {
     this._toasterService.showError("Could not select Priority!", "Error", 4000)}, 
-    () =>{
-    }
+    () =>{}
   );
 }
 
 sendCalendarInvites(){
-
+  this.saveCalendar();
   this.agendaJSON.forEach(element => {
     if(element.status == "Startup Selected"){
-      console.log(JSON.stringify(element));
       this.scheduleSendList.push({"start":element.start,"end":element.end,"startup":element.startup});
     }
     else if(element.status == "Open"){
-      console.log("sending time: " + JSON.stringify(element) + " to " +this.sendList);
       this.sendList.forEach(data => {
-        this.scheduleSendList.push({"start":element.start,"end":element.end,"startup":data});
+          this.scheduleSendList.push({"start":element.start,"end":element.end,"status":"invited","comment":"","startup":data});
       });
     }
   });
-  this._toasterService.showSuccess("Invites sent!", "", 4000);
-  console.log("sending invites to...:" + JSON.stringify(this.scheduleSendList));
+  //this._dealflowPageService.sendDealflowInvites()
+  var alreadyExist = false;
+  this.scheduleSendList.forEach(element => {
+    this.dealflow_startup.forEach(data=> {
+      alreadyExist = false;
+      if(element.startup == data.venture_id){
+        if(data.dealflow_Invites != null){
+          this.tmpList = (JSON.parse(data.dealflow_Invites));
+          JSON.parse(data.dealflow_Invites).forEach(invites => {
+            if(invites.start == element.start && invites.end == element.end){
+              alreadyExist = true;
+            }
+          });
+        }
+        else{
+          this.tmpList = [];
+
+        }
+
+        if(!alreadyExist){
+          this.tmpList.push(element);
+
+        }
+
+        data.dealflow_Invites = JSON.stringify(this.tmpList);
+        this._dealflowPageService.updateDealflow(JSON.stringify(data)).map(res => {
+          // If request fails, throw an Error that will be caught
+          if (res.status < 200 || res.status >= 300){
+            this.loading = false;
+            throw new Error('Failed to send timeslots ' + res.status);
+          }
+          else {
+            return res;
+          }
+        }).subscribe();
+      }
+    });
+    //if(element.start == this.scheduleSendList[0].start && element.end == this.scheduleSendList[0].end){
+    //  console.log("found a timeStart: " + element.start + "found a timeEnd: " + element.end + " type: " + element.type);
+    // }
+  });
+  this.scheduleSendList = [];
+}
+
+saveCalendar(){
+  this.dealflow.event_Agenda = JSON.stringify(this.agendaJSON);
+  this.agendaJSON.forEach(element => {
+    
+  });
+  this._dealflowPageService.updateDealflow_event_agenda(JSON.stringify(this.dealflow)).map(res => {
+    // If request fails, throw an Error that will be caught
+    if(res.status == 204) {
+      this._toasterService.showError("Couldn't not submit new dealflow, please try again.", "Error", 4000);
+    } else if (res.status < 200 || res.status >= 300){
+      this._toasterService.showError("Could not submit new dealflow, please try again.", "Error", 4000);
+    }
+    else{
+      this._toasterService.showSuccess("Invites sent!", "", 4000);
+    }
+  }).subscribe();
+
 }
 
 refreshPage(){
@@ -646,7 +705,6 @@ refreshPage(){
 }
 
 exportToPDF() {
-  console.log("beginning of export to pdf");
   this.creatingpdf = true;
   var teamSize = 10;
   if(this.dealflowpage.background != null){
