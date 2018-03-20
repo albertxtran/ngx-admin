@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DealflowPageComponent } from './dealflowpage.component';
 import { DealflowPageService } from './dealflowpage.service';
@@ -21,6 +21,7 @@ import { AuthenticationService } from '../../@auth/authentication.service';
     DealflowPageRoutingModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatTabsModule,
     HttpClientModule,
     HttpModule,

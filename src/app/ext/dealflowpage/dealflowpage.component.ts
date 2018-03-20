@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { ToasterService } from '../../@theme/providers/toaster.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormGroup, FormArray, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as CryptoJS from 'crypto-js';
@@ -14,35 +14,6 @@ import 'rxjs/add/operator/toPromise';
 
 import { DealflowPageService } from './dealflowpage.service';
 
-interface Ventures {
-  tags ? : String;
-  stage ? : String;
-  verticals ? : String;
-  blurb ? : String;
-  location ? : String;
-  companyName ? : String;
-  website ? : String;
-  pnpContact ? : String;
-  contactName ? : String;
-  phoneNumber ? : String;
-  totalMoneyRaised ? : String;
-  b2bb2c ? : String;
-  employees ? : String;
-  city ? : String;
-  competition ? : String;
-  advantage ? : String;
-  background ? : String;
-  founded ? : String;
-  partnerInterests ? : String;
-  caseStudy ? : String;
-  comments ? : String;
-  dateOfInvestment ? : String;
-  pnpOffice ? : String;
-  oneLiner ? : String;
-  investors ? : String;
-  howDidYouHear ? : String;
-  intlBusinessOpp ? : String;
-}
 @Component({
   selector: 'dealflowpage',
   styleUrls: ['./dealflowpage.scss'],
@@ -75,7 +46,7 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   supporting_member3_email: String = "";
   dealflowname: String;
   public error: boolean;
-  public loading: boolean;
+  public loading: boolean = true;
   public loading20: boolean;
   public creatingpdf: boolean;
   public pageload: boolean = false;
@@ -85,6 +56,8 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   timeStart: String;
   timeEnd: String;
   comments: string[] = [];
+  priority_feedback: any[] = [];
+  
 
 constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
       this.currentUser = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!').toString(CryptoJS.enc.Utf8))
@@ -106,6 +79,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
         //console.log("this is the top 20 list from constructor: " + JSON.stringify(this.dealflow_startup));}
         console.log(this.dealflow_startup.length);
         this.dealflow_startup.forEach(data=>{
+          this.addFeedback();
           if(data.dealflow_Priority == 'Primary'){
             this.buttonSelect.push(1);
           }
@@ -124,14 +98,14 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
           error => console.error('Error: ' + error)
       );    
       this.pageload = true;
-      this.getLists();
 }
   
   ngOnInit() {
     this.dealflowForm = this._fb.group({
       priority_feedback: this._fb.array([]),
     });
-
+    //this.addFeedback();
+    this.getLists();
   }
 
   initFeedback(){
@@ -145,6 +119,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
     const addrCtrl = this.initFeedback();
     
     control.push(addrCtrl);
+    console.log("length of prio feedback: " + this.priority_feedback.length);
   }
 
   ngOnDestroy() {
@@ -152,7 +127,6 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
   }
   
   getLists() {
-    this.loading = true;
     this.error = false;
     this._dealflowPageService.getDealflowByName(this.dealflowname).map(res => {
     // If request fails, throw an Error that will be caught
@@ -244,9 +218,6 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
       }
       else{
         if(this.dealflow_startup.length > 0){
-          for(var i=0; i < this.dealflow_startup.length; i++){
-            this.addFeedback();
-          }
           this.getVenturesById(this.dealflow_startup[0].venture_id, 0, this.dealflow_startup.length);
         }
         else{
