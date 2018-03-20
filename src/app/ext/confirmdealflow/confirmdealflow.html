@@ -2,11 +2,11 @@
     <nb-layout-column>
   <nb-card style="width:90%;margin-left:5%;">
       <nb-card-body>
-      <div class="row">
+      <div *ngIf="!loading && !error && venture_id && dealflowname" class="row">
         <div class="col-md-12">
             <mat-tab-group [selectedIndex]="0">
               <mat-tab label="Details">
-                <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px; border-bottom: 1px solid #dddddd; margin-bottom:20px">
+                <div class="col-md-12" style="padding-top:25px; border-bottom: 1px solid #dddddd; margin-bottom:20px">
                   <div class="row">
                     <div class="col-md-6">
                       <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflow?.dealflow_State}}</div>
@@ -26,7 +26,7 @@
                   <div class="col-md-12">
                     <div class="col-md-4" style="float:left;">
                         <div style="font-size: 10px; color: black; opacity: .40; margin-bottom:3px;">EVENT AGENDA</div>
-                        <mat-table style="font-family:DINPro-Light;font-size: 16px; color: black;" [dataSource]="agendaJSON">
+                        <mat-table style="font-family:DINPro-Light;font-size: 16px; color: black;" [dataSource]="timeSlots">
                             <ng-container matColumnDef="time">
                               <mat-header-cell *matHeaderCellDef style="font-size: 16px;float:left;">Time</mat-header-cell>
                               <mat-cell *matCellDef="let timeSlots, let i = index">{{timeSlots.start}} - {{timeSlots.end}}</mat-cell>
@@ -34,9 +34,9 @@
                             <ng-container matColumnDef="confirmation">
                                 <mat-header-cell *matHeaderCellDef style="font-size: 16px;float:left;">Confirmation</mat-header-cell>
                                 <mat-cell *matCellDef="let timeSlots, let i = index">
-                                    <button type="button" class="btn btn-default btn-raised" style="padding:5px 10% 5px 10%;">
+                                    <button (click)="confirmTime(timeSlots.start,timeSlots.end)" type="button" class="btn btn-default btn-raised" style="padding:5px 10% 5px 10%;">
                                         Accept
-                                      </button>
+                                    </button>
                                 </mat-cell>
                               </ng-container>
                             <mat-header-row *matHeaderRowDef ="displayedColumns"></mat-header-row>
