@@ -171,12 +171,18 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
       if(tmp > 12){
         this.timeStart = (tmp - 12) + ":" + JSON.stringify(this.dealflow.event_Start)[4] + JSON.stringify(this.dealflow.event_Start)[5] + " PM" ;
       }
+      if(tmp == 12){
+        this.timeStart = tmp + ":" + JSON.stringify(this.dealflow.event_Start)[4] + JSON.stringify(this.dealflow.event_Start)[5] + " PM" ;
+      }
       else{
         this.timeStart = tmp + ":" + JSON.stringify(this.dealflow.event_Start)[4] + JSON.stringify(this.dealflow.event_Start)[5] + " AM" ;
       }
       tmp = JSON.stringify(this.dealflow.event_Stop)[1] + JSON.stringify(this.dealflow.event_Stop)[2];
       if(tmp > 12){
         this.timeEnd = (tmp - 12) + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " PM" ;
+      }
+      if(tmp == 12){
+        this.timeEnd = tmp + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " PM" ;
       }
       else{
         this.timeEnd = tmp + ":" + JSON.stringify(this.dealflow.event_Stop)[4] + JSON.stringify(this.dealflow.event_Stop)[5] + " AM" ;

@@ -7,7 +7,7 @@
               <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px;">
                   <div class="row">
                     <div class="col-md-6">
-                      <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflow?.dealflow_State}}</div>
+                      <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflowState}}</div>
                       <div style="font-family:DINPro-Light;font-weight:bold;font-size:40px">{{dealflow.dealflow_Name}}</div>
                     </div>
                     <div class="col-md-6" style="padding-top:5px;">
@@ -143,6 +143,7 @@
                           Add Startup
                         </button>
                       </a>
+
                       <button type="button" (click)="selectPriorityOption = !selectPriorityOption; updateState('Scheduling',false); schedulingOn = false;" class="btn btn-default btn-raised" style="float:right;margin-top:20px;margin-bottom:20px;margin-right:10px;" [ngClass]="{'Prio-On': selectPriorityOption, 'Prio-Off': !selectPriorityOption}">
                           Select Priority
                       </button>
