@@ -6,7 +6,6 @@ import { StartupsService } from './startups.service';
 import {Subscription} from 'rxjs';
 
 import { ModalComponent } from './custom.modal';
-import { FilterModal } from './filter.modal';
 import { ConfirmModal } from './confirm.modal';
 import { DialogService } from "ng2-bootstrap-modal";
 import { Location } from '@angular/common';
@@ -17,6 +16,8 @@ import * as CryptoJS from 'crypto-js';
 //import { BaMenuService } from '../../theme';
 import { Router,ActivatedRoute,Params } from '@angular/router';
 import { SlicePipe } from '@angular/common';
+import { FilterModal } from './filter-modal/filter-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface TopLists {
     listName ? : String; // the "?" makes the property optional, 
@@ -73,7 +74,7 @@ export class StartupsComponent implements OnInit {
   dealflowname: String;
   permission: boolean = false;
   
-  constructor(private _startupService: StartupsService, private dialogService:DialogService, public _toasterService: ToasterService, vcr: ViewContainerRef, 
+  constructor(private modalService: NgbModal, private _startupService: StartupsService, private dialogService:DialogService, public _toasterService: ToasterService, vcr: ViewContainerRef, 
     private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, private _location: Location, ){ //private _menuService: BaMenuService
     this.currentUser = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!').toString(CryptoJS.enc.Utf8));
     // VERY IMPORTANT these methods will update the menu and routes dependent on the user role
@@ -367,6 +368,64 @@ ngOnInit(){
         }          
     }
 
+    filterModalShow() {
+        /* const activeModal = this.modalService.open(DefaultModal, {size: 'lg'});
+        activeModal.componentInstance.modalHeader = 'Large Modal'; */
+        this.filterList = ["Tags","Stage","Verticals","Blurb","Location","Company Name","Website","PnP Contact", "Contact Name","Phone Number", 
+        "Total Money Raised","B2B B2C", "Employees","City","Competition","Advantage","Background","Founded","Partner Interests","Case Study",
+        "Comments","Date Of Investment", "PnP Office", "One Liner", "Investors", "How Did You Hear", "Intl Business Opp"];
+        
+        if(this.filteron == true){
+            this.filteron = false;
+            return null;
+        }
+        if(this.deleteon == true){
+            this.deleteon = false;
+            this.getPage(this.p)
+            //console.log("Getting page!!!")
+            return null;
+        }
+
+        for(var i = 0; i < this.filters.length; i++){
+            for(var j = 0; j < this.filterList.length; j++)
+            if(this.filters[i].name == this.filterList[j]){
+                this.filterList.splice(j,1);
+            }
+        }       
+
+        const contentComponentInstance = this.modalService.open(FilterModal, {size: 'lg'}).componentInstance;
+        contentComponentInstance.modalHeader = 'Filter Selection';
+        contentComponentInstance.lists = this.filterList;
+        //I can even subscribe to outputs!
+        contentComponentInstance.out.subscribe((data) => {
+          // do sth with output
+          console.log("Output from Modal: "+JSON.stringify(data));
+          // Here we need to make a call to corporation.service in order to add this user to the corporation account manager.
+          // After we do so we should either update the corporate entity by subscribing to the call or add the individual to the corporation account manager list.
+          if(data){
+                 
+            for(var i = 0; i < data.length; i++){
+               if(data[i].checked == true){   
+                   //this.addFilter(isConfirmed[i].listName);
+                   var obj:Filter = {};
+                   obj.name = data[i].listName;                        
+                   if(typeof this.filters == 'undefined'){
+                       this.filters = new Array(1);
+                       this.filters[0] = obj;
+                       this.filteron = true;
+                       this.filterButton.nativeElement.click();
+                     }else{
+                       this.filters.push(obj);
+                       this.filteron = true;
+                       this.filterButton.nativeElement.click();                            
+                   }             
+               }
+           }
+           }
+        
+        });
+      }
+
     filterModal() {        
         this.filterList = ["Tags","Stage","Verticals","Blurb","Location","Company Name","Website","PnP Contact", "Contact Name","Phone Number", 
         "Total Money Raised","B2B B2C", "Employees","City","Competition","Advantage","Background","Founded","Partner Interests","Case Study",
@@ -390,32 +449,32 @@ ngOnInit(){
             }
         }       
           
-        let disposable = this.dialogService.addDialog(FilterModal, {
-            lists: this.filterList
-            })
-            .subscribe( isConfirmed =>{
-                if(isConfirmed){
+        // let disposable = this.dialogService.addDialog(FilterModal, {
+        //     lists: this.filterList
+        //     })
+        //     .subscribe( isConfirmed =>{
+        //         if(isConfirmed){
                  
-                 for(var i = 0; i < isConfirmed.length; i++){
-                    if(isConfirmed[i].checked == true){   
-                        //this.addFilter(isConfirmed[i].listName);
-                        var obj:Filter = {};
-                        obj.name = isConfirmed[i].listName;                        
-                        if(typeof this.filters == 'undefined'){
-                            this.filters = new Array(1);
-                            this.filters[0] = obj;
-                            this.filteron = true;
-                            this.filterButton.nativeElement.click();
-                          }else{
-                            this.filters.push(obj);
-                            this.filteron = true;
-                            this.filterButton.nativeElement.click();                            
-                        }             
-                    }
-                }
-                }
+        //          for(var i = 0; i < isConfirmed.length; i++){
+        //             if(isConfirmed[i].checked == true){   
+        //                 //this.addFilter(isConfirmed[i].listName);
+        //                 var obj:Filter = {};
+        //                 obj.name = isConfirmed[i].listName;                        
+        //                 if(typeof this.filters == 'undefined'){
+        //                     this.filters = new Array(1);
+        //                     this.filters[0] = obj;
+        //                     this.filteron = true;
+        //                     this.filterButton.nativeElement.click();
+        //                   }else{
+        //                     this.filters.push(obj);
+        //                     this.filteron = true;
+        //                     this.filterButton.nativeElement.click();                            
+        //                 }             
+        //             }
+        //         }
+        //         }
 
-            });            
+        //     });            
     }
 
     backClicked() {

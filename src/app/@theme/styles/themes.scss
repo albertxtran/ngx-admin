@@ -21,7 +21,21 @@
   background-color: #40dc7e !important;
 }
 
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #40dc7e !important;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  border-color: #40dc7e !important;
+}
+
 .mat-checkbox{
+  .mat-ripple-element {
+    background: rgba(64, 220, 126, 0.5) !important;
+  }
+}
+
+.mat-radio-button{
   .mat-ripple-element {
     background: rgba(64, 220, 126, 0.5) !important;
   }
