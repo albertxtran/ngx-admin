@@ -9,14 +9,14 @@
       </div>      
       <div style="margin-bottom: 5px;">
         <!-- ADDED DISPLAY NONE will need to change once we add filters : display: inline;-->
-        <div #filterButton style="border-radius: 9px;display: none;border: 1px solid rgba(255, 255, 255, .5);padding: 3px 5px 3px 5px;cursor: pointer;"(click)="filterModal()"> 
+        <div #filterButton style="border-radius: 9px;display: inline;border: 1px solid rgba(255, 255, 255, .5);padding: 3px 5px 3px 5px;cursor: pointer;"(click)="filterModalShow()"> 
           <i class="fa fa-plus-circle" aria-hidden="true"></i>
           <p style="display:inline">Add Filter</p>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12" style="padding: 0;">
-        <div *ngIf="role=='admin' || role=='venture' || role=='global'" class="col-md-12">                   
+        <div class="col-md-12" style="padding: 0; margin-left:15px;">
+        <div *ngIf="role=='admin' || role=='venture' || role=='global'" class="col-md-12" style="padding:0px;">                   
           <a [routerLink]="['/pages/newcorporation']">
             <div class="button-wrapper">
               <button type="button" id="exportpdf" class="btn btn-default btn-raised" style="float:left;">New Corporation</button>
