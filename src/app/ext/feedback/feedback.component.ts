@@ -12,7 +12,7 @@ import * as CryptoJS from 'crypto-js';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/toPromise';
 
-import { DealflowPageService } from './dealflowpage.service';
+import { FeedbackService } from './feedback.service';
 
 interface Ventures {
   tags ? : String;
@@ -44,16 +44,16 @@ interface Ventures {
   intlBusinessOpp ? : String;
 }
 @Component({
-  selector: 'dealflowpage',
-  styleUrls: ['./dealflowpage.scss'],
-  templateUrl: './dealflowpage.html',
+  selector: 'feedback',
+  styleUrls: ['./feedback.scss'],
+  templateUrl: './feedback.html',
 })
-export class DealflowPageComponent implements OnInit, OnDestroy {
+export class FeedbackComponent implements OnInit, OnDestroy {
   public dealflowForm: FormGroup;
   id: number;
   attendee_array: any[];
   private sub: any;
-  dealflowpage: any;
+  feedback: any;
   dealflowstartup: any;
   dealflow_startup: any[];
   lists: any[];
@@ -86,13 +86,13 @@ export class DealflowPageComponent implements OnInit, OnDestroy {
   timeEnd: String;
   comments: string[] = [];
 
-constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _dealflowPageService: DealflowPageService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
+constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _feedbackService: FeedbackService, public _toasterService: ToasterService, vcr: ViewContainerRef, private router: Router) {
       this.currentUser = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('currentUser'), 'pnp4life!').toString(CryptoJS.enc.Utf8))
       // VERY IMPORTANT these methods will update the menu and routes dependent on the user role
       // this._menuService.updateMenuByRoutes(this._menuService.getPageMenu(this.currentUser));
       // this.router.resetConfig(this._menuService.getAuthRoutes(this.currentUser));
       this.role = this.currentUser.role;
-      this._dealflowPageService = _dealflowPageService; 
+      this._feedbackService = _feedbackService; 
       this._toasterService.toastr.setRootViewContainerRef(vcr);  
       pdfMake.vfs = pdfFonts.pdfMake.vfs;   
 
@@ -102,7 +102,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
         // Defaults to 0 if no query param provided.
         this.dealflowname = params['dealflowname'] || 0;
       });
-      this._dealflowPageService.getDealflowStartup(this.dealflowname).subscribe(data => {this.dealflow_startup = data 
+      this._feedbackService.getDealflowStartup(this.dealflowname).subscribe(data => {this.dealflow_startup = data 
         //console.log("this is the top 20 list from constructor: " + JSON.stringify(this.dealflow_startup));}
         console.log(this.dealflow_startup.length);
         this.dealflow_startup.forEach(data=>{
@@ -154,7 +154,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
   getLists() {
     this.loading = true;
     this.error = false;
-    this._dealflowPageService.getDealflowByName(this.dealflowname).map(res => {
+    this._feedbackService.getDealflowByName(this.dealflowname).map(res => {
     // If request fails, throw an Error that will be caught
     if(res.status == 204) {
       this.loading = false;
@@ -193,7 +193,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
 
   getUserById(user_id:Number, name: number, dealflow: any){
     this.error = false;
-    this._dealflowPageService.getUserById(user_id).map(res => {
+    this._feedbackService.getUserById(user_id).map(res => {
     // If request fails, throw an Error that will be caught
     if(res.status == 204) {
       this.loading = false;
@@ -254,7 +254,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
 
   getUserById2(user_id:Number, name: number, dealflow: any){
     this.error = false;
-    this._dealflowPageService.getUserById(user_id).map(res => {
+    this._feedbackService.getUserById(user_id).map(res => {
     // If request fails, throw an Error that will be caught
     if(res.status == 204) {
       this.loading = false;
@@ -320,7 +320,7 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
 getVenturesById(id: Number, count: number, length: number){
   console.log("at get ventures by id");
   this.loading = true;
-  this._dealflowPageService.getVenturesById(id).map(res => {
+  this._feedbackService.getVenturesById(id).map(res => {
     // If request fails, throw an Error that will be caught
     if(res.status == 204) {
       this.loading = false;
@@ -349,7 +349,7 @@ getVenturesById(id: Number, count: number, length: number){
 
 removeDealflow(id:Number, dealflowname:String) {
   console.log("Remove "+id);
-  this._dealflowPageService.removeFromDealflow(id,dealflowname).subscribe(data => this.dealflowstartup = data,
+  this._feedbackService.removeFromDealflow(id,dealflowname).subscribe(data => this.dealflowstartup = data,
   error => {
     this._toasterService.showError("Could not remove Dealflow, please try again!", "Error", 4000)}, 
     () =>{
@@ -398,7 +398,7 @@ selectPriority(id:Number, dealflow_name: String, priority: String, index: number
   else if(priority == 'Rejected'){
     this.buttonSelect[index] = 3;
   }
-  this._dealflowPageService.selectPriority(id,dealflow_name,priority).subscribe(data => this.dealflowstartup = data,
+  this._feedbackService.selectPriority(id,dealflow_name,priority).subscribe(data => this.dealflowstartup = data,
   error => {
     this._toasterService.showError("Could not select Priority!", "Error", 4000)}, 
     () =>{
@@ -407,7 +407,7 @@ selectPriority(id:Number, dealflow_name: String, priority: String, index: number
 }
 
 updateState(dealflow_State: string, notify: boolean){
-  this._dealflowPageService.updateDealflowState(this.dealflow.id,dealflow_State).map(res => {
+  this._feedbackService.updateDealflowState(this.dealflow.id,dealflow_State).map(res => {
     // If request fails, throw an Error that will be caught
     if (res.status < 200 || res.status >= 300){
       this.loading = false;
@@ -433,7 +433,7 @@ sendStartupForScheduling(){
 
 SubmitTop20(){
   console.log("submit to top 20" + this.dealflow.id);
-  this._dealflowPageService.updateDealflowState(this.dealflow.id,"Review").map(res => {
+  this._feedbackService.updateDealflowState(this.dealflow.id,"Review").map(res => {
     // If request fails, throw an Error that will be caught
     if (res.status < 200 || res.status >= 300){
       this.loading = false;
@@ -449,106 +449,106 @@ exportToPDF() {
   console.log("beginning of export to pdf");
   this.creatingpdf = true;
   var teamSize = 10;
-  if(this.dealflowpage.background != null){
-  if(this.dealflowpage.background.length > 500){
+  if(this.feedback.background != null){
+  if(this.feedback.background.length > 500){
     teamSize = 9;
 
-  }else if(this.dealflowpage.background.length > 1000){
+  }else if(this.feedback.background.length > 1000){
     teamSize = 8;
   }
   }  
   var advSize = 10;
-  if(this.dealflowpage.advantage != null){
-  if(this.dealflowpage.advantage.length > 500){
+  if(this.feedback.advantage != null){
+  if(this.feedback.advantage.length > 500){
     advSize = 9;
 
-  }else if(this.dealflowpage.advantage.length > 1000){
+  }else if(this.feedback.advantage.length > 1000){
     advSize = 8;
   }
   }
   var caseSize = 10;
-  if(this.dealflowpage.caseStudy != null){
-  if(this.dealflowpage.caseStudy.length > 500){
+  if(this.feedback.caseStudy != null){
+  if(this.feedback.caseStudy.length > 500){
     caseSize = 9;
 
-  }else if(this.dealflowpage.caseStudy.length > 1000){
+  }else if(this.feedback.caseStudy.length > 1000){
     caseSize = 8;
   }
   }
   var summarySize = 12;
-  if(this.dealflowpage.blurb != null){
-  if(this.dealflowpage.blurb.length > 500){
+  if(this.feedback.blurb != null){
+  if(this.feedback.blurb.length > 500){
     summarySize = 11;
 
-  }else if(this.dealflowpage.blurb.length > 1000){
+  }else if(this.feedback.blurb.length > 1000){
     summarySize = 10;
   }  
   }
   var blurbFinal: any;
-  if(this.dealflowpage.blurb == null || this.dealflowpage.blurb == ""){
+  if(this.feedback.blurb == null || this.feedback.blurb == ""){
     blurbFinal = "Information not provided by the startup"
   }else{
-    blurbFinal = this.dealflowpage.blurb;
+    blurbFinal = this.feedback.blurb;
   }
   var verticalsFinal: any;
-  if(this.dealflowpage.verticals == null || this.dealflowpage.verticals == ""){
+  if(this.feedback.verticals == null || this.feedback.verticals == ""){
     verticalsFinal = "Information not provided by the startup"
   }else{
-    verticalsFinal = this.dealflowpage.verticals;
+    verticalsFinal = this.feedback.verticals;
   }
   var headquartesFinal: any;
-  if(this.dealflowpage.city == null || this.dealflowpage.city == ""){
+  if(this.feedback.city == null || this.feedback.city == ""){
     headquartesFinal = "Information not provided by the startup"
   }else{
-    headquartesFinal = this.dealflowpage.city;
+    headquartesFinal = this.feedback.city;
   }
   var stageFinal: any;
-  if(this.dealflowpage.stage == null || this.dealflowpage.stage == ""){
+  if(this.feedback.stage == null || this.feedback.stage == ""){
     stageFinal = "Information not provided by the startup"
   }else{
-    stageFinal = this.dealflowpage.stage;
+    stageFinal = this.feedback.stage;
   }
   var employeesFinal: any;
-  if(this.dealflowpage.employees == null || this.dealflowpage.employees == ""){
+  if(this.feedback.employees == null || this.feedback.employees == ""){
     employeesFinal = "Information not provided by the startup"
   }else{
-    employeesFinal = this.dealflowpage.employees;
+    employeesFinal = this.feedback.employees;
   }
   var raisedFinal: any;
-  if(this.dealflowpage.totalMoneyRaised == null || this.dealflowpage.totalMoneyRaised == ""){
+  if(this.feedback.totalMoneyRaised == null || this.feedback.totalMoneyRaised == ""){
     raisedFinal = "Information not provided by the startup"
   }else{
-    raisedFinal = this.dealflowpage.totalMoneyRaised;
+    raisedFinal = this.feedback.totalMoneyRaised;
   }
   var teamFinal: any;
-  if(this.dealflowpage.background == null || this.dealflowpage.background == ""){
+  if(this.feedback.background == null || this.feedback.background == ""){
     teamFinal = "Information not provided by the startup"
   }else{
-    teamFinal = this.dealflowpage.background;
+    teamFinal = this.feedback.background;
   }
   var compadvFinal: any;
-  if(this.dealflowpage.advantage == null || this.dealflowpage.advantage == ""){
+  if(this.feedback.advantage == null || this.feedback.advantage == ""){
     compadvFinal = "Information not provided by the startup"
   }else{
-    compadvFinal = this.dealflowpage.advantage;
+    compadvFinal = this.feedback.advantage;
   }
   var casestudyFinal: any;
-  if(this.dealflowpage.caseStudy == null || this.dealflowpage.caseStudy == ""){
+  if(this.feedback.caseStudy == null || this.feedback.caseStudy == ""){
     casestudyFinal = "Information not provided by the startup"
   }else{
-    casestudyFinal = this.dealflowpage.caseStudy;
+    casestudyFinal = this.feedback.caseStudy;
   }
   var websiteFinal: any;
-  if(this.dealflowpage.website == null || this.dealflowpage.website == ""){
+  if(this.feedback.website == null || this.feedback.website == ""){
     websiteFinal = "Information not provided by the startup"
   }else{
-    websiteFinal = this.dealflowpage.website;
+    websiteFinal = this.feedback.website;
   }
   var tagsFinal: any;  
-  if(this.dealflowpage.tags == null || this.dealflowpage.tags == ""){
+  if(this.feedback.tags == null || this.feedback.tags == ""){
     tagsFinal = "Information not provided by the startup"
   }else{
-    tagsFinal = this.dealflowpage.tags;
+    tagsFinal = this.feedback.tags;
   }
 
   pdfMake.fonts = {
@@ -573,7 +573,7 @@ exportToPDF() {
     header: [{columns: [
       {
         width: 685,
-        text: this.dealflowpage.dealflowName,
+        text: this.feedback.dealflowName,
         style: 'header',
         alignment: 'left',
         color:'white',
@@ -753,7 +753,7 @@ exportToPDF() {
     
     ]
     },{
-      columns: [{width:'*',margin: [10,10,20,0],text: 'dealflowpage WEBSITE', style: 'titleBigBlue'},{width:'*',margin: [10,10,20,0],text: 'TAGS', style: 'titleBigBlue'}],      
+      columns: [{width:'*',margin: [10,10,20,0],text: 'feedback WEBSITE', style: 'titleBigBlue'},{width:'*',margin: [10,10,20,0],text: 'TAGS', style: 'titleBigBlue'}],      
     },{
       columns: [{width:'*',margin: [11,0,20,0],text: websiteFinal, style: 'paragraphBlue'},{width:'*',margin: [11,0,20,0],text: tagsFinal, style: 'paragraphBlue'}],      
     }
@@ -853,7 +853,7 @@ exportToPDF() {
 
   };
   console.log("at the end of creating pdf");
-  pdfMake.createPdf(dd).download(this.dealflowpage.dealflowName+' Executive Summary.pdf');
+  pdfMake.createPdf(dd).download(this.feedback.dealflowName+' Executive Summary.pdf');
   this.creatingpdf = false; 
 }
 

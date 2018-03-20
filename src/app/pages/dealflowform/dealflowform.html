@@ -2,7 +2,7 @@
   <nb-card-header>Dealflow Submission</nb-card-header>
   <nb-card-body>
     <!-- <input #fileInput type='file' (change)="fileChanged($event)"> -->
-    <form [formGroup]="dealflowForm" novalidate (ngSubmit)="save(dealflowForm)">
+    <form [formGroup]="dealflowForm" (ngSubmit)="save(dealflowForm)">
         <div class="form-group">
             <label>Corporate Name</label>
             <small *ngIf="!dealflowForm.controls.corporate_id.valid" class="text-danger">

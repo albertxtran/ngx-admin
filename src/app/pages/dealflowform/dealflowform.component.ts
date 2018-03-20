@@ -74,11 +74,11 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
     event_location: ['', [Validators.required]],
     event_agenda: this._fb.array([]),
     verticals : ['', [Validators.required]],
-    specific_interests : ['', [Validators.required]],
+    specific_interests : [''],
     purpose : ['', [Validators.required]],
     relationship : ['', [Validators.required]],
     virtual_join : ['', [Validators.required]], //optional
-    extra_detail : ['', [Validators.required]], //optional
+    extra_detail : [''], //optional
   });
 
   this.addAttendee();
@@ -92,9 +92,9 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
 
 initAttendee() {
     return this._fb.group({
-        name: ['', Validators.required],
-        position: ['', Validators.required],
-        email: ['', Validators.required]
+        name: [''],
+        position: [''],
+        email: ['']
     });
 }
 
@@ -157,18 +157,19 @@ removeAgenda(i: number) {
 
 save(model: Dealflowform) {
     //if(model["value"].supportingMembers[0].supporting_member1 != null)
+  if (this.dealflowForm.valid){
     model["value"].api_key = this.currentUser.api_key;
     this.tmp = model["value"].event_date.split("-");
     model["value"].event_date = this.tmp[1]+'-'+this.tmp[2]+'-'+this.tmp[0];
     // console.log("Event Agenda Text: " +model["value"].event_agenda );
     model["value"].event_agenda.forEach(element => {
-       if(element.type == "Startup"){
-         element.status = "Open";
-       }
-       else{
-         element.status = "Close";
-       }
-     });
+      if(element.type == "Startup"){
+        element.status = "Open";
+      }
+      else{
+        element.status = "Close";
+      }
+    });
     model["value"].event_agenda = JSON.stringify(model["value"].event_agenda);
     // call API to save
     // console.log("Model: " + JSON.stringify(model["value"]));
@@ -190,6 +191,10 @@ save(model: Dealflowform) {
         
       }
     }).subscribe();
+  }
+  else {
+    this._toasterService.showError("Please fill out all required inputs.", "Error", 4000);
+  }
 }
 
 initSubmit(){
