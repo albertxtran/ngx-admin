@@ -2,12 +2,12 @@
     <nb-layout-column>
   <nb-card style="width:90%;margin-left:5%;">
       <nb-card-body>
-      <form [formGroup]="dealflowForm" (ngSubmit)="save(dealflowForm)">
-      <div class="row">
+      <div class="row" *ngIf="!loading && !error">
+        <form [formGroup]="dealflowForm" (ngSubmit)="save(dealflowForm)">
         <div class="col-md-12">
             <mat-tab-group [selectedIndex]="0">
               <mat-tab label="Details">
-                <div *ngIf="!loading && !error" class="col-md-12" style="padding-top:25px; border-bottom: 1px solid #dddddd; margin-bottom:20px">
+                <div class="col-md-12" style="padding-top:25px; border-bottom: 1px solid #dddddd; margin-bottom:20px">
                   <div class="row">
                     <div class="col-md-6">
                       <div style="font-family:DINPro-Light;display:inline;font-size:15px;color: goldenrod;">{{dealflow?.dealflow_State}}</div>
@@ -62,7 +62,7 @@
                     <div class="col-md-12" style="margin-left:15px;">
                         <nb-card style="margin-top:25px;">
                           <nb-card-body>
-                            <div *ngIf="!loading && !error">
+                            <div >
                               <div *ngFor="let obj of venturesList; let i = index" class="row" style="padding-top:15px;margin-left:5px;padding-bottom:15px;border-bottom: 1px solid #d6d6d6;margin-bottom: 10px; background-color: rgba(255, 255, 255, 0.8);width:100%;">
                                 <div [ngStyle]="overlay">
                                   <div class="row">
@@ -95,9 +95,11 @@
                                           <input ngbbutton="" (click)="selectPriority(obj.id,dealflow.dealflow_Name,'Rejected',i)" type="radio" value="right" ng-reflect-value="right" name="ngb-radio-2"> Not Applicable
                                         </label>
                                       </div>
-                                      <mat-form-field style="width:75%;margin-top:15px;" formArrayName="priority_feedback" class="form-group" [formGroupName]="i">
-                                        <textarea matInput matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5" [group]="dealflowForm.controls.priority_feedback.controls[i]" [(ngModel)]="comments[i]" id="priority_feedback" class="form-control" formControlName="feedback" placeholder="Please give feedback for your choice." required></textarea>
+                                      <div formArrayName="priority_feedback">
+                                      <mat-form-field style="width:75%;margin-top:15px;" [formGroupName]="i" >
+                                        <textarea matInput matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5" formControlName="feedback" placeholder="Please give feedback for your choice." required></textarea>
                                       </mat-form-field>
+                                      </div>
                                     </div>
                                     <div *ngIf="loading" style="margin: 0 auto;width: 100px;padding-top:70px;">
                                       <div class="playbook-loader"></div>
@@ -119,8 +121,8 @@
               </mat-tab>
             </mat-tab-group>
         </div>
+        </form>
       </div>
-    </form>
   </nb-card-body>
   </nb-card>
   </nb-layout-column>
