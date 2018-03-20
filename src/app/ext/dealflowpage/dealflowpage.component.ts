@@ -106,7 +106,6 @@ constructor(private _fb: FormBuilder, private route: ActivatedRoute, private _de
     });
     //this.addFeedback();
     this.getLists();
-
   }
 
   initFeedback(){
